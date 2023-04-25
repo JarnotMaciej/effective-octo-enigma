@@ -1,2 +1,2 @@
-# effective-octo-enigma
-SFML Tamagotchi-like game
+# SFML Tamagotchi-like game
+
