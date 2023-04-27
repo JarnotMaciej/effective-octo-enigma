@@ -1,6 +1,5 @@
-// SFML
+// Google Test
 #include <gtest/gtest.h>
-#include "SFML/Graphics.hpp"
 
 // C++
 //#include <iostream>
@@ -9,6 +8,12 @@
 #include "interface/assetManager.h"
 
 // Header files
+// structures
+#include "structures/tamagotchi.h"
+// mechanics
+#include "mechanics/tamagotchiMechanics.h"
+
+// interface
 #include "interface/menu/button.h"
 #include "interface/tamagotchiScreen/indicator.h"
 #include "interface/menu/programLogo.h"
@@ -18,11 +23,21 @@ using namespace sf;
 int main()
 {
 	// Google Test initialization in new thread
-	 std::thread t([] { testing::InitGoogleTest(); });
-//	testing::InitGoogleTest();
+	std::thread t([]
+	{ testing::InitGoogleTest(); });
+
+	// Tamagotchi
+	tamagotchi myTamagotchi("Tamagotchi");
+	//getting time test
+	std::cout << getTime() << std::endl;
+
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	std::cout << getTime() << std::endl;
+	tamagotchiMechanics::saveTamagotchi(myTamagotchi);
 	// creating instance of asset manager
 	assetManager manager;
-
+/*
 	// create window
 	RenderWindow window(VideoMode(1536, 1024), "Tamagotchi");
 	window.setFramerateLimit(60);
@@ -94,9 +109,9 @@ int main()
 		window.display();
 
 	}
-
+*/
 
 	// Google Test run
-	 t.join();
+	t.join();
 	return RUN_ALL_TESTS();
 }

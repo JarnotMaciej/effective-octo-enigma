@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <regex>
+#include <chrono>
 
 #ifndef PROJECT_NAME_FUNCTIONS_H
 #define PROJECT_NAME_FUNCTIONS_H
@@ -27,5 +28,9 @@ bool nameValidation(const std::string & name);
 // * @param name - filename to be validated
 // */
 bool deadTamagotchiValidation(const std::string & name);
+
+
+//function which gets time and date value (using c++ standard libraries)
+long long int getTime();
 
 #endif //PROJECT_NAME_FUNCTIONS_H
