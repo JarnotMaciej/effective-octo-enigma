@@ -26,6 +26,9 @@ int main()
 	std::thread t([]
 	{ testing::InitGoogleTest(); });
 
+	// Listing all files
+	tamagotchiMechanics::searchForTamagotchi();
+
 	// Tamagotchi
 	tamagotchi myTamagotchi("Tamagotchi");
 	//getting time test
