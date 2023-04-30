@@ -38,6 +38,19 @@ int main()
 
 	std::cout << getTime() << std::endl;
 	tamagotchiMechanics::saveTamagotchi(myTamagotchi);
+
+    std::vector<score> scores = tamagotchiMechanics::getScores();
+    std::cout << "Scores: " << std::endl;
+    for (auto &myScore : scores)
+    {
+        std::cout << "Name: " << myScore.getTamagotchiName() << std::endl;
+        std::cout << "Score: " << myScore.getScoreNumber() << std::endl;
+        std::cout << "Age: " << myScore.getDaysAlive() << std::endl;
+        std::cout << "---" << std::endl;
+    }
+
+    // ------------------------------
+    // SFML part of the program
 	// creating instance of asset manager
 	assetManager manager;
 /*
