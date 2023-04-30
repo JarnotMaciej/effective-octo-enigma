@@ -17,9 +17,9 @@
 #include "SFML/Graphics/RectangleShape.hpp"
 
 
-//**
-// * @brief Class for tamagotchi indicators
-// */
+/**
+ * @brief Class for tamagotchi indicators
+ */
 class indicator {
 private:
     sf::Text indicatorName; // indicator name
@@ -29,32 +29,32 @@ private:
     int positionY; // indicator y position
 
 public:
-    //**
-    // * @brief Default constructor for indicator
-    // * @param name - name of indicator
-    // * @param color - color of indicator
-    // * @param value - value of indicator
-    // */
-    indicator(const std::string& name, const sf::Color& color, int value);
+    /**
+     * @brief Default constructor for indicator
+     * @param name - name of indicator
+     * @param color - color of indicator
+     * @param value - value of indicator
+     */
+    indicator(const std::string &name, const sf::Color &color, int value);
 
-    //**
-    // * @brief Method used for drawing indicator
-    // * @param window - window to draw indicator on
-    // */
-    void draw(sf::RenderWindow& window);
+    /**
+     * @brief Method used for drawing indicator
+     * @param window - window to draw indicator on
+     */
+    void draw(sf::RenderWindow &window);
 
-    //**
-    // * @brief Method used for updating indicator value
-    // * @param window - window to draw indicator on
-    // * @param value - new value of indicator
-    // */
+    /**
+     * @brief Method used for updating indicator value
+     * @param window - window to draw indicator on
+     * @param value - new value of indicator
+     */
     void update(int value);
 
-    //**
-    // * @brief Method used for getting x position of indicator
-    // * @param x - x position of indicator
-    // * @param y - y position of indicator
-    // */
+    /**
+     * @brief Method used for getting x position of indicator
+     * @param x - x position of indicator
+     * @param y - y position of indicator
+     */
     void setPosition(int x, int y);
 
 };

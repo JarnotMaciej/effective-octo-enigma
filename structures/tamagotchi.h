@@ -23,12 +23,19 @@
 class tamagotchi
 {
  private:
+    /**
+     * Equipment class
+     */
 	class equipment
 	{
 	 private:
 		std::vector<food> foods; // Tamagotchi items
 	 public:
-		equipment(); // Constructor
+        /**
+         * @brief Constructor
+         */
+		equipment();
+
 		// Methods
 		/**
 		 * @brief Add food to equipment
@@ -36,15 +43,30 @@ class tamagotchi
 		 * @param food - Food to add
 		 */
 		void addFood(const food& food);
+
 		/**
 		 * @brief Remove food from equipment
 		 *
 		 * @param food - Food to remove
 		 */
 		void removeFood(food food);
-		void printFoods(); // Print foods from equipment
-		unsigned long long int foodSize(); // Print foods size
-		// save equipment to file
+
+        /**
+         * @brief Print foods from equipment
+         */
+		void printFoods();
+
+        /**
+         * @brief Print foods size
+         * @return Foods size
+         */
+		unsigned long long int foodSize();
+
+        /**
+         * @brief Get foods
+         * @return Foods
+         */
+		std::vector<food> getFoods();
 //		void saveEquipment(); //TODO -> implement equipment saving
 	};
 
@@ -60,31 +82,136 @@ class tamagotchi
 	equipment defaultEquipment; // Tamagotchi default equipment (with default foods)
 
  public:
-	tamagotchi(); // Constructor
-	tamagotchi(std::string _name); // Constructor with name
+    /**
+     * @brief Constructor
+     */
+	tamagotchi();
+
+    /**
+     * @brief Constructor
+     * @param _name - Tamagotchi name
+     */
+	tamagotchi(std::string _name);
+
 	// Getters
-	std::string getName(); // Get tamagotchi name
-	int getAge(); // Get tamagotchi age
-	int getHealth(); // Get tamagotchi health
-	int getHunger(); // Get tamagotchi hunger
-	int getHappiness(); // Get tamagotchi happiness
-	int getHygiene(); // Get tamagotchi hygiene
-	int getEnergy(); // Get tamagotchi energy
-	int getMoney(); // Get tamagotchi money
-	long long int getBornTime() const; // Get tamagotchi born time
+    /**
+     * @brief Get tamagotchi equipment
+     * @return Tamagotchi equipment
+     */
+	std::string getName();
+
+    /**
+     * @brief Get tamagotchi age
+     * @return Tamagotchi age
+     */
+	int getAge();
+    /**
+     * @brief Get tamagotchi health
+     * @return Tamagotchi health
+     */
+	int getHealth();
+
+    /**
+     * @brief Get tamagotchi hunger
+     * @return Tamagotchi hunger
+     */
+	int getHunger();
+
+    /**
+     * @brief Get tamagotchi happiness
+     * @return Tamagotchi happiness
+     */
+	int getHappiness();
+
+    /**
+     * @brief Get tamagotchi hygiene
+     * @return Tamagotchi hygiene
+     */
+	int getHygiene();
+
+    /**
+     * @brief Get tamagotchi energy
+     * @return Tamagotchi energy
+     */
+	int getEnergy();
+
+    /**
+     * @brief Get tamagotchi money
+     * @return Tamagotchi money
+     */
+	int getMoney();
+
+    /**
+     * @brief Get tamagotchi born time
+     * @return Tamagotchi born time
+     */
+	long long int getBornTime() const;
+
 	// Setters
-	void setName(std::string name); // Set tamagotchi name
-	void setAge(int age); // Set tamagotchi age
-	void setHealth(int health); // Set tamagotchi health
-	void setHunger(int hunger); // Set tamagotchi hunger
-	void setHappiness(int happiness); // Set tamagotchi happiness
-	void setHygiene(int hygiene); // Set tamagotchi hygiene
-	void setEnergy(int energy); // Set tamagotchi energy
-	void setMoney(int money); // Set tamagotchi money
-	void setBornTime(long long int bornTime); // Set tamagotchi born time
+    /**
+     * @brief Set tamagotchi name
+     * @param name - Tamagotchi name
+     */
+	void setName(std::string name);
+
+    /**
+     * @brief Set tamagotchi age
+     * @param age - Tamagotchi age
+     */
+	void setAge(int age);
+
+    /**
+     * @brief Set tamagotchi health
+     * @param health - Tamagotchi health
+     */
+	void setHealth(int health);
+
+    /**
+     * @brief Set tamagotchi hunger
+     * @param hunger - Tamagotchi hunger
+     */
+	void setHunger(int hunger);
+
+    /**
+     * @brief Set tamagotchi happiness
+     * @param happiness - Tamagotchi happiness
+     */
+	void setHappiness(int happiness);
+
+    /**
+     * @brief Set tamagotchi hygiene
+     * @param hygiene - Tamagotchi hygiene
+     */
+	void setHygiene(int hygiene);
+
+    /**
+     * @brief Set tamagotchi energy
+     * @param energy - Tamagotchi energy
+     */
+	void setEnergy(int energy);
+
+    /**
+     * @brief Set tamagotchi money
+     * @param money - Tamagotchi money
+     */
+	void setMoney(int money);
+
+    /**
+     * @brief Set tamagotchi born time
+     * @param bornTime - Tamagotchi born time
+     */
+	void setBornTime(long long int bornTime);
+
 	// Methods
-	void printInfo(); // Print tamagotchi info
-	void printEquipment(); // Print tamagotchi equipment
+    /**
+     * @brief Print tamagotchi info
+     */
+	void printInfo();
+
+    /**
+     * @brief Print tamagotchi equipment
+     */
+	void printEquipment();
 };
 
 #endif //TAMAGOTCHI_TAMAGOTCHI_H

@@ -16,16 +16,54 @@
 #ifndef PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_
 #define PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_
 
-namespace tamagotchiMechanics
-{
-	bool searchForTamagotchi(); // Search for tamagotchi in saves directory
-	void saveTamagotchi(tamagotchi &pet); // Save tamagotchi to file
-//	tamagotchi loadTamagotchi(const std::string &name);
-	int transformSecondsToDays(long long int bornTime); // Transform seconds to days, used for age calculation
-	int realDaysToGameDays(long long int bornTime); // Transform real days to game days, 1 real day = 4 game days
-	void subtractIndicators(tamagotchi &pet, long long int &lastSaved); // Subtracts tamagotchi indicators (health, hunger, happiness, hygiene, energy) after loading tamagotchi from file
-//    void killTamagotchi(tamagotchi &pet); // Transforms tamagotchi to dead tamagotchi (function calculates score)
-	std::vector<score> getScores(); // Get scores from file
+/**
+ * @brief Tamagotchi mechanics namespace
+ */
+namespace tamagotchiMechanics {
+    // Mechanics
+    /**
+     * @brief Method used for searching for tamagotchi in saves directory
+     * @return true if tamagotchi was found, false if not
+     */
+    bool searchForTamagotchi();
+
+    /**
+     * @brief Method used for saving tamagotchi
+     * @param pet - tamagotchi object
+     */
+    void saveTamagotchi(tamagotchi &pet);
+
+//	tamagotchi loadTamagotchi(const std::string &name); // TODO -> make it real
+    /**
+     * @brief Method used for transforming seconds to days
+     * @param bornTime
+     * @return days
+     */
+    int transformSecondsToDays(long long int bornTime);
+
+    /**
+     * @brief Method used for transforming real days to game days
+     * @param bornTime
+     * @return game days
+     */
+    int realDaysToGameDays(long long int bornTime); // Transform real days to game days, 1 real day = 4 game days
+
+    /**
+     * @brief Method used for subtracting tamagotchi indicators (health, hunger, happiness, hygiene, energy) after loading tamagotchi from file
+     * @param pet - tamagotchi object
+     * @param lastSaved - last saved time
+     */
+    void subtractIndicators(tamagotchi &pet,
+                            long long int &lastSaved); // Subtracts tamagotchi indicators (health, hunger, happiness, hygiene, energy) after loading tamagotchi from file
+
+    // TODO -> make it real
+    //    void killTamagotchi(tamagotchi &pet); // Transforms tamagotchi to dead tamagotchi (function calculates score)
+
+    /**
+     * @brief Method used for getting scores from file
+     * @return vector of scores
+     */
+    std::vector<score> getScores(); // Get scores from file
 }
 
 #endif //PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_

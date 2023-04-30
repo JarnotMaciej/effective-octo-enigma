@@ -12,6 +12,7 @@
 #include "structures/tamagotchi.h"
 // mechanics
 #include "mechanics/tamagotchiMechanics.h"
+#include "mechanics/foodMechanics.h"
 
 // interface
 #include "interface/menu/button.h"
@@ -130,4 +131,6 @@ int main()
 	// Google Test run
 	t.join();
 	return RUN_ALL_TESTS();
+
+    // TODO -> checking file structure using regex
 }

@@ -8,7 +8,7 @@
 #include <string>
 
 /**
- * Food class
+ * @brief Food class
  */
 class food {
     private:
@@ -20,24 +20,108 @@ class food {
         int hygiene; // Food hygiene
         int energy; // Food energy
     public:
-        food(); // Constructor
+    /**
+     * @brief Food constructor
+     */
+        food();
+
+        /**
+         * @brief Food constructor
+         * @param name Food name
+         * @param price Food price
+         * @param health Food health
+         * @param hunger Food hunger
+         * @param happiness Food happiness
+         * @param hygiene Food hygiene
+         * @param energy Food energy
+         */
         food(std::string name, int price, int health, int hunger, int happiness, int hygiene, int energy);
+
         // Getters
-        std::string getName(); // Get food name
-        int getPrice(); // Get food price
-        int getHealth(); // Get food health
-        int getHunger(); // Get food hunger
-        int getHappiness(); // Get food happiness
-        int getHygiene(); // Get food hygiene
-        int getEnergy(); // Get food energy
+        /**
+         * @brief Get food name
+         * @return Food name
+         */
+        std::string getName();
+
+        /**
+         * @brief Get food price
+         * @return Food price
+         */
+        int getPrice();
+
+        /**
+         * @brief Get food health
+         * @return Food health
+         */
+        int getHealth();
+
+        /**
+         * @brief Get food hunger
+         * @return Food hunger
+         */
+        int getHunger();
+
+        /**
+         * @brief Get food happiness
+         * @return Food happiness
+         */
+        int getHappiness();
+
+        /**
+         * @brief Get food hygiene
+         * @return Food hygiene
+         */
+        int getHygiene();
+
+        /**
+         * @brief Get food energy
+         * @return Food energy
+         */
+        int getEnergy();
+
         // Setters
-        void setName(std::string name); // Set food name
-        void setPrice(int price); // Set food price
-        void setHealth(int health); // Set food health
-        void setHunger(int hunger); // Set food hunger
-        void setHappiness(int happiness); // Set food happiness
-        void setHygiene(int hygiene); // Set food hygiene
-        void setEnergy(int energy); // Set food energy
+        /**
+         * @brief Set food name
+         * @param name Food name
+         */
+        void setName(std::string name);
+
+        /**
+         * @brief Set food price
+         * @param price Food price
+         */
+        void setPrice(int price);
+
+        /**
+         * @brief Set food health
+         * @param health Food health
+         */
+        void setHealth(int health);
+
+        /**
+         * @brief Set food hunger
+         * @param hunger Food hunger
+         */
+        void setHunger(int hunger);
+
+        /**
+         * @brief Set food happiness
+         * @param happiness Food happiness
+         */
+        void setHappiness(int happiness);
+
+        /**
+         * @brief Set food hygiene
+         * @param hygiene Food hygiene
+         */
+        void setHygiene(int hygiene);
+
+        /**
+         * @brief Set food energy
+         * @param energy Food energy
+         */
+        void setEnergy(int energy);
 };
 
 

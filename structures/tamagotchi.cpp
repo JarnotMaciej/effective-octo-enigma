@@ -15,6 +15,7 @@ tamagotchi::equipment::equipment()
 	addFood(pizza);
 	addFood(hamburger);
 	addFood(falafel);
+    // TODO -> remove upper thing, and add loading from file
 }
 
 void tamagotchi::equipment::addFood(const food& food)
@@ -45,6 +46,10 @@ void tamagotchi::equipment::printFoods()
 unsigned long long int tamagotchi::equipment::foodSize()
 {
 	return foods.size();
+}
+
+std::vector<food> tamagotchi::equipment::getFoods() {
+    return foods;
 }
 
 tamagotchi::tamagotchi()
