@@ -27,28 +27,23 @@ int main()
 	std::thread t([]
 	{ testing::InitGoogleTest(); });
 
-	// Listing all files
-	tamagotchiMechanics::searchForTamagotchi();
+    // Food config loading
+    std::map<std::string, food> foods;
+    foods = foodMechanics::loadGlobalFoods();
+//    foodMechanics::printFoods(foods);
+
+	std::cout << tamagotchiMechanics::searchForTamagotchi() << std::endl;
 
 	// Tamagotchi
 	tamagotchi myTamagotchi("Tamagotchi");
+
 	//getting time test
-	std::cout << getTime() << std::endl;
-
 	std::this_thread::sleep_for(std::chrono::seconds(2));
-
-	std::cout << getTime() << std::endl;
 	tamagotchiMechanics::saveTamagotchi(myTamagotchi);
 
+    // getting scores
     std::vector<score> scores = tamagotchiMechanics::getScores();
-    std::cout << "Scores: " << std::endl;
-    for (auto &myScore : scores)
-    {
-        std::cout << "Name: " << myScore.getTamagotchiName() << std::endl;
-        std::cout << "Score: " << myScore.getScoreNumber() << std::endl;
-        std::cout << "Age: " << myScore.getDaysAlive() << std::endl;
-        std::cout << "---" << std::endl;
-    }
+//    tamagotchiMechanics::printScores(scores);
 
     // ------------------------------
     // SFML part of the program

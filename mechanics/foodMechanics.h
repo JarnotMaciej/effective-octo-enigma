@@ -26,6 +26,11 @@ namespace foodMechanics {
      * @return map of food
      */
     std::map<std::string, food> loadGlobalFoods();
+
+    /**
+     * @brief Method used for printing foods
+     */
+    void printFoods(const std::map<std::string, food>& foods);
 }
 
 #endif //PROJECT_NAME_FOODMECHANICS_H

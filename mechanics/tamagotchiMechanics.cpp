@@ -155,4 +155,15 @@ std::vector<score> tamagotchiMechanics::getScores() {
     return scores;
 }
 
+void tamagotchiMechanics::printScores(std::vector<score> scores) {
+    std::cout << "Scores: " << std::endl;
+    for (auto &myScore : scores)
+    {
+        std::cout << "Name: " << myScore.getTamagotchiName() << std::endl;
+        std::cout << "Score: " << myScore.getScoreNumber() << std::endl;
+        std::cout << "Age: " << myScore.getDaysAlive() << std::endl;
+        std::cout << "---" << std::endl;
+    }
+}
+
 // TODO -> testing tamagotchiMechanics

@@ -95,3 +95,5 @@ void food::setEnergy(int energy)
 {
 	this->energy = energy;
 }
+
+

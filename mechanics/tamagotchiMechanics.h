@@ -64,6 +64,12 @@ namespace tamagotchiMechanics {
      * @return vector of scores
      */
     std::vector<score> getScores(); // Get scores from file
+
+    /**
+     * @brief Method used for printing scores
+     * @param scores - vector of scores
+     */
+    void printScores(std::vector<score> scores);
 }
 
 #endif //PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_

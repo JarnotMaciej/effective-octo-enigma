@@ -4,7 +4,22 @@
 
 #include "foodMechanics.h"
 
-std::map<std::string, food> loadGlobalFoods() {
+
+void foodMechanics::printFoods(const std::map<std::string, food>& foods) {
+    for (auto food : foods)
+    {
+        std::cout << "Name: " << food.second.getName() << std::endl;
+        std::cout << "Price: " << food.second.getPrice() << std::endl;
+        std::cout << "Health: " << food.second.getHealth() << std::endl;
+        std::cout << "Hunger: " << food.second.getHunger() << std::endl;
+        std::cout << "Happiness: " << food.second.getHappiness() << std::endl;
+        std::cout << "Hygiene: " << food.second.getHygiene() << std::endl;
+        std::cout << "Energy: " << food.second.getEnergy() << std::endl;
+        std::cout << "---" << std::endl;
+    }
+}
+
+std::map<std::string, food> foodMechanics::loadGlobalFoods() {
         debug("loading global foods");
     namespace fs = std::filesystem;
 
