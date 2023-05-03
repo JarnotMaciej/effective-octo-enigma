@@ -15,7 +15,6 @@ void tamagotchiMechanics::saveTamagotchi(tamagotchi &pet) {
     // getting a path
     fs::path path = fs::current_path().parent_path();
     path /= "saves";
-    debug(path.string());
 
     //getting tamagotchi name
     std::string name = pet.getName();

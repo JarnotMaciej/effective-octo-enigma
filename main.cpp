@@ -2,7 +2,8 @@
 #include <gtest/gtest.h>
 
 // C++
-//#include <iostream>
+#include <iostream>
+#include <string>
 
 // asset manager
 #include "interface/assetManager.h"
@@ -18,38 +19,52 @@
 #include "interface/menu/button.h"
 #include "interface/tamagotchiScreen/indicator.h"
 #include "interface/menu/programLogo.h"
+#include "structures/cat.h"
 
 using namespace sf;
 
-int main()
-{
-	// Google Test initialization in new thread
-	std::thread t([]
-	{ testing::InitGoogleTest(); });
+int main() {
+    // Google Test initialization in new thread
+    std::thread t([] { testing::InitGoogleTest(); });
 
     // Food config loading
     std::map<std::string, food> foods;
     foods = foodMechanics::loadGlobalFoods();
-//    foodMechanics::printFoods(foods);
+    foodMechanics::printFoods(foods);
 
-	std::cout << tamagotchiMechanics::searchForTamagotchi() << std::endl;
+    std::cout << tamagotchiMechanics::searchForTamagotchi() << std::endl;
 
-	// Tamagotchi
-	tamagotchi myTamagotchi("Tamagotchi");
+    // Tamagotchi
+    tamagotchi myTamagotchi("Tamagotchi");
 
-	//getting time test
-	std::this_thread::sleep_for(std::chrono::seconds(2));
-	tamagotchiMechanics::saveTamagotchi(myTamagotchi);
+    // cat
+    cat myCat;
+    std::string catName = "Kotek";
+    myCat.setName(catName);
+
+    myCat.meow();
+    // add food from global foods
+    myCat.addFood(foods["Apple"]);
+
+    myCat.printInfo();
+
+    // saving cat and his food
+    tamagotchiMechanics::saveTamagotchi(myCat);
+    foodMechanics::saveFoods(myCat);
+
+    //getting time test
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    tamagotchiMechanics::saveTamagotchi(myTamagotchi);
 
     // getting scores
     std::vector<score> scores = tamagotchiMechanics::getScores();
 //    tamagotchiMechanics::printScores(scores);
-
+/*
     // ------------------------------
     // SFML part of the program
 	// creating instance of asset manager
 	assetManager manager;
-/*
+
 	// create window
 	RenderWindow window(VideoMode(1536, 1024), "Tamagotchi");
 	window.setFramerateLimit(60);
@@ -123,9 +138,8 @@ int main()
 	}
 */
 
-	// Google Test run
-	t.join();
-	return RUN_ALL_TESTS();
-
+    // Google Test run
+    t.join();
+    return RUN_ALL_TESTS();
     // TODO -> checking file structure using regex
 }

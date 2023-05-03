@@ -52,3 +52,29 @@ std::map<std::string, food> foodMechanics::loadGlobalFoods() {
 
     return foods;
 }
+
+void foodMechanics::saveFoods(const tamagotchi &pet) {
+    debug("saving foods");
+    namespace fs = std::filesystem;
+
+    // getting a path
+    fs::path path = fs::current_path().parent_path();
+    path /= "saves";
+
+    //getting tamagotchi name
+    std::string name = pet.getName();
+
+    // creating a directory with a name of tamagotchi
+    path /= name;
+    fs::create_directory(path);
+
+    // creating a file with foods
+    std::ofstream foodFile;
+    path /= name + ".tmgfood"; // food file extension
+    foodFile.open(path);
+
+    // writing data to a file
+    for (auto food : pet.getFoods()) {
+        foodFile << food.getName() << std::endl;
+    }
+}

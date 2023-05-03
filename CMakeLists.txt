@@ -36,7 +36,7 @@ add_executable(
         functions.cpp functions.h
         interface/tamagotchiScreen/indicator.cpp
         interface/tamagotchiScreen/indicator.h
-        tests/assetManagerTest.cpp tests/regexTest.cpp structures/tamagotchi.cpp structures/food.cpp mechanics/tamagotchiMechanics.cpp mechanics/tamagotchiMechanics.h mechanics/tamagotchiMechanics.h structures/score.cpp structures/score.h structures/score.h mechanics/foodMechanics.cpp mechanics/foodMechanics.h)
+        tests/assetManagerTest.cpp tests/regexTest.cpp structures/tamagotchi.cpp structures/food.cpp mechanics/tamagotchiMechanics.cpp mechanics/tamagotchiMechanics.h mechanics/tamagotchiMechanics.h structures/score.cpp structures/score.h structures/score.h mechanics/foodMechanics.cpp mechanics/foodMechanics.h structures/cat.cpp structures/cat.h)
 
 target_link_libraries(
         april

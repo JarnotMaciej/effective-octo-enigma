@@ -4,54 +4,6 @@
 
 #include "tamagotchi.h"
 
-tamagotchi::equipment::equipment()
-{
-	food apple("Apple", 3, 5, 10, 0, -2, -5);
-	food pizza("Pizza", 10, -5, 35, 5, -10, -15);
-	food hamburger("Hamburger", 12, -5, 40, 10, -15, -15);
-	food falafel("Falafel", 8, 0, 25, 5, -5, -10);
-
-	addFood(apple);
-	addFood(pizza);
-	addFood(hamburger);
-	addFood(falafel);
-    // TODO -> remove upper thing, and add loading from file
-}
-
-void tamagotchi::equipment::addFood(const food& food)
-{
-	foods.push_back(food);
-}
-
-void tamagotchi::equipment::removeFood(food food)
-{
-	for (int i = 0; i < foods.size(); i++)
-	{
-		if (foods[i].getName() == food.getName())
-		{
-			foods.erase(foods.begin() + i);
-		}
-	}
-}
-
-void tamagotchi::equipment::printFoods()
-{
-	for (int i = 0; i < foods.size(); i++)
-	{
-		std::cout << foods[i].getName() << std::endl;
-	}
-
-}
-
-unsigned long long int tamagotchi::equipment::foodSize()
-{
-	return foods.size();
-}
-
-std::vector<food> tamagotchi::equipment::getFoods() {
-    return foods;
-}
-
 tamagotchi::tamagotchi()
 {
 	name = "Tamagotchi";
@@ -63,7 +15,6 @@ tamagotchi::tamagotchi()
 	energy = 100;
 	money = 20;
 	bornTime = getTime();
-	defaultEquipment = equipment();
 }
 
 tamagotchi::tamagotchi(std::string _name)
@@ -77,7 +28,6 @@ tamagotchi::tamagotchi(std::string _name)
 	energy = 100;
 	money = 20;
 	bornTime = getTime();
-	defaultEquipment = equipment();
 }
 
 void tamagotchi::printInfo()
@@ -90,7 +40,11 @@ void tamagotchi::printInfo()
 	std::cout << "Hygiene:\t" << hygiene << "/100%" << std::endl;
 	std::cout << "Energy:\t\t" << energy << "/100%" << std::endl;
 	std::cout << "Money:\t\t" << money << " gold coins" << std::endl;
-	std::cout << "Items in equipment:\t\t" << defaultEquipment.foodSize() << std::endl;
+    std::cout << "Foods: " << std::endl;
+    for (auto food : foods)
+    {
+        std::cout << "\t" << food.getName() << " - " << food.getPrice() << " gold coins" << std::endl;
+    }
 }
 
 void tamagotchi::setMoney(int money)
@@ -168,18 +122,20 @@ int tamagotchi::getAge()
 	return age;
 }
 
-std::string tamagotchi::getName()
-{
+std::string tamagotchi::getName() const {
 	return name;
-}
-
-void tamagotchi::printEquipment()
-{
-	defaultEquipment.printFoods();
 }
 
 long long int tamagotchi::getBornTime() const
 {
 	return bornTime;
+}
+
+void tamagotchi::addFood(food _food) {
+    foods.push_back(_food);
+}
+
+std::vector<food> tamagotchi::getFoods() const {
+    return foods;
 }
 

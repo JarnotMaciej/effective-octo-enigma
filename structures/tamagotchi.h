@@ -23,53 +23,6 @@
 class tamagotchi
 {
  private:
-    /**
-     * Equipment class
-     */
-	class equipment
-	{
-	 private:
-		std::vector<food> foods; // Tamagotchi items
-	 public:
-        /**
-         * @brief Constructor
-         */
-		equipment();
-
-		// Methods
-		/**
-		 * @brief Add food to equipment
-		 *
-		 * @param food - Food to add
-		 */
-		void addFood(const food& food);
-
-		/**
-		 * @brief Remove food from equipment
-		 *
-		 * @param food - Food to remove
-		 */
-		void removeFood(food food);
-
-        /**
-         * @brief Print foods from equipment
-         */
-		void printFoods();
-
-        /**
-         * @brief Print foods size
-         * @return Foods size
-         */
-		unsigned long long int foodSize();
-
-        /**
-         * @brief Get foods
-         * @return Foods
-         */
-		std::vector<food> getFoods();
-//		void saveEquipment(); //TODO -> implement equipment saving
-	};
-
 	std::string name; // Tamagotchi name
 	int age; // Tamagotchi age (in days)
 	int health; // Tamagotchi health (in percent)
@@ -79,7 +32,7 @@ class tamagotchi
 	int energy; // Tamagotchi energy (in percent)
 	int money; // Tamagotchi money (in gold coins)
 	long long int bornTime; // Tamagotchi born time (in seconds)
-	equipment defaultEquipment; // Tamagotchi default equipment (with default foods)
+    std::vector<food> foods; // Tamagotchi foods
 
  public:
     /**
@@ -98,7 +51,7 @@ class tamagotchi
      * @brief Get tamagotchi equipment
      * @return Tamagotchi equipment
      */
-	std::string getName();
+	std::string getName() const;
 
     /**
      * @brief Get tamagotchi age
@@ -204,14 +157,21 @@ class tamagotchi
 
 	// Methods
     /**
-     * @brief Print tamagotchi info
+     * @brief Print tamagotchi info // Used for debugging, should be removed in final version
      */
 	void printInfo();
 
     /**
-     * @brief Print tamagotchi equipment
+     * @brief Add food to tamagotchi
      */
-	void printEquipment();
+    void addFood(food _food);
+
+    /**
+     * @brief Get tamagotchi foods
+     * @return Tamagotchi foods
+     */
+    std::vector<food> getFoods() const;
+
 };
 
 #endif //TAMAGOTCHI_TAMAGOTCHI_H
