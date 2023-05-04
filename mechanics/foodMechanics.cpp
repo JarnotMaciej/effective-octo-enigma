@@ -64,10 +64,6 @@ void foodMechanics::saveFoods(const tamagotchi &pet) {
     //getting tamagotchi name
     std::string name = pet.getName();
 
-    // creating a directory with a name of tamagotchi
-    path /= name;
-    fs::create_directory(path);
-
     // creating a file with foods
     std::ofstream foodFile;
     path /= name + ".tmgfood"; // food file extension

@@ -19,10 +19,6 @@ void tamagotchiMechanics::saveTamagotchi(tamagotchi &pet) {
     //getting tamagotchi name
     std::string name = pet.getName();
 
-    // creating a directory with a name of tamagotchi
-    path /= name;
-    fs::create_directory(path);
-
     // creating a file with a name of tamagotchi
     std::ofstream tamagotchiFile;
     path /= name + ".tmg"; // tamagotchi file extension
@@ -30,6 +26,7 @@ void tamagotchiMechanics::saveTamagotchi(tamagotchi &pet) {
 
     // writing data to a file
     tamagotchiFile << name << std::endl;
+    tamagotchiFile << static_cast<int>(pet.getTamagotchiType()) << std::endl;
     tamagotchiFile << pet.getBornTime() << std::endl;
     tamagotchiFile << getTime() << std::endl;
     tamagotchiFile << pet.getHealth() << std::endl;
@@ -44,7 +41,7 @@ int tamagotchiMechanics::realDaysToGameDays(long long int bornTime) {
     return (getTime() - bornTime) / 86400 * 4;
 }
 
-bool tamagotchiMechanics::searchForTamagotchi() {
+std::string tamagotchiMechanics::searchForTamagotchi() {
     debug("searching for tamagotchi");
     namespace fs = std::filesystem;
 
@@ -56,7 +53,7 @@ bool tamagotchiMechanics::searchForTamagotchi() {
     // checking if there is any folder in a directory
     if (fs::is_empty(path)) {
         debug("there is no tamagotchi in saves directory");
-        return false;
+        return "";
     } else {
         std::vector<std::string> tamagotchiNames;
         for (const auto &entry: fs::directory_iterator(path)) {
@@ -67,13 +64,13 @@ bool tamagotchiMechanics::searchForTamagotchi() {
             tamagotchiPath /= entry.path().filename().string();
             if (entry.path().filename().string() == entry.path().filename().string()) {
                 debug("tamagotchi found");
-                return true;
+                // return file name without extension
+                return entry.path().filename().string().substr(0, entry.path().filename().string().length() - 4);
             }
         }
     }
-// TODO -> if there is more than one tamagotchi in saves directory, return false
     debug("something went wrong");
-    return false;
+    return "";
 }
 
 void tamagotchiMechanics::subtractIndicators(tamagotchi &pet, long long int &lastSaved) {

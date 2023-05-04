@@ -172,6 +172,21 @@ class tamagotchi
      */
     std::vector<food> getFoods() const;
 
+    /**
+     * @brief Enum class for tamagotchi types
+     */
+    enum class tamagotchiType
+    {
+        CAT,
+        DOG,
+        FISH
+    };
+
+    /**
+     * @brief Get tamagotchi type
+     * @return Tamagotchi type
+     */
+    virtual tamagotchiType getTamagotchiType() = 0;
 };
 
 #endif //TAMAGOTCHI_TAMAGOTCHI_H

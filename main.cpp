@@ -30,12 +30,12 @@ int main() {
     // Food config loading
     std::map<std::string, food> foods;
     foods = foodMechanics::loadGlobalFoods();
-    foodMechanics::printFoods(foods);
+//    foodMechanics::printFoods(foods);
 
     std::cout << tamagotchiMechanics::searchForTamagotchi() << std::endl;
 
     // Tamagotchi
-    tamagotchi myTamagotchi("Tamagotchi");
+//    tamagotchi myTamagotchi("Tamagotchi");
 
     // cat
     cat myCat;
@@ -53,12 +53,12 @@ int main() {
     foodMechanics::saveFoods(myCat);
 
     //getting time test
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    tamagotchiMechanics::saveTamagotchi(myTamagotchi);
+//    std::this_thread::sleep_for(std::chrono::seconds(2));
+//    tamagotchiMechanics::saveTamagotchi(myTamagotchi);
 
     // getting scores
     std::vector<score> scores = tamagotchiMechanics::getScores();
-//    tamagotchiMechanics::printScores(scores);
+    tamagotchiMechanics::printScores(scores);
 /*
     // ------------------------------
     // SFML part of the program

@@ -23,9 +23,9 @@ namespace tamagotchiMechanics {
     // Mechanics
     /**
      * @brief Method used for searching for tamagotchi in saves directory
-     * @return true if tamagotchi was found, false if not
+     * @return tamagotchi name
      */
-    bool searchForTamagotchi();
+    std::string searchForTamagotchi();
 
     /**
      * @brief Method used for saving tamagotchi

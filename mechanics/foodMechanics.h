@@ -38,6 +38,7 @@ namespace foodMechanics {
      * @param tamagotchi Tamagotchi
      */
     void saveFoods(const tamagotchi& pet);
+
 }
 
 #endif //PROJECT_NAME_FOODMECHANICS_H
