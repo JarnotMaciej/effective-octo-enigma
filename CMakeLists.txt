@@ -32,7 +32,6 @@ add_executable(
         interface/assetManager.cpp
         interface/assetManager.h
         interface/menu/button.cpp
-        interface/menu/programLogo.cpp
         functions.cpp functions.h
         interface/tamagotchiScreen/indicator.cpp
         interface/tamagotchiScreen/indicator.h

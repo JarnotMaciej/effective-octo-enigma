@@ -68,28 +68,32 @@ int main() {
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 
-    // logo
-    programLogo logo;
-    // centering logo
-    logo.setPosition(window.getSize().x / 2 - logo.getWidth() / 2, window.getSize().y / 2 - logo.getHeight() / 2);
+    // menu
+    menu mainMenu;
+    mainMenu.setPositions(window);
 
 	// main loop
 	while (window.isOpen())
 	{
         // handle events
-        Event event;
-        while (window.pollEvent(event))
-        {
-            // close window
-            if (event.type == Event::Closed)
-                window.close();
-        }
+//        Event event;
+//        while (window.pollEvent(event))
+//        {
+//            // close window
+//            if (event.type == Event::Closed)
+//                window.close();
+//        }
+        mainMenu.handleInput(window);
 
         // clear window
         window.clear();
 
-        // draw logo
-        logo.draw(window);
+//        // draw logo
+//        logo.draw(window);
+
+
+        // draw menu
+        mainMenu.draw(window);
 
         // display window
         window.display();

@@ -40,12 +40,16 @@ bool button::isMouseOver(sf::RenderWindow& window)
 
 void button::onClick()
 {
+//        sf::SoundBuffer soundBuffer = assetManager::getInstance().getSound("menu");
+//    sf::Sound sound;
+//    sound.setBuffer(soundBuffer);
+//    sound.play();
+// TODO -> add sound
 	std::cout << "Clicked" << std::endl;
 }
 
 button::button(const sf::String& text)
 {
-	debug("Creating button");
 	// loading textures
 	buttonTexture = assetManager::getInstance().getTexture("48x16white");
 	buttonSprite.setTexture(buttonTexture);
@@ -65,7 +69,7 @@ button::button(const sf::String& text)
 
 void button::setPosition(float x, float y)
 {
-	buttonSprite.setPosition(x, y);
+    buttonSprite.setPosition(x, y);
 	centerText();
 }
 

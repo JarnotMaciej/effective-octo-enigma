@@ -8,7 +8,6 @@
 // header files
 #include "../screen.h"
 #include "button.h"
-#include "programLogo.h"
 
 #ifndef PROJECT_NAME_MENU_H
 #define PROJECT_NAME_MENU_H
@@ -16,31 +15,32 @@
 
 class menu : public screen {
 private:
+    sf::Text logo; // text on logo
     std::list<button> buttons; // list of buttons
 
 public:
     /**
      * @brief Default constructor for menu
      */
-//    menu();
+    menu();
 
     /**
      * @brief Method used for handling input
      * @param window - window to handle input on
      */
-//    void handleInput(sf::RenderWindow &window) override;
+    void handleInput(sf::RenderWindow &window) override;
 
     /**
      * @brief Method used for drawing menu
      * @param window - window to draw menu on
      */
-//    void draw(sf::RenderWindow &window) override;
+    void draw(sf::RenderWindow &window) override;
 
     /**
      * @brief Method used for setting positions of buttons and logo
      * @param window - window to set positions on
      */
-//    void setPositions(sf::RenderWindow &window);
+    void setPositions(sf::RenderWindow &window);
 };
 
 
