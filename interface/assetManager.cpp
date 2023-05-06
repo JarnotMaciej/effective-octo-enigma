@@ -1,66 +1,53 @@
+//
+// Created by menox on 05.05.2023.
+//
+
 #include "assetManager.h"
 
-namespace fs = std::filesystem;
-using namespace sf;
-
-assetManager* assetManager::instance = nullptr;
-
-assetManager::assetManager()
-{
-	// allow only one instance of asset manager
-	if (instance != nullptr)
-	{
-		throw std::runtime_error("Asset manager already exists");
-	}
-	instance = this;
+assetManager &assetManager::getInstance() {
+    static assetManager instance; // lazy initialization
+    return instance;
 }
 
-sf::Texture assetManager::getTexture(const std::string& name)
-{
-	auto& textures = instance->textures; // get textures from instance
-
-	// see if texture is already loaded
-	auto keyValuePair = textures.find(name);
-	if (keyValuePair != textures.end())
-	{
-		return keyValuePair->second;
-	}
-	else
-	{
-		// get path to texture
-		fs::path texturePath = fs::current_path().parent_path() / "resources" / "textures" / (name + ".png");
-
-		// load texture
-		if (!textures[name].loadFromFile(texturePath.string()))
-		{
-			throw std::runtime_error("Texture not found: " + texturePath.string());
-		}
-
-		return textures[name];
-	}
+sf::Texture &assetManager::getTexture(const std::string &id) {
+    auto iter = m_textures.find(id);
+    if (iter == m_textures.end()) {
+        std::unique_ptr<sf::Texture> texture(new sf::Texture());
+        // Getting the path
+        std::filesystem::path path = std::filesystem::current_path().parent_path() / "resources" / "textures" / (id + ".png");
+        if (!texture->loadFromFile(path.string())) {
+            // Handle error
+            return *m_defaultTexture;
+        }
+        iter = m_textures.emplace(id, std::move(texture)).first;
+    }
+    return *iter->second;
 }
 
-sf::Font assetManager::getFont(const std::string& name)
-{
-	auto& fonts = instance->fonts; // get fonts from instance
+sf::SoundBuffer &assetManager::getSound(const std::string &id) {
+    auto iter = m_sounds.find(id);
+    if (iter == m_sounds.end()) {
+        std::unique_ptr<sf::SoundBuffer> sound(new sf::SoundBuffer());
+        std::filesystem::path path = std::filesystem::current_path().parent_path() / "resources" / "sounds" / (id + ".wav");
+        if (!sound->loadFromFile(path.string())) {
+            // Handle error
+            return *m_defaultSound;
+        }
+        iter = m_sounds.emplace(id, std::move(sound)).first;
+    }
+    return *iter->second;
+}
 
-	// see if font is already loaded
-	auto keyValuePair = fonts.find(name);
-	if (keyValuePair != fonts.end())
-	{
-		return keyValuePair->second;
-	}
-	else
-	{
-		// get path to font
-		fs::path fontPath = fs::current_path().parent_path() / "resources" / "fonts" / (name + ".ttf");
-
-		// load font
-		if (!fonts[name].loadFromFile(fontPath.string()))
-		{
-			throw std::runtime_error("Font not found: " + fontPath.string());
-		}
-
-		return fonts[name];
-	}
+sf::Font &assetManager::getFont(const std::string &id) {
+    auto iter = m_fonts.find(id);
+    if (iter == m_fonts.end()) {
+        std::unique_ptr<sf::Font> font(new sf::Font());
+        std::filesystem::path path = std::filesystem::current_path().parent_path() / "resources" / "fonts" / (id + ".ttf");
+        if (!font->loadFromFile(path.string())) {
+            // Handle error
+            return *m_defaultFont;
+        }
+        iter = m_fonts.emplace(id, std::move(font)).first;
+    }
+    return *iter->second;
 }

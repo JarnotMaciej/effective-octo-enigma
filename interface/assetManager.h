@@ -1,50 +1,83 @@
-//
-// Created by menox on 07.04.2023.
-//
-
-#ifndef PROJECT_NAME_ASSETMANAGER_H
-#define PROJECT_NAME_ASSETMANAGER_H
-
 // SFML
-#include "SFML/Graphics/Texture.hpp"
-#include "SFML/Graphics/Font.hpp"
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 // C++
 #include <map>
-#include <string>
+#include <memory>
 #include <filesystem>
 
-// Header files
+#ifndef TAMAGOTCHI_ASSETMANAGER_H
+#define TAMAGOTCHI_ASSETMANAGER_H
 
-/**
- * @brief Class for asset manager
- */
 class assetManager {
-private:
-    std::map<std::string, sf::Texture> textures; // map of textures
-    std::map<std::string, sf::Font> fonts; // map of fonts
-
-    static assetManager *instance; // instance of asset manager
-
 public:
+    /**
+     * @brief Get instance of assetManager
+     * @return instance of assetManager
+     */
+    static assetManager &getInstance();
+
+    /**
+     * @brief Load texture from file
+     * @param id - name of the texture and the file
+     * @return texture
+     */
+    sf::Texture &getTexture(const std::string &id);
+
+    /**
+     * @brief Load sound from file
+     * @param id - name of the sound and the file
+     * @return sound
+     */
+    sf::SoundBuffer &getSound(const std::string &id);
+
+    /**
+     * @brief Load font from file
+     * @param id - name of the font and the file
+     * @return font
+     */
+    sf::Font &getFont(const std::string &id);
+
+private:
     /**
      * @brief Default constructor for asset manager
      */
-    assetManager();
+    assetManager() :
+            m_defaultTexture(std::make_unique<sf::Texture>()),
+            m_defaultSound(std::make_unique<sf::SoundBuffer>()),
+            m_defaultFont(std::make_unique<sf::Font>()) {
+        // Set default texture to a 1x1 white pixel
+        sf::Image img;
+        img.create(1, 1, sf::Color::White);
+        m_defaultTexture->loadFromImage(img);
+
+        // Set default sound and font to null
+        m_defaultSound = nullptr;
+        m_defaultFont = nullptr;
+    }
 
     /**
-     * @brief Load texture from asset manager
-     * @param name - name of texture
-     * @return texture
+     * @brief Copy constructor for asset manager
+     * @param assetManager - asset manager to copy
+     * @return asset manager
      */
-    static sf::Texture getTexture(const std::string &name);
+    assetManager(const assetManager &) = delete;
 
     /**
-     * @brief Load font from asset manager
-     * @param name - name of font
-     * @return font
+     * @brief Assignment operator for asset manager
+     * @param assetManager - asset manager to assign
+     * @return asset manager
      */
-    static sf::Font getFont(const std::string &name);
+    assetManager &operator=(const assetManager &) = delete;
+
+    std::map<std::string, std::unique_ptr<sf::Texture>> m_textures; // map of textures
+    std::map<std::string, std::unique_ptr<sf::SoundBuffer>> m_sounds; // map of sounds
+    std::map<std::string, std::unique_ptr<sf::Font>> m_fonts; // map of fonts
+
+    std::unique_ptr<sf::Texture> m_defaultTexture; // default texture
+    std::unique_ptr<sf::SoundBuffer> m_defaultSound; // default sound
+    std::unique_ptr<sf::Font> m_defaultFont; // default font
 };
 
-#endif //PROJECT_NAME_ASSETMANAGER_H
+#endif //TAMAGOTCHI_ASSETMANAGER_H

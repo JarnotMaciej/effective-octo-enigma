@@ -32,10 +32,10 @@ float programLogo::getHeight()
 programLogo::programLogo()
 {
 	debug("Creating programLogo");
-	font = assetManager::getFont("silkscreen");
+	font = assetManager::getInstance().getFont("silkscreen");
 	logoText.setFont(font);
 	logoText.setString("Tamagotchi");
-	logoText.setCharacterSize(40);
+	logoText.setCharacterSize(64);
 	logoText.setFillColor(sf::Color::White);
 	logoText.setPosition(0, 0);
 }

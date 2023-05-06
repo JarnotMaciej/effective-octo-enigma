@@ -9,7 +9,7 @@ indicator::indicator(const std::string &name, const sf::Color &color, int value)
     indicatorName.setString(name);
     indicatorName.setFillColor(sf::Color::White);
     indicatorName.setCharacterSize(20);
-    indicatorName.setFont(assetManager::getFont("silkscreen"));
+    indicatorName.setFont(assetManager::getInstance().getFont("silkscreen"));
     setPosition(0, 0);
 
     indicatorValue = value;

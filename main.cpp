@@ -16,9 +16,7 @@
 #include "mechanics/foodMechanics.h"
 
 // interface
-#include "interface/menu/button.h"
-#include "interface/tamagotchiScreen/indicator.h"
-#include "interface/menu/programLogo.h"
+#include "interface/menu/menu.h"
 #include "structures/cat.h"
 
 using namespace sf;
@@ -27,6 +25,7 @@ int main() {
     // Google Test initialization in new thread
     std::thread t([] { testing::InitGoogleTest(); });
 
+    /*
     // Food config loading
     std::map<std::string, food> foods;
     foods = foodMechanics::loadGlobalFoods();
@@ -34,8 +33,6 @@ int main() {
 
     std::cout << tamagotchiMechanics::searchForTamagotchi() << std::endl;
 
-    // Tamagotchi
-//    tamagotchi myTamagotchi("Tamagotchi");
 
     // cat
     cat myCat;
@@ -59,84 +56,45 @@ int main() {
     // getting scores
     std::vector<score> scores = tamagotchiMechanics::getScores();
     tamagotchiMechanics::printScores(scores);
-/*
+    */
+
     // ------------------------------
     // SFML part of the program
 	// creating instance of asset manager
-	assetManager manager;
+	assetManager::getInstance();
 
 	// create window
 	RenderWindow window(VideoMode(1536, 1024), "Tamagotchi");
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 
-	// button
-	button myButton("siema");
-	float healthValue = 100;
-	// health indicator
-	indicator health("Health", Color::Red, healthValue);
-	health.setPosition(20, 100);
-
-	// logo
-	programLogo myLogo;
-
-	// testin
-	sf::Text indicatorText;
-	sf::Font font = assetManager::getFont("silkscreen");
-	indicatorText.setFont(font);
-	indicatorText.setString("siema");
-	indicatorText.setCharacterSize(20);
-	indicatorText.setFillColor(sf::Color::White);
-
-	// indicator text position
-	indicatorText.setOrigin(0, 0);
-	indicatorText.setPosition(0, 0);
-
-
-
-//logo
-//    programLogo myLogo;
+    // logo
+    programLogo logo;
+    // centering logo
+    logo.setPosition(window.getSize().x / 2 - logo.getWidth() / 2, window.getSize().y / 2 - logo.getHeight() / 2);
 
 	// main loop
 	while (window.isOpen())
 	{
-		Event event;
-		while (window.pollEvent(event))
-		{
-			switch (event.type)
-			{
-			case Event::Closed:
-				window.close();
-				break;
-			case Event::KeyPressed:
-				if (event.key.code == sf::Keyboard::Escape)
-				{
-					window.close();
-				}
-				break;
-			}
-		}
+        // handle events
+        Event event;
+        while (window.pollEvent(event))
+        {
+            // close window
+            if (event.type == Event::Closed)
+                window.close();
+        }
 
-		window.clear();
+        // clear window
+        window.clear();
 
-//        myButton.draw(window);
-//        myLogo.draw(window);
-		health.update(healthValue);
-		health.draw(window);
-		healthValue -= 1;
-		if (healthValue < 1)
-		{
-			healthValue = 100;
-		}
+        // draw logo
+        logo.draw(window);
 
-		// testin
-//        window.draw(indicatorText);
-
-
-		window.display();
-
+        // display window
+        window.display();
 	}
-*/
+
 
     // Google Test run
     t.join();

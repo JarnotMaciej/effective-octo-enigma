@@ -47,13 +47,13 @@ button::button(const sf::String& text)
 {
 	debug("Creating button");
 	// loading textures
-	buttonTexture = assetManager::getTexture("48x16white");
+	buttonTexture = assetManager::getInstance().getTexture("48x16white");
 	buttonSprite.setTexture(buttonTexture);
 	buttonSprite.setPosition(0, 0);
 	buttonSprite.setScale(8, 8);
 
 	// loading font
-	font = assetManager::getFont("silkscreen");
+	font = assetManager::getInstance().getFont("silkscreen");
 
 	textColor = sf::Color(70, 75, 95, 255);
 	buttonText.setFont(font);
@@ -76,4 +76,12 @@ void button::centerText()
 		textRect.top + textRect.height / 2.0f);
 	buttonText.setPosition(getPositionX() + buttonSprite.getGlobalBounds().width / 2,
 		getPositionY() + buttonSprite.getGlobalBounds().height / 2);
+}
+
+void button::handleInput(sf::RenderWindow &window) {
+    if (isMouseOver(window)) {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            onClick();
+        }
+    }
 }
