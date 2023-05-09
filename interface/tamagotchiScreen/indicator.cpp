@@ -8,7 +8,7 @@ indicator::indicator(const std::string &name, const sf::Color &color, int value)
     debug("indicator::indicator");
     indicatorName.setString(name);
     indicatorName.setFillColor(sf::Color::White);
-    indicatorName.setCharacterSize(20);
+    indicatorName.setCharacterSize(24);
     indicatorName.setFont(assetManager::getInstance().getFont("silkscreen"));
     setPosition(0, 0);
 
@@ -23,10 +23,15 @@ void indicator::setPosition(int x, int y) {
     debug("indicator::setPosition");
     positionX = x;
     positionY = y;
+
+    // centering under rectangle
+    float textX = positionX + 50 - (indicatorName.getLocalBounds().width / 2);
+    float textY = positionY + 25;
+
+    indicatorName.setPosition(textX, textY);
 }
 
 void indicator::draw(sf::RenderWindow &window) {
-    // todo -> fix the method
     debug("indicator::draw");
     // draw rectangles
     sf::RectangleShape rectangle;
@@ -41,19 +46,10 @@ void indicator::draw(sf::RenderWindow &window) {
     backgroundRectangle.setOutlineColor(sf::Color::White);
     backgroundRectangle.setOutlineThickness(2);
     backgroundRectangle.setPosition(positionX, positionY);
-    debug("indicator::draw -> backgroundRectangle set");
 
     window.draw(backgroundRectangle);
-    debug("indicator::draw -> backgroundRectangle drawn");
     window.draw(rectangle);
-    debug("indicator::draw -> rectangle drawn");
-
-    // draw text -> center it vertically and display them under rectangles
-//    indicatorName.setPosition(positionX + 50 - indicatorName.getGlobalBounds().width / 2, positionY + 20);
-//    window.draw(indicatorName);
-//    debug("indicator::draw -> indicatorName drawn");
-
-
+    window.draw(indicatorName);
 }
 
 void indicator::update(int value) {

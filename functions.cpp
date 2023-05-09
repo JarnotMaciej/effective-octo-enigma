@@ -28,3 +28,10 @@ long long int getTime()
 	auto seconds = std::chrono::duration_cast<std::chrono::seconds>(since_epoch);
 	return seconds.count();
 }
+
+void setIcon(sf::RenderWindow &window) {
+    auto path = std::filesystem::current_path().parent_path().string() + "/resources/icon/tamagotchi.png";
+    sf::Image icon;
+    icon.loadFromFile(path);
+    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+}

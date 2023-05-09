@@ -7,6 +7,10 @@
 #include <string>
 #include <regex>
 #include <chrono>
+#include <filesystem>
+
+// SFML
+#include "SFML/Graphics/RenderWindow.hpp"
 
 #ifndef PROJECT_NAME_FUNCTIONS_H
 #define PROJECT_NAME_FUNCTIONS_H
@@ -34,5 +38,11 @@ bool deadTamagotchiValidation(const std::string &name);
  * @return time in seconds
  */
 long long int getTime();
+
+/**
+ * @brief Function used for setting icon
+ * @param window
+ */
+void setIcon(sf::RenderWindow &window);
 
 #endif //PROJECT_NAME_FUNCTIONS_H

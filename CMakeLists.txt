@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(project_name VERSION 1.0)
+project(tamagotchi VERSION 1.0)
 
 include(FetchContent)
 
@@ -11,6 +11,7 @@ FetchContent_Declare(
         GIT_TAG 2.5.1
 )
 FetchContent_MakeAvailable(SFML)
+# ------------------
 
 # Google Test
 FetchContent_Declare(
@@ -35,7 +36,7 @@ add_executable(
         functions.cpp functions.h
         interface/tamagotchiScreen/indicator.cpp
         interface/tamagotchiScreen/indicator.h
-        tests/assetManagerTest.cpp tests/regexTest.cpp structures/tamagotchi.cpp structures/food.cpp mechanics/tamagotchiMechanics.cpp mechanics/tamagotchiMechanics.h mechanics/tamagotchiMechanics.h structures/score.cpp structures/score.h structures/score.h mechanics/foodMechanics.cpp mechanics/foodMechanics.h structures/cat.cpp structures/cat.h interface/menu/menu.cpp interface/menu/menu.h)
+        tests/assetManagerTest.cpp tests/regexTest.cpp structures/tamagotchi.cpp structures/food.cpp mechanics/tamagotchiMechanics.cpp mechanics/tamagotchiMechanics.h mechanics/tamagotchiMechanics.h structures/score.cpp structures/score.h structures/score.h mechanics/foodMechanics.cpp mechanics/foodMechanics.h structures/cat.cpp structures/cat.h interface/menu/menu.cpp interface/menu/menu.h interface/tamagotchiScreen/topBar.cpp interface/tamagotchiScreen/topBar.h interface/tamagotchiScreen/topBar.h)
 
 target_link_libraries(
         april
