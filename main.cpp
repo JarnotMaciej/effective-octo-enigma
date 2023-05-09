@@ -18,6 +18,8 @@
 // interface
 #include "interface/menu/menu.h"
 #include "structures/cat.h"
+#include "interface/tamagotchiScreen/indicator.h"
+#include "interface/tamagotchiScreen/topBar.h"
 
 using namespace sf;
 
@@ -67,33 +69,32 @@ int main() {
 	RenderWindow window(VideoMode(1536, 1024), "Tamagotchi");
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
+    setIcon(window);
 
-    // menu
+    // menu testing
     menu mainMenu;
     mainMenu.setPositions(window);
+
+    //top bar testing
+    topBar myTopBar;
+    myTopBar.setPosition(window);
+    myTopBar.setTamagotchiName("Kotek");
+    myTopBar.setCoins(100);
+    myTopBar.setDaysAlive(5);
 
 	// main loop
 	while (window.isOpen())
 	{
-        // handle events
-//        Event event;
-//        while (window.pollEvent(event))
-//        {
-//            // close window
-//            if (event.type == Event::Closed)
-//                window.close();
-//        }
         mainMenu.handleInput(window);
 
         // clear window
         window.clear();
 
-//        // draw logo
-//        logo.draw(window);
-
+        // update
 
         // draw menu
-        mainMenu.draw(window);
+//        mainMenu.draw(window);
+        myTopBar.draw(window);
 
         // display window
         window.display();
