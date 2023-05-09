@@ -3,6 +3,7 @@
 //
 
 #include "assetManager.h"
+#include "../functions.h"
 
 assetManager &assetManager::getInstance() {
     static assetManager instance; // lazy initialization
@@ -12,6 +13,8 @@ assetManager &assetManager::getInstance() {
 sf::Texture &assetManager::getTexture(const std::string &id) {
     auto iter = m_textures.find(id);
     if (iter == m_textures.end()) {
+        // Creating a new texture
+        debug("Creating a new texture " + id);
         std::unique_ptr<sf::Texture> texture(new sf::Texture());
         // Getting the path
         std::filesystem::path path = std::filesystem::current_path().parent_path() / "resources" / "textures" / (id + ".png");
@@ -21,6 +24,7 @@ sf::Texture &assetManager::getTexture(const std::string &id) {
         }
         iter = m_textures.emplace(id, std::move(texture)).first;
     }
+    debug("Returning texture " + id);
     return *iter->second;
 }
 

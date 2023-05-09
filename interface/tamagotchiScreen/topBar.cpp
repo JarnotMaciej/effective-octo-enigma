@@ -48,6 +48,12 @@ void topBar::setCoins(int coins) {
     this->coins.setString("Coins: " + std::to_string(coins));
 }
 
-void topBar::setDaysAlive(int daysAlive) {
+void topBar::setDaysAlive(int daysAlive, sf::RenderWindow &window) {
     this->daysAlive.setString("Days alive: " + std::to_string(daysAlive));
+    //update the position of the days alive text
+    this->daysAlive.setPosition(window.getSize().x - this->daysAlive.getLocalBounds().width - 20, 10);
+}
+
+float topBar::getHeight() {
+    return tamagotchiName.getLocalBounds().height;
 }

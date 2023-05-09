@@ -18,9 +18,9 @@
  */
 class topBar {
 private:
-    sf::Text tamagotchiName;
-    sf::Text coins;
-    sf::Text daysAlive;
+    sf::Text tamagotchiName; // tamagotchi name
+    sf::Text coins; // coins
+    sf::Text daysAlive; // days alive
 
 public:
     /**
@@ -56,8 +56,15 @@ public:
     /**
      * @brief Method used for setting days alive
      * @param daysAlive - new days alive
+     * @param window - window to draw top bar on
      */
-    void setDaysAlive(int daysAlive);
+    void setDaysAlive(int daysAlive, sf::RenderWindow &window);
+
+    /**
+     * @brief Method used for getting height of top bar
+     * @return height of top bar
+     */
+    float getHeight();
 };
 
 

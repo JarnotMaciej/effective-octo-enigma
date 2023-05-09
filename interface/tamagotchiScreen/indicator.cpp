@@ -10,7 +10,7 @@ indicator::indicator(const std::string &name, const sf::Color &color, int value)
     indicatorName.setFillColor(sf::Color::White);
     indicatorName.setCharacterSize(24);
     indicatorName.setFont(assetManager::getInstance().getFont("silkscreen"));
-    setPosition(0, 0);
+//    setPosition(0, 0);
 
     indicatorValue = value;
     indicatorColor = color;
@@ -20,7 +20,7 @@ indicator::indicator(const std::string &name, const sf::Color &color, int value)
 }
 
 void indicator::setPosition(int x, int y) {
-    debug("indicator::setPosition");
+
     positionX = x;
     positionY = y;
 
@@ -32,13 +32,11 @@ void indicator::setPosition(int x, int y) {
 }
 
 void indicator::draw(sf::RenderWindow &window) {
-    debug("indicator::draw");
     // draw rectangles
     sf::RectangleShape rectangle;
     rectangle.setSize(sf::Vector2f(indicatorValue, 20));
     rectangle.setFillColor(indicatorColor);
     rectangle.setPosition(positionX, positionY);
-    debug("indicator::draw -> rectangle set");
 
     sf::RectangleShape backgroundRectangle;
     backgroundRectangle.setSize(sf::Vector2f(100, 20));
