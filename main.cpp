@@ -21,6 +21,7 @@
 #include "interface/tamagotchiScreen/topBar.h"
 #include "interface/tamagotchiScreen/indicatorBar.h"
 #include "interface/tamagotchiScreen/bottomBar.h"
+#include "interface/tamagotchiScreen/tamagotchiScreen.h"
 
 using namespace sf;
 
@@ -40,9 +41,11 @@ int main() {
     // cat
      */
     cat myCat;
-    std::string catName = "Kotek";
+    std::string catName = "Neko";
     myCat.setName(catName);
-/*
+    myCat.setAge(373);
+    myCat.setMoney(121);
+    /*
     myCat.meow();
     // add food from global foods
     myCat.addFood(foods["Apple"]);
@@ -77,29 +80,10 @@ int main() {
     menu mainMenu;
     mainMenu.setPositions(window);
 
-    //top bar testing
-    topBar myTopBar;
-    myTopBar.setPosition(window);
-    myTopBar.setTamagotchiName("Neko");
-    myTopBar.setCoins(100, window);
-    myTopBar.setDaysAlive(373, window);
-
-    // indicator bar testing
-    indicatorBar myIndicatorBar;
-    myIndicatorBar.setPositions(window);
-
-    // bottom bar testing
-    bottomBar myBottomBar;
-    myBottomBar.setPositions(window);
-
-    // get cat texture, sprite and set position
-    sf::Texture catTexture;
-    sf::Sprite catSprite;
-    catTexture = assetManager::getInstance().getTexture("cat");
-    catSprite.setTexture(catTexture);
-    // set center position in window
-    catSprite.setPosition(window.getSize().x / 2 - catSprite.getGlobalBounds().width / 2,
-                          window.getSize().y / 2 - catSprite.getGlobalBounds().height / 2);
+    // tamagotchi screen testing
+    tamagotchiScreen myTamagotchiScreen;
+    myTamagotchiScreen.setTamagotchiTexture("cat");
+    myTamagotchiScreen.setPositions(window);
 
     // main loop
 	while (window.isOpen())
@@ -110,15 +94,12 @@ int main() {
         window.clear();
 
         // update
-        myIndicatorBar.update(myCat);
+        myTamagotchiScreen.update(myCat, window);
 
         // draw menu
 //        mainMenu.draw(window);
-//
-        myTopBar.draw(window);
-        myIndicatorBar.draw(window);
-        myBottomBar.draw(window);
-        window.draw(catSprite);
+
+        myTamagotchiScreen.draw(window);
 
         // display window
         window.display();

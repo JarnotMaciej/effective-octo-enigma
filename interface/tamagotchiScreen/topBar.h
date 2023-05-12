@@ -12,6 +12,7 @@
 // C++
 #include "../assetManager.h"
 #include "../../functions.h"
+#include "../../structures/tamagotchi.h"
 
 /**
  * @brief Class for top bar -> tamagotchi name, coins, days alive
@@ -66,6 +67,13 @@ public:
      * @return height of top bar
      */
     float getHeight();
+
+    /**
+     * @brief Method used for updating top bar
+     * @param tamagotchi - tamagotchi to update
+     * @param window - window to draw top bar on
+     */
+    void update(tamagotchi &tamagotchi, sf::RenderWindow &window);
 };
 
 

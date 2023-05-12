@@ -59,3 +59,10 @@ void topBar::setDaysAlive(int daysAlive, sf::RenderWindow &window) {
 float topBar::getHeight() {
     return tamagotchiName.getLocalBounds().height;
 }
+
+void topBar::update(tamagotchi &tamagotchi, sf::RenderWindow &window) {
+    setTamagotchiName(tamagotchi.getName());
+    setCoins(tamagotchi.getMoney(), window);
+    setDaysAlive(tamagotchi.getAge(), window);
+    setPosition(window);
+}
