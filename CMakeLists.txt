@@ -46,7 +46,7 @@ add_executable(
         interface/menu/menu.cpp interface/menu/menu.h
         interface/tamagotchiScreen/topBar.cpp interface/tamagotchiScreen/topBar.h
         interface/tamagotchiScreen/bottomBar.cpp interface/tamagotchiScreen/bottomBar.h
-        interface/tamagotchiScreen/bottomButton.cpp interface/tamagotchiScreen/bottomButton.h)
+        interface/tamagotchiScreen/bottomButton.cpp interface/tamagotchiScreen/bottomButton.h interface/tamagotchiScreen/tamagotchiScreen.cpp interface/tamagotchiScreen/tamagotchiScreen.h interface/tamagotchiScreen/indicatorBar.cpp interface/tamagotchiScreen/indicatorBar.h)
 
 target_link_libraries(
         april

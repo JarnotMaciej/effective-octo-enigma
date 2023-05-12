@@ -67,7 +67,7 @@ int main() {
 	assetManager::getInstance();
 
 	// create window
-	RenderWindow window(VideoMode(1536, 1024), "Tamagotchi");
+	RenderWindow window(VideoMode(1536, 1024), "Tamagotchi", sf::Style::None);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
     setIcon(window);
