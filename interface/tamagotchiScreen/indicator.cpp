@@ -51,6 +51,5 @@ void indicator::draw(sf::RenderWindow &window) {
 }
 
 void indicator::update(int value) {
-    debug("indicator::update");
     indicatorValue = value;
 }

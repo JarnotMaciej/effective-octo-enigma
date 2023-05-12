@@ -18,6 +18,23 @@ void indicatorBar::draw(sf::RenderWindow &window) {
     }
 }
 
-void indicatorBar::setPositions(sf::RenderWindow) {
-    // TODO: implement
+void indicatorBar::setPositions(sf::RenderWindow &window) {
+    // distribute the indicators evenly
+    int indicatorWidth = 100;
+    int margin = 120;
+    int x = (window.getSize().x - (indicatorWidth * indicators.size() + margin * (indicators.size() - 1))) / 2;
+    int y = 100;
+    for (auto& indicator : indicators) {
+        indicator.setPosition(x, y);
+        x += indicatorWidth + margin;
+    }
+
+}
+
+void indicatorBar::update(tamagotchi &pet) {
+    indicators[0].update(pet.getHealth());
+    indicators[1].update(pet.getHunger());
+    indicators[2].update(pet.getHappiness());
+    indicators[3].update(pet.getHygiene());
+    indicators[4].update(pet.getEnergy());
 }

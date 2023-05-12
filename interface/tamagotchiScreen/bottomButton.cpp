@@ -5,26 +5,27 @@
 #include "bottomButton.h"
 
 bottomButton::bottomButton(const std::string &name, const std::string &texture) {
-    this->buttonName.setString(name);
-    this->buttonName.setFillColor(sf::Color::White);
-    this->buttonName.setCharacterSize(28);
-    this->buttonName.setFont(assetManager::getInstance().getFont("silkscreen"));
+    buttonName.setString(name);
+    buttonName.setFillColor(sf::Color::White);
+    buttonName.setCharacterSize(28);
+    buttonName.setFont(assetManager::getInstance().getFont("silkscreen"));
 
-    this->buttonTexture = assetManager::getInstance().getTexture(texture);
-    this->sprite.setTexture(this->buttonTexture);
-    this->sprite.setScale(6, 6);
+    buttonTexture = assetManager::getInstance().getTexture(texture);
+    sprite.setTexture(buttonTexture);
+    sprite.setScale(6, 6);
 
 }
 
 void bottomButton::draw(sf::RenderWindow &window) {
+    this->sprite.setTexture(buttonTexture);
     window.draw(sprite);
     window.draw(buttonName);
 }
 
 void bottomButton::setPosition(float x, float y) {
-    this->sprite.setPosition(x, y);
+    sprite.setPosition(x, y);
     // centering the text under the sprite
-    this->buttonName.setPosition(x + (this->sprite.getGlobalBounds().width / 2) - (this->buttonName.getGlobalBounds().width / 2) - 7, y + this->sprite.getGlobalBounds().height);
+    buttonName.setPosition(x + (sprite.getGlobalBounds().width / 2) - (buttonName.getGlobalBounds().width / 2) - 7, y + sprite.getGlobalBounds().height);
 }
 
 

@@ -20,6 +20,7 @@ sf::Texture &assetManager::getTexture(const std::string &id) {
         std::filesystem::path path = std::filesystem::current_path().parent_path() / "resources" / "textures" / (id + ".png");
         if (!texture->loadFromFile(path.string())) {
             // Handle error
+            debug("Error loading texture " + id);
             return *m_defaultTexture;
         }
         iter = m_textures.emplace(id, std::move(texture)).first;

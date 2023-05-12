@@ -18,9 +18,9 @@
 // interface
 #include "interface/menu/menu.h"
 #include "structures/cat.h"
-#include "interface/tamagotchiScreen/indicator.h"
 #include "interface/tamagotchiScreen/topBar.h"
-#include "interface/tamagotchiScreen/bottomButton.h"
+#include "interface/tamagotchiScreen/indicatorBar.h"
+#include "interface/tamagotchiScreen/bottomBar.h"
 
 using namespace sf;
 
@@ -38,10 +38,11 @@ int main() {
 
 
     // cat
+     */
     cat myCat;
     std::string catName = "Kotek";
     myCat.setName(catName);
-
+/*
     myCat.meow();
     // add food from global foods
     myCat.addFood(foods["Apple"]);
@@ -80,34 +81,27 @@ int main() {
     topBar myTopBar;
     myTopBar.setPosition(window);
     myTopBar.setTamagotchiName("Neko");
-    myTopBar.setCoins(100);
+    myTopBar.setCoins(100, window);
     myTopBar.setDaysAlive(373, window);
 
-    // indicator testing
-    indicator health("health", sf::Color::Red, 100);
-    indicator hunger("hunger", sf::Color::Yellow, 100);
-    indicator happiness("happiness", sf::Color::Magenta, 100);
-    indicator hygiene("hygiene", sf::Color::Blue, 100);
-    indicator energy("energy", sf::Color::Green, 100);
-    health.setPosition(100, 100);
-    hunger.setPosition(300, 100);
-    happiness.setPosition(500, 100);
-    hygiene.setPosition(700, 100);
-    energy.setPosition(900, 100);
-    int i = 100;
+    // indicator bar testing
+    indicatorBar myIndicatorBar;
+    myIndicatorBar.setPositions(window);
 
-    // bottom buttons testing
-    bottomButton feedButton("Eat", "Q");
-    bottomButton playButton("Play", "W");
-    bottomButton cleanButton("Clean", "E");
-    bottomButton sleepButton("Sleep", "R");
-    // bottom of the screen
-    feedButton.setPosition(100, window.getSize().y - feedButton.getSprite().getGlobalBounds().height/2 - 100);
-    playButton.setPosition(300, window.getSize().y - playButton.getSprite().getGlobalBounds().height/2 - 100);
-    cleanButton.setPosition(500, window.getSize().y - cleanButton.getSprite().getGlobalBounds().height/2 - 100);
-    sleepButton.setPosition(700, window.getSize().y - sleepButton.getSprite().getGlobalBounds().height/2 - 100);
+    // bottom bar testing
+    bottomBar myBottomBar;
+    myBottomBar.setPositions(window);
 
-	// main loop
+    // get cat texture, sprite and set position
+    sf::Texture catTexture;
+    sf::Sprite catSprite;
+    catTexture = assetManager::getInstance().getTexture("cat");
+    catSprite.setTexture(catTexture);
+    // set center position in window
+    catSprite.setPosition(window.getSize().x / 2 - catSprite.getGlobalBounds().width / 2,
+                          window.getSize().y / 2 - catSprite.getGlobalBounds().height / 2);
+
+    // main loop
 	while (window.isOpen())
 	{
         mainMenu.handleInput(window);
@@ -116,27 +110,15 @@ int main() {
         window.clear();
 
         // update
-        health.update(i);
-        hunger.update(i);
-        happiness.update(i);
-        hygiene.update(i);
-        energy.update(i);
-        i--;
-        if (i < 1) i = 100;
+        myIndicatorBar.update(myCat);
 
         // draw menu
 //        mainMenu.draw(window);
+//
         myTopBar.draw(window);
-        health.draw(window);
-        hunger.draw(window);
-        happiness.draw(window);
-        hygiene.draw(window);
-        energy.draw(window);
-
-        feedButton.draw(window);
-        playButton.draw(window);
-        cleanButton.draw(window);
-        sleepButton.draw(window);
+        myIndicatorBar.draw(window);
+        myBottomBar.draw(window);
+        window.draw(catSprite);
 
         // display window
         window.display();

@@ -6,6 +6,7 @@
 
 void button::draw(sf::RenderWindow& window)
 {
+    this->buttonSprite.setTexture(buttonTexture);
 	window.draw(buttonSprite);
 	centerText();
 	window.draw(buttonText);

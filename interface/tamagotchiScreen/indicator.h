@@ -56,7 +56,6 @@ public:
      * @param y - y position of indicator
      */
     void setPosition(int x, int y);
-
 };
 
 

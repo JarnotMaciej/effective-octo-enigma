@@ -11,6 +11,9 @@
 
 // header files
 #include "indicator.h"
+#include "../../structures/tamagotchi.h"
+#include "../assetManager.h"
+
 
 /*
  * @brief Class representing indicator bar
@@ -35,13 +38,13 @@ public:
      * @param indicatorName - name of indicator to update
      * @param value - value to update
      */
-//    void update(tamagotchi);
+    void update(tamagotchi &pet);
 
 /**
  * @brief Sets positions of indicators
  * @param window - window to set positions on
  */
-void setPositions(sf::RenderWindow);
+void setPositions(sf::RenderWindow &window);
 
 };
 

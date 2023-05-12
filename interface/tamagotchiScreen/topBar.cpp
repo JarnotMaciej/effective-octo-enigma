@@ -44,8 +44,10 @@ void topBar::setTamagotchiName(const std::string &name) {
     this->tamagotchiName.setString(name);
 }
 
-void topBar::setCoins(int coins) {
+void topBar::setCoins(int coins, sf::RenderWindow &window) {
     this->coins.setString("Coins: " + std::to_string(coins));
+    //update the position of the coins text
+    this->coins.setPosition((window.getSize().x / 2) - (this->coins.getLocalBounds().width / 2), 10);
 }
 
 void topBar::setDaysAlive(int daysAlive, sf::RenderWindow &window) {

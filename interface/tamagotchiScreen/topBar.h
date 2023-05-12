@@ -50,8 +50,9 @@ public:
     /**
      * @brief Method used for setting coins
      * @param coins - new coins
+     * @param window - window to draw top bar on
      */
-    void setCoins(int coins);
+    void setCoins(int coins, sf::RenderWindow &window);
 
     /**
      * @brief Method used for setting days alive
