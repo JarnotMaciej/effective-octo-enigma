@@ -10,6 +10,7 @@
 #include "topBar.h"
 #include "indicatorBar.h"
 #include "bottomBar.h"
+
 /**
  * @brief Tamagotchi screen class
  */

@@ -9,6 +9,9 @@
 #include "bottomButton.h"
 #include "../assetManager.h"
 
+/**
+ * @brief Class for bottom bar
+ */
 class bottomBar {
 private:
     std::vector<bottomButton> buttons; // vector of buttons

@@ -18,10 +18,8 @@
 // interface
 #include "interface/menu/menu.h"
 #include "structures/cat.h"
-#include "interface/tamagotchiScreen/topBar.h"
-#include "interface/tamagotchiScreen/indicatorBar.h"
-#include "interface/tamagotchiScreen/bottomBar.h"
 #include "interface/tamagotchiScreen/tamagotchiScreen.h"
+#include "interface/scoreboard/scoreboard.h"
 
 using namespace sf;
 
@@ -45,6 +43,12 @@ int main() {
     myCat.setName(catName);
     myCat.setAge(373);
     myCat.setMoney(121);
+
+    myCat.setEnergy(70);
+    myCat.setHappiness(90);
+    myCat.setHunger(40);
+    myCat.setHygiene(90);
+    myCat.setHealth(100);
     /*
     myCat.meow();
     // add food from global foods
@@ -85,6 +89,11 @@ int main() {
     myTamagotchiScreen.setTamagotchiTexture("cat");
     myTamagotchiScreen.setPositions(window);
 
+    // score board testing
+    scoreboard myScoreBoard;
+    myScoreBoard.setPositions(window);
+
+
     // main loop
 	while (window.isOpen())
 	{
@@ -98,8 +107,8 @@ int main() {
 
         // draw menu
 //        mainMenu.draw(window);
-
-        myTamagotchiScreen.draw(window);
+//        myTamagotchiScreen.draw(window);
+        myScoreBoard.draw(window);
 
         // display window
         window.display();
