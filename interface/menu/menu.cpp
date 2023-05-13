@@ -27,11 +27,11 @@ void menu::setPositions(sf::RenderWindow &window) {
         margin *= -1;
     }
 
-    float startY = 0.3 * window.getSize().y + 4 * margin;
+    float startY = 0.3 * window.getSize().y + 2 * margin;
 
     for (button& button : buttons) {
         button.setPosition(x, startY + 2*margin);
-        startY += height;
+        startY += height + margin;
     }
 
     // Set the position of the logo

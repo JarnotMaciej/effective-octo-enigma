@@ -6,7 +6,7 @@
 #define TAMAGOTCHI_BOTTOMBAR_H
 
 // header files
-#include "bottomButton.h"
+#include "../keycapButton.h"
 #include "../assetManager.h"
 
 /**
@@ -14,7 +14,7 @@
  */
 class bottomBar {
 private:
-    std::vector<bottomButton> buttons; // vector of buttons
+    std::vector<keycapButton> buttons; // vector of buttons
 
 public:
 /**

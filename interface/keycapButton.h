@@ -2,8 +2,8 @@
 // Created by menox on 09.05.2023.
 //
 
-#ifndef TAMAGOTCHI_BOTTOMBUTTON_H
-#define TAMAGOTCHI_BOTTOMBUTTON_H
+#ifndef TAMAGOTCHI_KEYCAPBUTTON_H
+#define TAMAGOTCHI_KEYCAPBUTTON_H
 
 // C++
 #include <iostream>
@@ -16,12 +16,12 @@
 #include "SFML/Audio.hpp"
 
 // headers
-#include "../assetManager.h"
+#include "assetManager.h"
 
 /**
  * @brief Bottom button class
  */
-class bottomButton {
+class keycapButton {
 private:
     sf::Texture buttonTexture; // texture of the button
     sf::Sprite sprite; // sprite of the button
@@ -33,7 +33,7 @@ public:
      * @param name name of the button
      * @param texture texture of the button
      */
-    bottomButton(const std::string &name, const std::string &texture);
+    keycapButton(const std::string &name, const std::string &texture);
 
     /**
      * @brief Draws the button
@@ -56,4 +56,4 @@ public:
 };
 
 
-#endif //TAMAGOTCHI_BOTTOMBUTTON_H
+#endif //TAMAGOTCHI_KEYCAPBUTTON_H

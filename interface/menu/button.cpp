@@ -52,15 +52,17 @@ void button::onClick()
 button::button(const sf::String& text)
 {
 	// loading textures
-	buttonTexture = assetManager::getInstance().getTexture("48x16white");
+//	buttonTexture = assetManager::getInstance().getTexture("48x16white");
+	buttonTexture = assetManager::getInstance().getTexture("64x16dark");
 	buttonSprite.setTexture(buttonTexture);
 	buttonSprite.setPosition(0, 0);
-	buttonSprite.setScale(8, 8);
+	buttonSprite.setScale(6.5, 6.5);
 
 	// loading font
 	font = assetManager::getInstance().getFont("silkscreen");
 
-	textColor = sf::Color(70, 75, 95, 255);
+//	textColor = sf::Color(70, 75, 95, 255);
+	textColor = sf::Color::White;
 	buttonText.setFont(font);
 	buttonText.setString(text);
 	buttonText.setCharacterSize(40);

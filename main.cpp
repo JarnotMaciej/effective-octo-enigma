@@ -79,6 +79,7 @@ int main() {
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
     setIcon(window);
+    setCursor(window);
 
     // menu testing
     menu mainMenu;
@@ -106,9 +107,9 @@ int main() {
         myTamagotchiScreen.update(myCat, window);
 
         // draw menu
-//        mainMenu.draw(window);
+        mainMenu.draw(window);
+//        myScoreBoard.draw(window);
 //        myTamagotchiScreen.draw(window);
-        myScoreBoard.draw(window);
 
         // display window
         window.display();

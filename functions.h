@@ -45,4 +45,10 @@ long long int getTime();
  */
 void setIcon(sf::RenderWindow &window);
 
+/**
+ * @brief Function used for setting cursor
+ * @param window
+ */
+void setCursor(sf::RenderWindow &window);
+
 #endif //PROJECT_NAME_FUNCTIONS_H
