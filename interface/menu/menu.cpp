@@ -61,7 +61,7 @@ void menu::handleInput(sf::RenderWindow &window) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     for (auto &button : buttons) {
                         if (button.isMouseOver(window)) {
-                            button.onClick();
+                            std::cout << "Button pressed" << std::endl;
                         }
                     }
                 }

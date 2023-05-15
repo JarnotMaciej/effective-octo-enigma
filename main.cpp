@@ -98,7 +98,7 @@ int main() {
     // main loop
 	while (window.isOpen())
 	{
-        mainMenu.handleInput(window);
+        myScoreBoard.handleInput(window);
 
         // clear window
         window.clear();
@@ -107,9 +107,9 @@ int main() {
         myTamagotchiScreen.update(myCat, window);
 
         // draw menu
-        mainMenu.draw(window);
-//        myScoreBoard.draw(window);
+//        mainMenu.draw(window);
 //        myTamagotchiScreen.draw(window);
+        myScoreBoard.draw(window);
 
         // display window
         window.display();

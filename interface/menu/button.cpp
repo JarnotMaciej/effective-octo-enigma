@@ -39,16 +39,6 @@ bool button::isMouseOver(sf::RenderWindow& window)
 	return buttonSprite.getGlobalBounds().contains(mousePosF);
 }
 
-void button::onClick()
-{
-//        sf::SoundBuffer soundBuffer = assetManager::getInstance().getSound("menu");
-//    sf::Sound sound;
-//    sound.setBuffer(soundBuffer);
-//    sound.play();
-// TODO -> add sound
-	std::cout << "Clicked" << std::endl;
-}
-
 button::button(const sf::String& text)
 {
 	// loading textures
@@ -85,10 +75,3 @@ void button::centerText()
 		getPositionY() + buttonSprite.getGlobalBounds().height / 2);
 }
 
-void button::handleInput(sf::RenderWindow &window) {
-    if (isMouseOver(window)) {
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            onClick();
-        }
-    }
-}

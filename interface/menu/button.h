@@ -90,12 +90,6 @@ public:
      */
     bool isMouseOver(sf::RenderWindow &window);
 
-    /**
-     * @brief Method used for handling mouse click on button
-     */
-    static void onClick();
-
-    void handleInput(sf::RenderWindow &window);
 };
 
 #endif //TAMAGOTCHI_MENU_BUTTON_H

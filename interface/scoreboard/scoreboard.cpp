@@ -1,19 +1,23 @@
 //
-// Created by menox on 13.05.2023.
-//
 
 #include "scoreboard.h"
 
+//
+// Created by menox on 13.05.2023.
+
 scoreboard::scoreboard() {
+    // set display mode as DEFAULT
+    mode = displayMode::DEFAULT;
+
     title.setString("Scoreboard");
     title.setFont(assetManager::getInstance().getFont("silkscreen"));
     title.setCharacterSize(96);
     title.setFillColor(sf::Color::White);
     title.setPosition(0, 0);
 
-    std::vector<score> myScores = tamagotchiMechanics::getScores();
+    this->scores = tamagotchiMechanics::getScores();
 
-    for (score s : myScores) {
+    for (score s: scores) {
         sf::Text text;
         text.setString(s.getTamagotchiName() + " " + std::to_string(s.getScoreNumber()));
         text.setFont(assetManager::getInstance().getFont("silkscreen"));
@@ -21,16 +25,33 @@ scoreboard::scoreboard() {
         text.setFillColor(sf::Color::White);
         text.setPosition(0, 0);
         textScores.push_back(text);
+        debug(s.getTamagotchiName() + "pushed");
     }
+
+    // add keycaps
+    buttons.emplace_back("Sort by score", "Q");
+    buttons.emplace_back("Go back", "ESC");
+    buttons.emplace_back("Sort by name", "W");
+
 }
 
 void scoreboard::draw(sf::RenderWindow &window) {
     window.draw(title);
 
-    int i = 0;
-    for (sf::Text text : textScores) {
+//    for (sf::Text text: textScores) {
+//        window.draw(text);
+//    }
+
+    // limit the number of scores to 5 by using views
+    auto top5scores = std::views::take(textScores, 5);
+
+    // draw the scores
+    for (sf::Text text: top5scores) {
         window.draw(text);
-        i++;
+    }
+
+    for (auto button: buttons) {
+        button.draw(window);
     }
 }
 
@@ -52,25 +73,131 @@ void scoreboard::setPositions(sf::RenderWindow &window) {
     // calculate the starting y position
     float startY = 0.3 * window.getSize().y + margin;
 
-    for (sf::Text& text : textScores) {
+    for (sf::Text &text: textScores) {
         // center the text horizontally
         x = (window.getSize().x - text.getGlobalBounds().width) / 2;
         text.setPosition(x, startY);
         startY += height + margin;
     }
+
+    // set position of keycaps
+    int buttonWidth = buttons[0].getSprite().getGlobalBounds().width;
+    int buttonHeight = buttons[0].getSprite().getGlobalBounds().height;
+    int buttonSpacing = (window.getSize().x - buttons.size() * buttonWidth) / (buttons.size() + 1);
+
+    for (int i = 0; i < buttons.size(); i++) {
+        buttons[i].setPosition(buttonSpacing + i * (buttonSpacing + buttonWidth),
+                               window.getSize().y - buttonHeight / 2 - 100);
+    }
 }
 
 void scoreboard::handleInput(sf::RenderWindow &window) {
-    // TODO -> implement, this is temporary
+    // TODO -> implement, this is temporary, modes need to be handled here as well
+    // TODO -> lowest switch -> implementing some sorting, may be handled by some function from mechanism as the scores are just a vector
+    // TODO -> maybe it would be better to add the vector of scores, then the scores would be converted to the text -> new method
     sf::Event event;
     while (window.pollEvent(event)) {
         switch (event.type) {
             case sf::Event::Closed:
                 window.close();
                 break;
-            case sf::Event::KeyPressed:
+            case sf::Event::KeyReleased:
                 if (event.key.code == sf::Keyboard::Escape) {
                     window.close();
+                }
+                if (event.key.code == sf::Keyboard::Q) {
+                    displayMode currentMode = getMode();
+                    switch (currentMode) {
+                        case displayMode::HIGHEST_SCORE:
+                            debug("LOWEST_SCORE");
+                            setMode(displayMode::LOWEST_SCORE);
+                            std::ranges::sort(scores, [](const score &a, const score &b) {
+                                return a.getScoreNumber() < b.getScoreNumber();
+                            });
+
+                            break;
+                        case displayMode::LOWEST_SCORE:
+                            debug("HIGHEST_SCORE");
+                            setMode(displayMode::HIGHEST_SCORE);
+                            std::ranges::sort(scores, [](const score &a, const score &b) {
+                                return a.getScoreNumber() > b.getScoreNumber();
+                            });
+
+                            break;
+                        default:
+                            debug("HIGHEST_SCORE");
+                            setMode(displayMode::HIGHEST_SCORE);
+                            std::ranges::sort(scores, [](const score &a, const score &b) {
+                                return a.getScoreNumber() > b.getScoreNumber();
+                            });
+
+                            break;
+                    }
+                    scoresToText(window);
+                }
+                if (event.key.code == sf::Keyboard::W) {
+                    displayMode currentMode = getMode();
+                    switch (currentMode) {
+                        case displayMode::ALPHABETICAL_NAME: {
+                            debug("REVERSE_ALPHABETICAL_NAME");
+                            setMode(displayMode::REVERSE_ALPHABETICAL_NAME);
+                            std::ranges::sort(scores, [](const score &a, const score &b) {
+                                std::string nameA = a.getTamagotchiName();
+                                std::string nameB = b.getTamagotchiName();
+
+                                // Convert names to lowercase for case-insensitive comparison
+                                std::transform(nameA.begin(), nameA.end(), nameA.begin(), [](char c) {
+                                    return std::tolower(c);
+                                });
+                                std::transform(nameB.begin(), nameB.end(), nameB.begin(), [](char c) {
+                                    return std::tolower(c);
+                                });
+
+                                return nameA > nameB;
+                            });
+                        }
+                            break;
+                        case displayMode::REVERSE_ALPHABETICAL_NAME: {
+                            debug("ALPHABETICAL_NAME");
+                            setMode(displayMode::ALPHABETICAL_NAME);
+                            std::ranges::sort(scores, [](const score &a, const score &b) {
+                                std::string nameA = a.getTamagotchiName();
+                                std::string nameB = b.getTamagotchiName();
+
+                                // Convert names to lowercase for case-insensitive comparison
+                                std::transform(nameA.begin(), nameA.end(), nameA.begin(), [](char c) {
+                                    return std::tolower(c);
+                                });
+                                std::transform(nameB.begin(), nameB.end(), nameB.begin(), [](char c) {
+                                    return std::tolower(c);
+                                });
+
+                                return nameA < nameB;
+                            });
+                        }
+                            break;
+                        default: {
+                            debug("REVERSE_ALPHABETICAL_NAME");
+                            setMode(displayMode::REVERSE_ALPHABETICAL_NAME);
+                            std::ranges::sort(scores, [](const score &a, const score &b) {
+                                std::string nameA = a.getTamagotchiName();
+                                std::string nameB = b.getTamagotchiName();
+
+                                // Convert names to lowercase for case-insensitive comparison
+                                std::transform(nameA.begin(), nameA.end(), nameA.begin(), [](char c) {
+                                    return std::tolower(c);
+                                });
+                                std::transform(nameB.begin(), nameB.end(), nameB.begin(), [](char c) {
+                                    return std::tolower(c);
+                                });
+
+                                return nameA > nameB;
+                            });
+
+                        }
+                            break;
+                    }
+                    scoresToText(window);
                 }
                 break;
             default:
@@ -78,3 +205,21 @@ void scoreboard::handleInput(sf::RenderWindow &window) {
         }
     }
 }
+
+void scoreboard::setMode(scoreboard::displayMode newMode) {
+    mode = newMode;
+}
+
+scoreboard::displayMode scoreboard::getMode() {
+    return mode;
+}
+
+void scoreboard::scoresToText(sf::RenderWindow &window) {
+    debug("scoresToText");
+    for (int i = 0; i < scores.size(); i++) {
+        debug(scores[i].getTamagotchiName() + " " + std::to_string(scores[i].getScoreNumber()));
+        textScores[i].setString(scores[i].getTamagotchiName() + " " + std::to_string(scores[i].getScoreNumber()));
+    }
+    setPositions(window);
+}
+
