@@ -45,7 +45,7 @@ public:
      * @brief Sets positions of elements
      * @param window window to set positions on
      */
-    void setPositions(sf::RenderWindow &window);
+    void setPositions(sf::RenderWindow &window) override;
 
     /**
      * @brief Handles input

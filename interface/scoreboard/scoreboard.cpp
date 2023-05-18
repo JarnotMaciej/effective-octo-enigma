@@ -92,9 +92,7 @@ void scoreboard::setPositions(sf::RenderWindow &window) {
 }
 
 void scoreboard::handleInput(sf::RenderWindow &window) {
-    // TODO -> implement, this is temporary, modes need to be handled here as well
-    // TODO -> lowest switch -> implementing some sorting, may be handled by some function from mechanism as the scores are just a vector
-    // TODO -> maybe it would be better to add the vector of scores, then the scores would be converted to the text -> new method
+    // TODO -> modes need to be handled here
     sf::Event event;
     while (window.pollEvent(event)) {
         switch (event.type) {

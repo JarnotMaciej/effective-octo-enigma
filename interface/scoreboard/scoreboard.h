@@ -60,7 +60,7 @@ public:
      * @brief Function for setting position of screen
      * @param window - window to set position
      */
-    void setPositions(sf::RenderWindow &window);
+    void setPositions(sf::RenderWindow &window) override;
 
     /*
      * @brief Function for handling events

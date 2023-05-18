@@ -40,7 +40,7 @@ public:
      * @brief Method used for setting positions of buttons and logo
      * @param window - window to set positions on
      */
-    void setPositions(sf::RenderWindow &window);
+    void setPositions(sf::RenderWindow &window) override;
 };
 
 
