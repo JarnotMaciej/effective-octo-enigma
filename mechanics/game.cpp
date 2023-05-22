@@ -56,20 +56,26 @@ void game::run() {
     scoreboard myScoreBoard;
     myScoreBoard.setPositions(window);
 
+    // minigame testing
+    minigame myMinigame("cat");
+    myMinigame.setPositions(window);
+
 	while (window.isOpen())
 	{
-        myScoreBoard.handleInput(window);
+        // myScoreBoard.handleInput(window);
+        myMinigame.handleInput(window);
 
         // clear window
         window.clear();
 
         // update
-        myTamagotchiScreen.update(myCat, window);
+        // myTamagotchiScreen.update(myCat, window);
 
         // draw menu
 //        mainMenu.draw(window);
-//        myTamagotchiScreen.draw(window);
-        myScoreBoard.draw(window);
+        // myTamagotchiScreen.draw(window);
+        // myScoreBoard.draw(window);
+        myMinigame.draw(window);
 
         // display window
         window.display();

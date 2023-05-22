@@ -14,6 +14,7 @@
 #include "../interface/menu/menu.h"
 #include "../interface/tamagotchiScreen/tamagotchiScreen.h"
 #include "../interface/scoreboard/scoreboard.h"
+#include "../interface/minigame/minigame.h"
 #include "../structures/cat.h"
 
 /**
