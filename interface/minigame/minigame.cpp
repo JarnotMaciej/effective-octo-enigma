@@ -32,6 +32,13 @@ minigame::minigame(std::string textureName)
 
 void minigame::draw(sf::RenderWindow &window)
 {
+    // drawing coins
+    for (auto &coin : coinsVector)
+    {
+        coin.draw(window);
+    }
+
+    // other stuff
     this->sprite.setTexture(texture);
     window.draw(sprite);
     window.draw(timeText);
@@ -81,4 +88,62 @@ void minigame::setPositions(sf::RenderWindow &window)
 
     // setting sprite position -> bottom center
     sprite.setPosition((window.getSize().x - sprite.getGlobalBounds().width) / 2, window.getSize().y - sprite.getGlobalBounds().height);
+}
+
+void minigame::update(sf::RenderWindow &window){
+    // updating time according to clock from SFML
+    if(minigameClock.getElapsedTime().asSeconds() >= 1 && time > 0){
+        time--;
+        minigameClock.restart();
+    }
+
+    // spawning coins if there are less than maxCoins and the coin clock is greater than 400ms
+    if(coinsVector.size() < maxCoins && coinClock.getElapsedTime().asMilliseconds() >= 400){
+        coin newCoin;
+        newCoin.setRandomPosition(window);
+        coinsVector.push_back(newCoin);
+        coinClock.restart();
+    }
+
+    // updating coins
+    for (auto &coin : coinsVector)
+    {
+        coin.update();
+    }
+
+    // checking if player has collected a coin
+    for (int i = 0; i < coinsVector.size(); i++)
+    {
+        if(coinsVector[i].getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds())){
+            coinsVector.erase(coinsVector.begin() + i);
+            coins++;
+        }
+    }
+
+    // deleting coins that are out of screen
+    for (int i = 0; i < coinsVector.size(); i++)
+    {
+        if(coinsVector[i].getSprite().getPosition().y > window.getSize().y){
+            coinsVector.erase(coinsVector.begin() + i);
+        }
+    }
+
+
+    //------------------------
+    // displaying time in format 0:00
+    if(time >= 10){
+        timeText.setString("0:" + std::to_string(time));
+    } else {
+        timeText.setString("0:0" + std::to_string(time));
+    }
+
+    // updating coins text in 000 format
+    if(coins < 10){
+        coinsText.setString("00" + std::to_string(coins));
+    } else if(coins < 100){
+        coinsText.setString("0" + std::to_string(coins));
+    } else {
+        coinsText.setString(std::to_string(coins));
+    }
+
 }

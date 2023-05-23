@@ -6,12 +6,15 @@ Project Description
 
 ### Todo
 
+- [ ] coin sound  
 - [ ] animated coin  
 
 ### In Progress
 
-- [ ] adding coin  
+- [ ] coin movement  
 
 ### Done ✓
 
+- [x] spawning coin  
+- [x] removing coin from vector if the coin is below the screen  
 

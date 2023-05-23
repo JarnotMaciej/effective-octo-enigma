@@ -24,11 +24,12 @@ class coin : public flyingElement{
 private:
     sf::Texture coinTexture; // texture of the coin
     sf::Sprite coinSprite; // sprite of the coin
+    
 public:
     /**
-     * @brief Construct a new coin object
+     * @brief Default constructor
      */
-    coin(sf::RenderWindow &window);
+    coin();
 
 /**
  * @brief Method used for drawing
@@ -43,6 +44,18 @@ public:
  * @param window - window to set position on
  */
     void setRandomPosition(sf::RenderWindow &window);
+
+/**
+ * @brief Method used for moving the coindown
+ */
+    void update();
+
+/**
+ * @brief Get the Sprite object
+ * 
+ * @return sf::Sprite - sprite of the coin
+ */
+    sf::Sprite getSprite() { return coinSprite; }
 };
 
 #endif //TAMAGOTCHI_MENU_COIN_H

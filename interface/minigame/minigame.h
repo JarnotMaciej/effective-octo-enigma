@@ -28,6 +28,8 @@ private:
     sf::Text coinsText; // text of the coins
     short int maxCoins; // max coins to spawns
     std::vector<coin> coinsVector; // vector of coins
+    sf::Clock minigameClock; // clock for minigame
+    sf::Clock coinClock; // clock for spawning coins
 
 public:
 
@@ -55,6 +57,11 @@ public:
      * @param window - window to set positions on
      */
     void setPositions(sf::RenderWindow &window) override;
+
+    /**
+     * @brief Method used for updating minigame
+     */
+    void update(sf::RenderWindow &window);
 };
 
 

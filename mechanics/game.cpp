@@ -70,6 +70,7 @@ void game::run() {
 
         // update
         // myTamagotchiScreen.update(myCat, window);
+        myMinigame.update(window);
 
         // draw menu
 //        mainMenu.draw(window);
