@@ -58,6 +58,10 @@ int main() {
     tamagotchiMechanics::printScores(scores);
     */
 
+    // sound
+//    auto soundBuff = assetManager::getInstance().getSound("menu", "wav");
+//    sf::Sound sound(soundBuff);
+
     game myGame;
     myGame.run();
 

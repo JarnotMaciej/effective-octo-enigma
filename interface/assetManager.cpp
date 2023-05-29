@@ -28,11 +28,11 @@ sf::Texture &assetManager::getTexture(const std::string &id) {
     return *iter->second;
 }
 
-sf::SoundBuffer &assetManager::getSound(const std::string &id) {
+sf::SoundBuffer &assetManager::getSound(const std::string &id, const std::string &extension) {
     auto iter = m_sounds.find(id);
     if (iter == m_sounds.end()) {
         std::unique_ptr<sf::SoundBuffer> sound(new sf::SoundBuffer());
-        std::filesystem::path path = std::filesystem::current_path().parent_path() / "resources" / "sounds" / (id + ".wav");
+        std::filesystem::path path = std::filesystem::current_path().parent_path() / "resources" / "sounds" / (id + "." + extension);
         if (!sound->loadFromFile(path.string())) {
             // Handle error
             return *m_defaultSound;

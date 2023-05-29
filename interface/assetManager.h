@@ -28,9 +28,10 @@ public:
     /**
      * @brief Load sound from file
      * @param id - name of the sound and the file
+     * @param extension - extension of the file
      * @return sound
      */
-    sf::SoundBuffer &getSound(const std::string &id);
+    sf::SoundBuffer &getSound(const std::string &id, const std::string &extension = "wav");
 
     /**
      * @brief Load font from file

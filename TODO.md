@@ -1,20 +1,20 @@
-# Project
+# Tamagotchi
 
-Project Description
+A Tamagotchi-like game in C++.
 
-<em>[TODO.md spec & Kanban Board](https://bit.ly/3fCwKfM)</em>
 
 ### Todo
 
-- [ ] coin sound  
 - [ ] animated coin  
 
 ### In Progress
 
-- [ ] coin movement  
+- [ ] coin sound
 
 ### Done ✓
 
 - [x] spawning coin  
 - [x] removing coin from vector if the coin is below the screen  
+- [x] minigame is blocked after the end of time
+- [x] coin movement
 

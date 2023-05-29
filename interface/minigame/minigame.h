@@ -30,13 +30,15 @@ private:
     std::vector<coin> coinsVector; // vector of coins
     sf::Clock minigameClock; // clock for minigame
     sf::Clock coinClock; // clock for spawning coins
+    bool isRunning; // is minigame running
+    sf::Sound coinSound; // sound of the coin
+    sf::SoundBuffer coinSoundBuffer; // buffer of the coin sound
 
 public:
 
 /**
  * @brief Construct a new minigame object
- * 
- * @param _textureName  - name of texture to be loaded
+ * @param textureName  - name of texture to be loaded
  */
     minigame(std::string textureName);
 
@@ -62,6 +64,11 @@ public:
      * @brief Method used for updating minigame
      */
     void update(sf::RenderWindow &window);
+
+    /**
+     * @brief Method used for setting coin sound buffer
+     */
+    void setCoinSoundBuffer();
 };
 
 
