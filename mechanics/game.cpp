@@ -4,7 +4,6 @@
 
 #include "game.h"
 
-
 using namespace sf;
 
 //game::game() {
@@ -43,43 +42,55 @@ void game::run() {
     myCat.setHygiene(90);
     myCat.setHealth(100);
 
-    // menu testing
+    // testing
     menu mainMenu;
-    mainMenu.setPositions(window);
-
-    // tamagotchi screen testing
-    tamagotchiScreen myTamagotchiScreen;
-    myTamagotchiScreen.setTamagotchiTexture("cat");
-    myTamagotchiScreen.setPositions(window);
-
-    // score board testing
+    tamagotchiScreen myTamagotchiScreen("cat");
     scoreboard myScoreBoard;
-    myScoreBoard.setPositions(window);
-
-    // minigame testing
     minigame myMinigame("cat");
-    myMinigame.setPositions(window);
 
-	while (window.isOpen())
+    // adding screens to map
+    screens[ScreenName::MENU] = std::make_unique<menu>(mainMenu);
+    screens[ScreenName::TAMAGOTCHI_SCREEN] = std::make_unique<tamagotchiScreen>(myTamagotchiScreen);
+    screens[ScreenName::SCOREBOARD] = std::make_unique<scoreboard>(myScoreBoard);
+    screens[ScreenName::MINIGAME] = std::make_unique<minigame>(myMinigame);
+
+
+    // setPositions everywhere
+    for (auto &screen : screens) {
+        screen.second->setPositions(window);
+    }
+
+    while (window.isOpen())
 	{
-        // myScoreBoard.handleInput(window);
-        myMinigame.handleInput(window);
+//        // myScoreBoard.handleInput(window);
+//        myMinigame.handleInput(window, currentScreenName);
+//
+//        // clear window
+//        window.clear();
+//
+//        // update
+//        // myTamagotchiScreen.update(myCat, window);
+//        myMinigame.update(window);
+//
+//        // draw menu
+////        mainMenu.draw(window);
+//        // myTamagotchiScreen.draw(window);
+//        // myScoreBoard.draw(window);
+//        myMinigame.draw(window);
 
-        // clear window
-        window.clear();
-
-        // update
-        // myTamagotchiScreen.update(myCat, window);
-        myMinigame.update(window);
-
-        // draw menu
-//        mainMenu.draw(window);
-        // myTamagotchiScreen.draw(window);
-        // myScoreBoard.draw(window);
-        myMinigame.draw(window);
+        screenProcessing(window, myCat);
 
         // display window
-        window.display();
+//        window.display();
 	}
+}
+
+void game::screenProcessing(RenderWindow &window, tamagotchi &pet) {
+    screens[currentScreenName]->handleInput(window, currentScreenName);
+    window.clear();
+    screens[currentScreenName]->update(window, pet);
+    screens[currentScreenName]->draw(window);
+
+    window.display();
 }
 

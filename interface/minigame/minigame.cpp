@@ -46,7 +46,12 @@ void minigame::draw(sf::RenderWindow &window) {
     window.draw(coinsText);
 }
 
-void minigame::handleInput(sf::RenderWindow &window) {
+void minigame::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
+    if (!isRunning){
+        isRunning = true;
+        changeScreen(_screenName, ScreenName::TAMAGOTCHI_SCREEN);
+    }
+
     sf::Event event;
     while (window.pollEvent(event)) {
         switch (event.type) {
@@ -89,9 +94,15 @@ void minigame::setPositions(sf::RenderWindow &window) {
                        window.getSize().y - sprite.getGlobalBounds().height);
 }
 
-void minigame::update(sf::RenderWindow &window) {
+void minigame::update(sf::RenderWindow &window, tamagotchi &pet) {
     if (time == 0) {
         isRunning = false;
+        pet.setMoney(pet.getMoney() + coins);
+        coins = 0;
+        time = 30;
+
+        // Erase all coins
+        coinsVector.clear();
     }
 
     if (isRunning) {

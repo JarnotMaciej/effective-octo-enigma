@@ -21,12 +21,13 @@ void tamagotchiScreen::draw(sf::RenderWindow &window) {
     window.draw(this->tamagotchiSprite);
 }
 
-void tamagotchiScreen::update(tamagotchi &pet, sf::RenderWindow &window) {
+void tamagotchiScreen::update(sf::RenderWindow &window, tamagotchi &pet) {
+    this->ts_indicatorbar.update(pet);
     this->ts_indicatorbar.update(pet);
     this->ts_topbar.update(pet, window);
 }
 
-void tamagotchiScreen::handleInput(sf::RenderWindow &window) {
+void tamagotchiScreen::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
     // TODO -> implement, this is temporary
     sf::Event event;
     while (window.pollEvent(event)) {
@@ -35,9 +36,23 @@ void tamagotchiScreen::handleInput(sf::RenderWindow &window) {
                 window.close();
                 break;
             case sf::Event::KeyPressed:
-                if (event.key.code == sf::Keyboard::Escape) {
-                    window.close();
+                switch (event.key.code) {
+                    case sf::Keyboard::Escape:
+                        changeScreen(_screenName, ScreenName::MENU);
+                        break;
+                    case sf::Keyboard::Q:
+                        break;
+                    case sf::Keyboard::W:
+                        changeScreen(_screenName, ScreenName::MINIGAME);
+                        break;
+                    case sf::Keyboard::E:
+                        break;
+                    case sf::Keyboard::R:
+                        break;
+                    default:
+                        break;
                 }
+
                 break;
             default:
                 break;
@@ -45,7 +60,7 @@ void tamagotchiScreen::handleInput(sf::RenderWindow &window) {
     }
 }
 
-void tamagotchiScreen::setTamagotchiTexture(const std::string &name) {
-    this->tamagotchiTexture = assetManager::getInstance().getTexture(name);
-    this->tamagotchiSprite.setTexture(this->tamagotchiTexture);
+tamagotchiScreen::tamagotchiScreen(const std::string& textureName) {
+    tamagotchiTexture = assetManager::getInstance().getTexture(textureName);
+    tamagotchiSprite.setTexture(tamagotchiTexture);
 }

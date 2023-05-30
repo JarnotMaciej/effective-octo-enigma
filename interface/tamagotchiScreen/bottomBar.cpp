@@ -9,6 +9,7 @@ bottomBar::bottomBar() {
     buttons.emplace_back("Play", "W");
     buttons.emplace_back("Clean", "E");
     buttons.emplace_back("Sleep", "R");
+    buttons.emplace_back("Quit", "Esc");
 }
 
 void bottomBar::draw(sf::RenderWindow &window) {

@@ -27,8 +27,9 @@ public:
     /**
      * @brief Method used for handling input
      * @param window - window to handle input on
+     * @param _screenName - name of the screen -> to change screen
      */
-    void handleInput(sf::RenderWindow &window) override;
+    void handleInput(sf::RenderWindow &window, ScreenName &_screenName) override;
 
     /**
      * @brief Method used for drawing menu
@@ -41,6 +42,13 @@ public:
      * @param window - window to set positions on
      */
     void setPositions(sf::RenderWindow &window) override;
+
+    /**
+     * @brief Method used for updating menu
+     * @param window - window to update menu on
+     * @param pet - tamagotchi object
+     */
+    void update(sf::RenderWindow &window, tamagotchi &pet) override;
 };
 
 

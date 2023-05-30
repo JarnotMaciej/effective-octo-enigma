@@ -13,10 +13,10 @@ menu::menu() {
     logo.setFillColor(sf::Color::White);
 
     // creating buttons
-    buttons.emplace_back("Start");
-    buttons.emplace_back("Scoreboard");
-    buttons.emplace_back("Credits");
-    buttons.emplace_back("Exit");
+    buttons.emplace_back("1. Start");
+    buttons.emplace_back("2. Scoreboard");
+    buttons.emplace_back("3. Credits");
+    buttons.emplace_back("4. Exit");
 }
 
 void menu::setPositions(sf::RenderWindow &window) {
@@ -50,7 +50,7 @@ void menu::draw(sf::RenderWindow &window) {
     }
 }
 
-void menu::handleInput(sf::RenderWindow &window) {
+void menu::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
     sf::Event event;
     while (window.pollEvent(event)) {
         switch (event.type) {
@@ -67,12 +67,32 @@ void menu::handleInput(sf::RenderWindow &window) {
                 }
                 break;
             case sf::Event::KeyPressed:
-                if (event.key.code == sf::Keyboard::Escape) {
-                    window.close();
+                switch (event.key.code) {
+                    case sf::Keyboard::Num1:
+                        changeScreen(_screenName, ScreenName::TAMAGOTCHI_SCREEN);
+                        break;
+                    case sf::Keyboard::Num2:
+                        changeScreen(_screenName, ScreenName::SCOREBOARD);
+                        break;
+                    case sf::Keyboard::Num3:
+                        // TODO -> implement credits screen
+//                        changeScreen(_screenName, ScreenName::CREDITS);
+                        break;
+                    case sf::Keyboard::Num4:
+                        window.close();
+                        break;
+                    default:
+                        break;
                 }
+
+
                 break;
             default:
                 break;
         }
     }
+}
+
+void menu::update(sf::RenderWindow &window, tamagotchi &pet) {
+    // TODO -> implement, this is temporary
 }

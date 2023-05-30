@@ -23,10 +23,12 @@ private:
     sf::Sprite tamagotchiSprite; // sprite of tamagotchi
 
 public:
+
     /**
-     * @brief Constructor of tamagotchi screen
+     * @brief Constructor
+     * @param textureName name of texture
      */
-    tamagotchiScreen() = default;
+    tamagotchiScreen(const std::string& textureName);
 
     /**
      * @brief Draws tamagotchi screen
@@ -36,10 +38,10 @@ public:
 
     /**
      * @brief Updates tamagotchi screen
-     * @param pet tamagotchi to update
      * @param window window to update on
+     * @param pet tamagotchi to update
      */
-    void update(tamagotchi &pet, sf::RenderWindow &window);
+    void update(sf::RenderWindow &window, tamagotchi &pet) override;
 
     /**
      * @brief Sets positions of elements
@@ -50,14 +52,9 @@ public:
     /**
      * @brief Handles input
      * @param window window to handle input on
+     * @param _screenName name of current screen
      */
-    void handleInput(sf::RenderWindow &window) override;
-
-    /**
-     * @brief Sets texture of tamagotchi
-     * @param name name of texture
-     */
-    void setTamagotchiTexture(const std::string &name);
+    void handleInput(sf::RenderWindow &window, ScreenName &_screenName) override;
 
 };
 

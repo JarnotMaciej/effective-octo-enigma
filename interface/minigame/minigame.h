@@ -45,8 +45,9 @@ public:
     /**
      * @brief Method used for handling input
      * @param window - window to handle input on
+     * @param _screenName - name of the screen -> to change screen
      */
-    void handleInput(sf::RenderWindow &window) override;
+    void handleInput(sf::RenderWindow &window, ScreenName &_screenName) override;
 
     /**
      * @brief Method used for drawing menu
@@ -62,8 +63,10 @@ public:
 
     /**
      * @brief Method used for updating minigame
+     * @param window - window to update minigame on
+     * @param pet - tamagotchi object
      */
-    void update(sf::RenderWindow &window);
+    void update(sf::RenderWindow &window, tamagotchi &pet) override;
 
     /**
      * @brief Method used for setting coin sound buffer

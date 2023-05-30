@@ -8,6 +8,9 @@
 // C++
 #include <string>
 #include <map>
+#include <memory>
+#include <unordered_map>
+#include <thread>
 
 // header files
 #include "../interface/screen.h"
@@ -22,25 +25,26 @@
  */
 class game {
 private:
-    std::map<std::string, std::unique_ptr<screen>> screens; // map of screens
-    std::unique_ptr<screen> currentScreen; // current screen
+    std::unordered_map<ScreenName, std::unique_ptr<screen>> screens; // map of screens
+    ScreenName currentScreenName = ScreenName::MENU; // name of current screen
 
 public:
-    /*
+    /**
      * @brief Constructor
      */
     game() = default;
 
-    /*
+    /**
      * @brief Function for running game
      */
     void run();
 
     /**
-     * @brief Function for setting current screen
-     * @param screenName - name of screen
+     * @brief Function for screen processing -> handling input, drawing, updating
+     * @param window - window to process screen on
+     * @param pet - tamagotchi object
      */
-//    void setCurrentScreen(std::string screenName);
+    void screenProcessing(sf::RenderWindow &window, tamagotchi &pet);
 
 };
 

@@ -91,7 +91,7 @@ void scoreboard::setPositions(sf::RenderWindow &window) {
     }
 }
 
-void scoreboard::handleInput(sf::RenderWindow &window) {
+void scoreboard::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
     // TODO -> modes need to be handled here
     sf::Event event;
     while (window.pollEvent(event)) {
@@ -101,7 +101,7 @@ void scoreboard::handleInput(sf::RenderWindow &window) {
                 break;
             case sf::Event::KeyReleased:
                 if (event.key.code == sf::Keyboard::Escape) {
-                    window.close();
+                    changeScreen(_screenName, ScreenName::MENU);
                 }
                 if (event.key.code == sf::Keyboard::Q) {
                     displayMode currentMode = getMode();
@@ -219,5 +219,9 @@ void scoreboard::scoresToText(sf::RenderWindow &window) {
         textScores[i].setString(scores[i].getTamagotchiName() + " " + std::to_string(scores[i].getScoreNumber()));
     }
     setPositions(window);
+}
+
+void scoreboard::update(sf::RenderWindow &window, tamagotchi &pet) {
+    // TODO -> dunno what should be here
 }
 
