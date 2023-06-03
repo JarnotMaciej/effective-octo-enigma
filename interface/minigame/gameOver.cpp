@@ -4,7 +4,10 @@
 
 #include "gameOver.h"
 
-gameOver::gameOver() {
+gameOver::gameOver(const std::shared_ptr<minigameConnector> &_magicConnector) {
+    // set connector
+    magicConnector = _magicConnector;
+
     // set message
     message.setString("Game over!");
     message.setFont(assetManager::getInstance().getFont("silkscreen"));
@@ -95,13 +98,8 @@ void gameOver::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
     }
 }
 
-std::shared_ptr<int> gameOver::getCoinsPtr() { // TODO -> change to getCoinsValue
-    return std::shared_ptr<int>(std::make_shared<int>(coinsValue));
-}
-
 void gameOver::updateCoinsText() {
+    coinsValue = magicConnector->getCoinsValue();
     coinsWon.setString("Coins won: " + std::to_string(coinsValue));
-    debug(std::to_string(coinsValue));
-    debug(coinsWon.getString());
 }
 

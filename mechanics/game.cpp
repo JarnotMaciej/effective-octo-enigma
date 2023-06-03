@@ -43,15 +43,16 @@ void game::run() {
     myCat.setHygiene(90);
     myCat.setHealth(100);
 
+    // minigame connection
+    std::shared_ptr<minigameConnector> magicConnector = std::make_shared<minigameConnector>();
+
     // testing
     menu mainMenu;
     tamagotchiScreen myTamagotchiScreen("cat", myCat);
     scoreboard myScoreBoard;
-    minigame myMinigame("cat");
-    gameOver myGameOver;
+    minigame myMinigame("cat", magicConnector);
+    gameOver myGameOver(magicConnector);
 
-    // linking screens
-    myMinigame.linkGameOverScreen(myGameOver.getCoinsPtr());
 
     // adding screens to map
     screens[ScreenName::MENU] = std::make_unique<menu>(mainMenu);

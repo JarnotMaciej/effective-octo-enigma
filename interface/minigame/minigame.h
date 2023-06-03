@@ -12,6 +12,7 @@
 #include "../assetManager.h"
 #include "coin.h"
 #include "gameOver.h"
+#include "minigameConnector.h"
 
 #ifndef PROJECT_NAME_MINIGAME_H
 #define PROJECT_NAME_MINIGAME_H
@@ -32,17 +33,19 @@ private:
     sf::Clock minigameClock; // clock for minigame
     sf::Clock coinClock; // clock for spawning coins
     bool isRunning; // is minigame running
-    sf::Sound coinSound; // sound of the coin
+    sf::Sound minigameSound; // sound of the coin
     sf::SoundBuffer coinSoundBuffer; // buffer of the coin sound
-    std::shared_ptr<int> integerToUpdate; // coin integer from game over screen
+    std::shared_ptr<minigameConnector> magicConnector; // connector to minigame
+
 
 public:
 
 /**
  * @brief Construct a new minigame object
  * @param textureName  - name of texture to be loaded
+ * @param _magicConnector - connector to minigame
  */
-    minigame(std::string textureName);
+    minigame(std::string textureName, const std::shared_ptr<minigameConnector> &_magicConnector);
 
     /**
      * @brief Method used for handling input
@@ -74,15 +77,6 @@ public:
      * @brief Method used for setting coin sound buffer
      */
     void setCoinSoundBuffer();
-
-    /**
-     * @brief Method used for linking game over screen
-     * @param goScreenToLink - game over screen to link
-     */
-//    void linkGameOverScreen(gameOver &goScreenToLink);
-
-//TODO: link game over screen
-    void linkGameOverScreen(std::shared_ptr<int> _integerToUpdate);
 };
 
 

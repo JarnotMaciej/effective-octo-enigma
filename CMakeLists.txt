@@ -53,7 +53,9 @@ add_executable(
         interface/minigame/minigame.cpp interface/minigame/minigame.h
         interface/minigame/flyingElement.cpp interface/minigame/flyingElement.h
         interface/minigame/coin.cpp interface/minigame/coin.h
-        mechanics/game.cpp mechanics/game.h interface/minigame/gameOver.cpp interface/minigame/gameOver.h)
+        mechanics/game.cpp mechanics/game.h
+        interface/minigame/gameOver.cpp interface/minigame/gameOver.h
+        interface/minigame/minigameConnector.cpp interface/minigame/minigameConnector.h)
 
 target_link_libraries(
         april

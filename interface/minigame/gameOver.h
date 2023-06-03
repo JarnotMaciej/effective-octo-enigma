@@ -8,6 +8,7 @@
 // header files
 #include "../screen.h"
 #include "../assetManager.h"
+#include "minigameConnector.h"
 
 /**
  * @brief Game over screen class
@@ -19,14 +20,16 @@ private:
     sf::Text pressEscToContinue; // text of coins won
     int coinsValue; // coins won
     sf::Clock gameOverClock; // clock for game over screen
-    int gameOverTimeout = 5; // timeout for game over screen
-    bool isRunning; // is game over screen running
+    int gameOverTimeout = 7; // timeout for game over screen (7 seconds)
+    bool isRunning; // is game over screen running]
+    std::shared_ptr<minigameConnector> magicConnector; // connector to minigame
 
 public:
     /**
      * @brief Constructor
+     * @param _magicConnector connector to minigame
      */
-    gameOver();
+    gameOver(const std::shared_ptr<minigameConnector> &_magicConnector);
 
     /**
      * @brief Draws game over screen
@@ -61,13 +64,8 @@ public:
     void setMessage(std::string& messageToSet);
 
     /**
-     * @brief Sets coins won
-     * @param coinsToSet coins won to set
+     * @brief Updates coins text
      */
-//    void setCoinsWon(int coinsToSet);
-
-    std::shared_ptr<int> getCoinsPtr();
-
     void updateCoinsText();
 };
 

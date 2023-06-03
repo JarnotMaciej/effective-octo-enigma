@@ -6,7 +6,10 @@
 
 #include <utility>
 
-minigame::minigame(std::string textureName) {
+minigame::minigame(std::string textureName, const std::shared_ptr<minigameConnector> &_magicConnector) {
+    // set connector
+    magicConnector = _magicConnector;
+
     // setting time and coins
     time = 30;
     coins = 0;
@@ -51,6 +54,9 @@ void minigame::draw(sf::RenderWindow &window) {
 void minigame::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
     if (!isRunning){
         isRunning = true;
+        // play sound
+        minigameSound.setBuffer(assetManager::getInstance().getSound("gameover", "wav"));
+        minigameSound.play();
         changeScreen(_screenName, ScreenName::GAME_OVER);
     }
 
@@ -100,8 +106,8 @@ void minigame::update(sf::RenderWindow &window, tamagotchi &pet) {
     if (time == 0) {
         isRunning = false;
 
-        // TODO -> set integerToUpdate to coins
-        *integerToUpdate = coins;
+        // TODO -> connector here
+        magicConnector->setCoinsValue(coins);
 
         // Add coins to pet
         pet.setMoney(pet.getMoney() + coins);
@@ -139,9 +145,9 @@ void minigame::update(sf::RenderWindow &window, tamagotchi &pet) {
                 coinsVector.erase(coinsVector.begin() + i);
                 // Play the coin sound
                 setCoinSoundBuffer();
-                coinSound.setBuffer(coinSoundBuffer);
-                coinSound.setVolume(50.f);
-                coinSound.play();
+                minigameSound.setBuffer(coinSoundBuffer);
+                minigameSound.setVolume(50.f);
+                minigameSound.play();
 
                 coins++;
             }
@@ -180,10 +186,6 @@ void minigame::setCoinSoundBuffer() {
     int random = rand() % 12 + 1;
     std::string soundName = "coin" + std::to_string(random);
     coinSoundBuffer = assetManager::getInstance().getSound(soundName, "ogg");
-}
-
-void minigame::linkGameOverScreen(std::shared_ptr<int> _integerToUpdate) {
-    integerToUpdate = std::move(_integerToUpdate);
 }
 
 

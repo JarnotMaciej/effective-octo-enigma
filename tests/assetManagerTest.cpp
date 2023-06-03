@@ -47,7 +47,7 @@ TEST(AssetManagerTest, GetFont) {
 // Test case for sound loading
 TEST(AssetManagerTest, GetSound) {
     // Load sound
-    sf::SoundBuffer soundBuffer = assetManager::getInstance().getSound("menu");
+    sf::SoundBuffer soundBuffer = assetManager::getInstance().getSound("gameover", "wav");
 
     // Check if sound is loaded
     ASSERT_TRUE(soundBuffer.getDuration().asMilliseconds() > 0);
