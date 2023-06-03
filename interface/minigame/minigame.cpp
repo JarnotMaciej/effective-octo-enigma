@@ -4,6 +4,8 @@
 
 #include "minigame.h"
 
+#include <utility>
+
 minigame::minigame(std::string textureName) {
     // setting time and coins
     time = 30;
@@ -49,7 +51,7 @@ void minigame::draw(sf::RenderWindow &window) {
 void minigame::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
     if (!isRunning){
         isRunning = true;
-        changeScreen(_screenName, ScreenName::TAMAGOTCHI_SCREEN);
+        changeScreen(_screenName, ScreenName::GAME_OVER);
     }
 
     sf::Event event;
@@ -97,7 +99,13 @@ void minigame::setPositions(sf::RenderWindow &window) {
 void minigame::update(sf::RenderWindow &window, tamagotchi &pet) {
     if (time == 0) {
         isRunning = false;
+
+        // TODO -> set integerToUpdate to coins
+        *integerToUpdate = coins;
+
+        // Add coins to pet
         pet.setMoney(pet.getMoney() + coins);
+
         coins = 0;
         time = 30;
 
@@ -173,3 +181,11 @@ void minigame::setCoinSoundBuffer() {
     std::string soundName = "coin" + std::to_string(random);
     coinSoundBuffer = assetManager::getInstance().getSound(soundName, "ogg");
 }
+
+void minigame::linkGameOverScreen(std::shared_ptr<int> _integerToUpdate) {
+    integerToUpdate = std::move(_integerToUpdate);
+}
+
+
+
+

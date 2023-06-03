@@ -7,7 +7,7 @@
 bottomBar::bottomBar() {
     buttons.emplace_back("Eat", "Q");
     buttons.emplace_back("Play", "W");
-    buttons.emplace_back("Clean", "E");
+    buttons.emplace_back("Wash", "E");
     buttons.emplace_back("Sleep", "R");
     buttons.emplace_back("Quit", "Esc");
 }

@@ -22,7 +22,8 @@ enum class ScreenName {
     TAMAGOTCHI_SCREEN,
     SCOREBOARD,
     CREDITS,
-    MINIGAME
+    MINIGAME,
+    GAME_OVER
 };
 
 /**

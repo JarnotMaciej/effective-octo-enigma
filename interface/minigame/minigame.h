@@ -11,6 +11,7 @@
 #include "../screen.h"
 #include "../assetManager.h"
 #include "coin.h"
+#include "gameOver.h"
 
 #ifndef PROJECT_NAME_MINIGAME_H
 #define PROJECT_NAME_MINIGAME_H
@@ -33,6 +34,7 @@ private:
     bool isRunning; // is minigame running
     sf::Sound coinSound; // sound of the coin
     sf::SoundBuffer coinSoundBuffer; // buffer of the coin sound
+    std::shared_ptr<int> integerToUpdate; // coin integer from game over screen
 
 public:
 
@@ -72,6 +74,15 @@ public:
      * @brief Method used for setting coin sound buffer
      */
     void setCoinSoundBuffer();
+
+    /**
+     * @brief Method used for linking game over screen
+     * @param goScreenToLink - game over screen to link
+     */
+//    void linkGameOverScreen(gameOver &goScreenToLink);
+
+//TODO: link game over screen
+    void linkGameOverScreen(std::shared_ptr<int> _integerToUpdate);
 };
 
 

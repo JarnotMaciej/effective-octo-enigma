@@ -16,7 +16,7 @@ menu::menu() {
     buttons.emplace_back("1. Start");
     buttons.emplace_back("2. Scoreboard");
     buttons.emplace_back("3. Credits");
-    buttons.emplace_back("4. Exit");
+    buttons.emplace_back("ESC Exit");
 }
 
 void menu::setPositions(sf::RenderWindow &window) {
@@ -78,7 +78,7 @@ void menu::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
                         // TODO -> implement credits screen
 //                        changeScreen(_screenName, ScreenName::CREDITS);
                         break;
-                    case sf::Keyboard::Num4:
+                    case sf::Keyboard::Escape:
                         window.close();
                         break;
                     default:

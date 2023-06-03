@@ -46,6 +46,7 @@ void tamagotchiScreen::handleInput(sf::RenderWindow &window, ScreenName &_screen
                         changeScreen(_screenName, ScreenName::MINIGAME);
                         break;
                     case sf::Keyboard::E:
+                        washPet(window);
                         break;
                     case sf::Keyboard::R:
                         break;
@@ -60,7 +61,25 @@ void tamagotchiScreen::handleInput(sf::RenderWindow &window, ScreenName &_screen
     }
 }
 
-tamagotchiScreen::tamagotchiScreen(const std::string& textureName) {
+tamagotchiScreen::tamagotchiScreen(const std::string& textureName, tamagotchi &pet) {
+    this->pet_pointer = static_cast<const std::shared_ptr<tamagotchi>>(&pet);
     tamagotchiTexture = assetManager::getInstance().getTexture(textureName);
     tamagotchiSprite.setTexture(tamagotchiTexture);
+}
+
+void tamagotchiScreen::washPet(sf::RenderWindow &window) {
+    this->pet_pointer->setHygiene(100);
+    // display text that pet is clean
+    sf::Text text;
+    text.setFont(assetManager::getInstance().getFont("silkscreen"));
+    text.setString("Pet is clean!");
+    text.setCharacterSize(48);
+    text.setFillColor(sf::Color::White);
+    text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2,
+                     (window.getSize().y / 2 - text.getGlobalBounds().height / 2) - 250);
+    sf::Clock clock;
+    while (clock.getElapsedTime().asSeconds() < 2) {
+        window.draw(text);
+        window.display();
+    }
 }

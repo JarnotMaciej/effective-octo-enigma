@@ -3,6 +3,7 @@
 //
 
 #include "game.h"
+#include "../interface/minigame/gameOver.h"
 
 using namespace sf;
 
@@ -44,15 +45,20 @@ void game::run() {
 
     // testing
     menu mainMenu;
-    tamagotchiScreen myTamagotchiScreen("cat");
+    tamagotchiScreen myTamagotchiScreen("cat", myCat);
     scoreboard myScoreBoard;
     minigame myMinigame("cat");
+    gameOver myGameOver;
+
+    // linking screens
+    myMinigame.linkGameOverScreen(myGameOver.getCoinsPtr());
 
     // adding screens to map
     screens[ScreenName::MENU] = std::make_unique<menu>(mainMenu);
     screens[ScreenName::TAMAGOTCHI_SCREEN] = std::make_unique<tamagotchiScreen>(myTamagotchiScreen);
     screens[ScreenName::SCOREBOARD] = std::make_unique<scoreboard>(myScoreBoard);
     screens[ScreenName::MINIGAME] = std::make_unique<minigame>(myMinigame);
+    screens[ScreenName::GAME_OVER] = std::make_unique<gameOver>(myGameOver);
 
 
     // setPositions everywhere

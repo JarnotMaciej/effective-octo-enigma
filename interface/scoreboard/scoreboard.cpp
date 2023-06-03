@@ -38,10 +38,6 @@ scoreboard::scoreboard() {
 void scoreboard::draw(sf::RenderWindow &window) {
     window.draw(title);
 
-//    for (sf::Text text: textScores) {
-//        window.draw(text);
-//    }
-
     // limit the number of scores to 5 by using views
     auto top5scores = std::views::take(textScores, 5);
 
@@ -92,7 +88,6 @@ void scoreboard::setPositions(sf::RenderWindow &window) {
 }
 
 void scoreboard::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
-    // TODO -> modes need to be handled here
     sf::Event event;
     while (window.pollEvent(event)) {
         switch (event.type) {

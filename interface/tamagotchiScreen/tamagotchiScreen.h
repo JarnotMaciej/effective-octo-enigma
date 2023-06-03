@@ -5,7 +5,10 @@
 #ifndef TAMAGOTCHI_TAMAGOTCHISCREEN_H
 #define TAMAGOTCHI_TAMAGOTCHISCREEN_H
 
+// C++
+#include <thread>
 
+// header files
 #include "../screen.h"
 #include "topBar.h"
 #include "indicatorBar.h"
@@ -21,14 +24,17 @@ private:
     bottomBar ts_bottombar; // bottom bar
     sf::Texture tamagotchiTexture; // texture of tamagotchi
     sf::Sprite tamagotchiSprite; // sprite of tamagotchi
+    std::shared_ptr<tamagotchi> pet_pointer; // pointer to tamagotchi object
+
 
 public:
 
     /**
      * @brief Constructor
      * @param textureName name of texture
+     * @param pet tamagotchi object
      */
-    tamagotchiScreen(const std::string& textureName);
+    tamagotchiScreen(const std::string& textureName, tamagotchi &pet);
 
     /**
      * @brief Draws tamagotchi screen
@@ -55,6 +61,12 @@ public:
      * @param _screenName name of current screen
      */
     void handleInput(sf::RenderWindow &window, ScreenName &_screenName) override;
+
+    /**
+     * @brief Sets texture of tamagotchi
+     * @param textureName name of texture
+     */
+    void washPet(sf::RenderWindow &window);
 
 };
 
