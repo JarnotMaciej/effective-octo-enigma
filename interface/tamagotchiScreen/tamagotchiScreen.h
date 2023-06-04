@@ -13,6 +13,7 @@
 #include "topBar.h"
 #include "indicatorBar.h"
 #include "bottomBar.h"
+#include "../../mechanics/tamagotchiMechanics.h"
 
 /**
  * @brief Tamagotchi screen class
@@ -25,7 +26,8 @@ private:
     sf::Texture tamagotchiTexture; // texture of tamagotchi
     sf::Sprite tamagotchiSprite; // sprite of tamagotchi
     std::shared_ptr<tamagotchi> pet_pointer; // pointer to tamagotchi object
-
+    sf::Clock zzzClock; // clock for zzz animation
+    sf::Text zzzText; // text for zzz animation
 
 public:
 
@@ -63,10 +65,16 @@ public:
     void handleInput(sf::RenderWindow &window, ScreenName &_screenName) override;
 
     /**
-     * @brief Sets texture of tamagotchi
-     * @param textureName name of texture
+     * @brief Represents washing pet
+     * @param window - window to draw on
      */
     void washPet(sf::RenderWindow &window);
+
+    /**
+     * @brief Represents sleeping pet, works like ON/OFF switch
+     * @param window - window to draw on
+     */
+    void sleepPet(sf::RenderWindow &window);
 
 };
 

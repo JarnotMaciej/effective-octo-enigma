@@ -34,6 +34,10 @@ class tamagotchi
 	long long int bornTime; // Tamagotchi born time (in seconds)
     std::vector<food> foods; // Tamagotchi foods
 
+    // sleepMechanics
+    bool isSleeping;
+    long long int sleepStart;
+
  public:
     /**
      * @brief Constructor
@@ -46,7 +50,6 @@ class tamagotchi
      */
 	tamagotchi(std::string _name);
 
-	// Getters
     /**
      * @brief Get tamagotchi equipment
      * @return Tamagotchi equipment
@@ -100,7 +103,6 @@ class tamagotchi
      */
 	long long int getBornTime() const;
 
-	// Setters
     /**
      * @brief Set tamagotchi name
      * @param name - Tamagotchi name
@@ -155,7 +157,6 @@ class tamagotchi
      */
 	void setBornTime(long long int bornTime);
 
-	// Methods
     /**
      * @brief Print tamagotchi info // Used for debugging, should be removed in final version
      */
@@ -187,6 +188,30 @@ class tamagotchi
      * @return Tamagotchi type
      */
     virtual tamagotchiType getTamagotchiType() = 0;
+
+    /**
+     * @brief Get sleeping bool
+     * @return Sleeping bool
+     */
+    bool getIsSleeping() const;
+
+    /**
+     * @brief Set sleeping bool
+     * @param isSleeping - Sleeping bool
+     */
+    void setIsSleeping(bool isSleeping);
+
+    /**
+     * @brief Get sleepMechanics start time
+     * @return Sleep start time
+     */
+    long long int getSleepStart() const;
+
+    /**
+     * @brief Set sleepMechanics start time
+     * @param sleepStart - Sleep start time
+     */
+    void setSleepStart(long long int sleepStart);
 };
 
 #endif //TAMAGOTCHI_TAMAGOTCHI_H

@@ -14,7 +14,10 @@ tamagotchi::tamagotchi()
 	hygiene = 100;
 	energy = 100;
 	money = 20;
-	bornTime = getTime();
+    bornTime = getTime();
+
+    isSleeping = false;
+    sleepStart = 0;
 }
 
 tamagotchi::tamagotchi(std::string _name)
@@ -137,5 +140,21 @@ void tamagotchi::addFood(food _food) {
 
 std::vector<food> tamagotchi::getFoods() const {
     return foods;
+}
+
+bool tamagotchi::getIsSleeping() const {
+    return isSleeping;
+}
+
+void tamagotchi::setIsSleeping(bool isSleeping) {
+    tamagotchi::isSleeping = isSleeping;
+}
+
+long long int tamagotchi::getSleepStart() const {
+    return sleepStart;
+}
+
+void tamagotchi::setSleepStart(long long int sleepStart) {
+    tamagotchi::sleepStart = sleepStart;
 }
 

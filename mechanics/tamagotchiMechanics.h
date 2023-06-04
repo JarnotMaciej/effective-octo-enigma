@@ -70,6 +70,12 @@ namespace tamagotchiMechanics {
      * @param scores - vector of scores
      */
     void printScores(std::vector<score> scores);
+
+    /**
+     * @brief Method used for adding energy to tamagotchi during sleeping
+     * @param pet
+     */
+    void sleepMechanics(tamagotchi &pet);
 }
 
 #endif //PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_

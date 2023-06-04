@@ -13,15 +13,13 @@ A Tamagotchi-like game in C++.
 - [ ] adding game clock to tamagotchi screen
 - [ ] 3d coin sound
 - [ ] food and stuff
-- [ ] check unordered map for asset manager
 
 ### In Progress
 
-- [ ] game over screen with score -> passing value from mini game to game over screen
+- [ ] sleeping -> modification needed -> other indicators should be decreased a bit
 - [ ] tamagotchi interactions
 
 ### Done ✓
 
-- [x] coin sound
-- [x] changing screen
-- [x] wash function is working
+- [x] game over screen with score -> passing value from mini game to game over screen
+- [x] unordered map for asset manager

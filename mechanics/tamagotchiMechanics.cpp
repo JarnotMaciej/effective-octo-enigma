@@ -153,13 +153,36 @@ std::vector<score> tamagotchiMechanics::getScores() {
 
 void tamagotchiMechanics::printScores(std::vector<score> scores) {
     std::cout << "Scores: " << std::endl;
-    for (auto &myScore : scores)
-    {
+    for (auto &myScore: scores) {
         std::cout << "Name: " << myScore.getTamagotchiName() << std::endl;
         std::cout << "Score: " << myScore.getScoreNumber() << std::endl;
         std::cout << "Age: " << myScore.getDaysAlive() << std::endl;
         std::cout << "---" << std::endl;
     }
+}
+
+void tamagotchiMechanics::sleepMechanics(tamagotchi &pet) {
+    if (pet.getEnergy() == 100) {
+        pet.setIsSleeping(false);
+        pet.setSleepStart(0);
+        return;
+    }
+
+    if (pet.getSleepStart() != 0) {
+        long long int sleepTime = getTime() - pet.getSleepStart();
+        // half an hour - energy will be full
+        sleepTime /= 18; // 18 seconds -> +1 energy point
+
+        if (sleepTime != 0) {
+            pet.setSleepStart(pet.getSleepStart() + sleepTime * 18);
+            int energy = pet.getEnergy() + sleepTime;
+            if (energy > 100) {
+                energy = 100;
+            }
+            pet.setEnergy(energy);
+        }
+    }
+
 }
 
 // TODO -> testing tamagotchiMechanics

@@ -11,6 +11,10 @@ void tamagotchiScreen::setPositions(sf::RenderWindow &window) {
     // set center position in window
     this->tamagotchiSprite.setPosition(window.getSize().x / 2 - this->tamagotchiSprite.getGlobalBounds().width / 2,
                                        window.getSize().y / 2 - this->tamagotchiSprite.getGlobalBounds().height / 2);
+
+    // set position of zzz text
+    this->zzzText.setPosition(window.getSize().x / 2 - this->zzzText.getGlobalBounds().width / 2,
+                              (window.getSize().y / 2 - zzzText.getGlobalBounds().height / 2) - 250);
 }
 
 void tamagotchiScreen::draw(sf::RenderWindow &window) {
@@ -18,13 +22,35 @@ void tamagotchiScreen::draw(sf::RenderWindow &window) {
     this->ts_indicatorbar.draw(window);
     this->ts_bottombar.draw(window);
     tamagotchiSprite.setTexture(this->tamagotchiTexture);
+    if (this->pet_pointer->getIsSleeping()) {
+        window.draw(this->zzzText);
+    }
     window.draw(this->tamagotchiSprite);
 }
 
 void tamagotchiScreen::update(sf::RenderWindow &window, tamagotchi &pet) {
+    tamagotchiMechanics::sleepMechanics(pet);
     this->ts_indicatorbar.update(pet);
     this->ts_indicatorbar.update(pet);
     this->ts_topbar.update(pet, window);
+
+    // if pet is sleeping, display zzz text
+    if (pet.getIsSleeping()) {
+        // clock for zzz animation -> every 0.5 seconds from 0 to 3 dots
+        if (this->zzzClock.getElapsedTime().asSeconds() > 0.5) {
+            if (this->zzzText.getString() == "ZZZ...") {
+                this->zzzText.setString("ZZZ..");
+            } else if (this->zzzText.getString() == "ZZZ..") {
+                this->zzzText.setString("ZZZ.");
+            } else if (this->zzzText.getString() == "ZZZ.") {
+                this->zzzText.setString("ZZZ");
+            } else if (this->zzzText.getString() == "ZZZ") {
+                this->zzzText.setString("ZZZ...");
+            }
+            this->zzzClock.restart();
+        }
+    }
+
 }
 
 void tamagotchiScreen::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
@@ -49,6 +75,7 @@ void tamagotchiScreen::handleInput(sf::RenderWindow &window, ScreenName &_screen
                         washPet(window);
                         break;
                     case sf::Keyboard::R:
+                        sleepPet(window);
                         break;
                     default:
                         break;
@@ -65,6 +92,13 @@ tamagotchiScreen::tamagotchiScreen(const std::string& textureName, tamagotchi &p
     this->pet_pointer = static_cast<const std::shared_ptr<tamagotchi>>(&pet);
     tamagotchiTexture = assetManager::getInstance().getTexture(textureName);
     tamagotchiSprite.setTexture(tamagotchiTexture);
+
+    // set zzz text
+    zzzText.setString("ZZZ...");
+    zzzText.setFont(assetManager::getInstance().getFont("silkscreen"));
+    zzzText.setCharacterSize(48);
+    zzzText.setFillColor(sf::Color::White);
+    zzzText.setPosition(0, 0);
 }
 
 void tamagotchiScreen::washPet(sf::RenderWindow &window) {
@@ -81,5 +115,15 @@ void tamagotchiScreen::washPet(sf::RenderWindow &window) {
     while (clock.getElapsedTime().asSeconds() < 2) {
         window.draw(text);
         window.display();
+    }
+}
+
+void tamagotchiScreen::sleepPet(sf::RenderWindow &window) {
+    bool isSleeping = pet_pointer->getIsSleeping();
+    if (isSleeping) {
+        pet_pointer->setIsSleeping(false);
+    } else {
+        pet_pointer->setSleepStart(getTime());
+        pet_pointer->setIsSleeping(true);
     }
 }

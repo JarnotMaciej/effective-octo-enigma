@@ -37,11 +37,11 @@ void game::run() {
     myCat.setAge(373);
     myCat.setMoney(121);
 
-    myCat.setEnergy(70);
+    myCat.setEnergy(20);
     myCat.setHappiness(90);
     myCat.setHunger(40);
     myCat.setHygiene(90);
-    myCat.setHealth(100);
+    myCat.setHealth(60);
 
     // minigame connection
     std::shared_ptr<minigameConnector> magicConnector = std::make_shared<minigameConnector>();
