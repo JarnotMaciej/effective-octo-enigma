@@ -36,6 +36,7 @@ private:
     sf::Sound minigameSound; // sound of the coin
     sf::SoundBuffer coinSoundBuffer; // buffer of the coin sound
     std::shared_ptr<minigameConnector> magicConnector; // connector to minigame
+    const float petSpeed = 30.f; // speed of the pet
 
 
 public:
