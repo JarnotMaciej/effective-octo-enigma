@@ -19,6 +19,7 @@
 #include "../interface/scoreboard/scoreboard.h"
 #include "../interface/minigame/minigame.h"
 #include "../structures/cat.h"
+#include "../interface/tamagotchiScreen/foodStuff/foodButton.h"
 
 /**
  * @brief Class for game

@@ -8,9 +8,12 @@ void tamagotchiScreen::setPositions(sf::RenderWindow &window) {
     this->ts_topbar.setPosition(window);
     this->ts_indicatorbar.setPositions(window);
     this->ts_bottombar.setPositions(window);
+    this->ts_foodbar.setPositions(window);
+
     // set center position in window
     this->tamagotchiSprite.setPosition(window.getSize().x / 2 - this->tamagotchiSprite.getGlobalBounds().width / 2,
-                                       window.getSize().y / 2 - this->tamagotchiSprite.getGlobalBounds().height / 2);
+                                       window.getSize().y / 2 - this->tamagotchiSprite.getGlobalBounds().height / 2 - 100);
+
 
     // set position of zzz text
     this->zzzText.setPosition(window.getSize().x / 2 - this->zzzText.getGlobalBounds().width / 2,
@@ -21,6 +24,8 @@ void tamagotchiScreen::draw(sf::RenderWindow &window) {
     this->ts_topbar.draw(window);
     this->ts_indicatorbar.draw(window);
     this->ts_bottombar.draw(window);
+    this->ts_foodbar.draw(window);
+
     tamagotchiSprite.setTexture(this->tamagotchiTexture);
     if (this->pet_pointer->getIsSleeping()) {
         window.draw(this->zzzText);
@@ -30,7 +35,6 @@ void tamagotchiScreen::draw(sf::RenderWindow &window) {
 
 void tamagotchiScreen::update(sf::RenderWindow &window, tamagotchi &pet) {
     tamagotchiMechanics::sleepMechanics(pet);
-    this->ts_indicatorbar.update(pet);
     this->ts_indicatorbar.update(pet);
     this->ts_topbar.update(pet, window);
 
@@ -93,6 +97,18 @@ tamagotchiScreen::tamagotchiScreen(const std::string& textureName, tamagotchi &p
     tamagotchiTexture = assetManager::getInstance().getTexture(textureName);
     tamagotchiSprite.setTexture(tamagotchiTexture);
 
+    // food bar
+    std::vector<food> foodToPass;
+    foodToPass.emplace_back("apple", 1, 1, 1, 1, 1, 1);
+    foodToPass.emplace_back("banana", 1, 1, 1, 1, 1, 1);
+    foodToPass.emplace_back("blueberries", 1, 1, 1, 1, 1, 1);
+    foodToPass.emplace_back("carrot", 1, 1, 1, 1, 1, 1);
+    foodToPass.emplace_back("cherry", 1, 1, 1, 1, 1, 1);
+    foodToPass.emplace_back("grapes", 1, 1, 1, 1, 1, 1);
+    foodToPass.emplace_back("strawberries", 1, 1, 1, 1, 1, 1);
+
+    this->ts_foodbar = foodBar(foodToPass);
+
     // set zzz text
     zzzText.setString("ZZZ...");
     zzzText.setFont(assetManager::getInstance().getFont("silkscreen"));
@@ -103,6 +119,7 @@ tamagotchiScreen::tamagotchiScreen(const std::string& textureName, tamagotchi &p
 
 void tamagotchiScreen::washPet(sf::RenderWindow &window) {
     this->pet_pointer->setHygiene(100);
+    this->ts_indicatorbar.update(*pet_pointer);
     // display text that pet is clean
     sf::Text text;
     text.setFont(assetManager::getInstance().getFont("silkscreen"));

@@ -69,33 +69,17 @@ void game::run() {
 
     while (window.isOpen())
 	{
-//        // myScoreBoard.handleInput(window);
-//        myMinigame.handleInput(window, currentScreenName);
-//
-//        // clear window
-//        window.clear();
-//
-//        // update
-//        // myTamagotchiScreen.update(myCat, window);
-//        myMinigame.update(window);
-//
-//        // draw menu
-////        mainMenu.draw(window);
-//        // myTamagotchiScreen.draw(window);
-//        // myScoreBoard.draw(window);
-//        myMinigame.draw(window);
 
         screenProcessing(window, myCat);
 
-        // display window
-//        window.display();
-	}
+    }
 }
 
 void game::screenProcessing(RenderWindow &window, tamagotchi &pet) {
     screens[currentScreenName]->handleInput(window, currentScreenName);
     window.clear();
     screens[currentScreenName]->update(window, pet);
+
     screens[currentScreenName]->draw(window);
 
     window.display();

@@ -14,6 +14,7 @@
 #include "indicatorBar.h"
 #include "bottomBar.h"
 #include "../../mechanics/tamagotchiMechanics.h"
+#include "foodStuff/foodBar.h"
 
 /**
  * @brief Tamagotchi screen class
@@ -23,6 +24,7 @@ private:
     topBar ts_topbar; // top bar
     indicatorBar ts_indicatorbar; // indicator bar
     bottomBar ts_bottombar; // bottom bar
+    foodBar ts_foodbar; // food bar
     sf::Texture tamagotchiTexture; // texture of tamagotchi
     sf::Sprite tamagotchiSprite; // sprite of tamagotchi
     std::shared_ptr<tamagotchi> pet_pointer; // pointer to tamagotchi object
