@@ -38,6 +38,11 @@ foodBar::foodBar(std::vector<food> _myFood) {
     for (auto & i : _myFood) {
         buttons.emplace_back(i.getName());
     }
+
+    if(!buttons.empty()) {
+        buttons[0].setActive(true);
+        activeButton = 0;
+    }
 }
 
 void foodBar::draw(sf::RenderWindow &window) {
@@ -70,5 +75,39 @@ void foodBar::setPositions(sf::RenderWindow &window) {
     equipmentMove.setPosition(buttons[0].getSprite().getPosition().x, sellText.getPosition().y - equipmentMove.getGlobalBounds().height - 10);
 
 
+}
+
+void foodBar::activateNextButton() {
+    if(activeButton < buttons.size() - 1) {
+        buttons[activeButton].setActive(false);
+        activeButton++;
+        buttons[activeButton].setActive(true);
+    }
+}
+
+void foodBar::activatePreviousButton() {
+    if(activeButton > 0) {
+        buttons[activeButton].setActive(false);
+        activeButton--;
+        buttons[activeButton].setActive(true);
+    }
+}
+
+void foodBar::buyFood() {
+    if(!buttons.empty()) {
+        buttons[activeButton].buy();
+    }
+}
+
+void foodBar::sellFood() {
+    if(!buttons.empty()) {
+        buttons[activeButton].sell();
+    }
+}
+
+void foodBar::eatFood() {
+    if(!buttons.empty()) {
+        buttons[activeButton].eat();
+    }
 }
 

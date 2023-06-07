@@ -11,7 +11,7 @@ topBar::topBar() {
     tamagotchiName.setFillColor(sf::Color::White);
 
     coins.setString("Coins: 0");
-    coins.setFillColor(sf::Color::White);
+    coins.setFillColor(sf::Color{229, 200, 144});
 
     daysAlive.setString("Days alive: 0");
     daysAlive.setFillColor(sf::Color::White);

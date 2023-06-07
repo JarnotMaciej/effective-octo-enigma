@@ -76,6 +76,12 @@ public:
      * @return sprite of the button
      */
     sf::Sprite getSprite();
+
+    void buy();
+
+    void sell();
+
+    void eat();
 };
 
 

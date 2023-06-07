@@ -30,6 +30,7 @@ private:
     std::shared_ptr<tamagotchi> pet_pointer; // pointer to tamagotchi object
     sf::Clock zzzClock; // clock for zzz animation
     sf::Text zzzText; // text for zzz animation
+    bool eatBarEnabled; // flag for eat bar
 
 public:
 

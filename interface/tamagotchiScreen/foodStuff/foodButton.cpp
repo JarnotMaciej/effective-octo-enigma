@@ -58,8 +58,37 @@ bool foodButton::isActive() const {
 
 void foodButton::setActive(bool active) {
     foodButton::active = active;
+    if (active) {
+        backgroundTexture = assetManager::getInstance().getTexture("16x16darkActive");
+    } else {
+        backgroundTexture = assetManager::getInstance().getTexture("16x16dark");
+    }
 }
 
 sf::Sprite foodButton::getSprite() {
     return backgroundSprite;
+}
+
+void foodButton::buy() {
+    if (quantity < 99) {
+        quantity++;
+        quantityText.setString(std::to_string(quantity));
+        // TODO play sound, update money
+    }
+}
+
+void foodButton::sell() {
+    if (quantity > 0) {
+        quantity--;
+        quantityText.setString(std::to_string(quantity));
+        // TODO play sound, update money
+    }
+}
+
+void foodButton::eat() {
+    if (quantity > 0) {
+        quantity--;
+        quantityText.setString(std::to_string(quantity));
+        // TODO play sound, update hunger
+    }
 }

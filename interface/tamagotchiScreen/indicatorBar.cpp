@@ -5,11 +5,11 @@
 #include "indicatorBar.h"
 
 indicatorBar::indicatorBar() {
-    indicators.emplace_back("health", sf::Color::Red, 100);
-    indicators.emplace_back("hunger", sf::Color::Yellow, 100);
-    indicators.emplace_back("happiness", sf::Color::Magenta, 100);
-    indicators.emplace_back("hygiene", sf::Color::Blue, 100);
-    indicators.emplace_back("energy", sf::Color::Green, 100);
+    indicators.emplace_back("health", sf::Color{210, 15, 57}, 100);
+    indicators.emplace_back("hunger", sf::Color{223, 142, 29}, 100);
+    indicators.emplace_back("happiness", sf::Color{234, 118, 203}, 100);
+    indicators.emplace_back("hygiene", sf::Color{4, 165, 229}, 100);
+    indicators.emplace_back("energy", sf::Color{64, 160, 43}, 100);
 }
 
 void indicatorBar::draw(sf::RenderWindow &window) {

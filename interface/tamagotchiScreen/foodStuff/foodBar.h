@@ -26,6 +26,7 @@ private:
     sf::Text sellText; // instruction how to sell food
     sf::Text buyText; // instruction how to buy food
     sf::Text eatText; // instruction how to eat food
+    short int activeButton; // index of active button
 
 
 public:
@@ -51,6 +52,31 @@ public:
      * @param window - window to set positions on
      */
     void setPositions(sf::RenderWindow &window);
+
+    /**
+     * @brief Activates next button
+     */
+    void activateNextButton();
+
+    /**
+     * @brief Activates previous button
+     */
+    void activatePreviousButton();
+
+    /**
+     * @brief Buys food
+     */
+    void buyFood();
+
+    /**
+     * @brief Sells food
+     */
+    void sellFood();
+
+    /**
+     * @brief Eats food
+     */
+    void eatFood();
 };
 
 

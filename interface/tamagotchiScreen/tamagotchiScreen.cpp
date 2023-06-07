@@ -12,19 +12,22 @@ void tamagotchiScreen::setPositions(sf::RenderWindow &window) {
 
     // set center position in window
     this->tamagotchiSprite.setPosition(window.getSize().x / 2 - this->tamagotchiSprite.getGlobalBounds().width / 2,
-                                       window.getSize().y / 2 - this->tamagotchiSprite.getGlobalBounds().height / 2 - 100);
+                                       window.getSize().y / 2 - this->tamagotchiSprite.getGlobalBounds().height / 2 -
+                                       50);
 
 
     // set position of zzz text
     this->zzzText.setPosition(window.getSize().x / 2 - this->zzzText.getGlobalBounds().width / 2,
-                              (window.getSize().y / 2 - zzzText.getGlobalBounds().height / 2) - 250);
+                              (window.getSize().y / 2 - zzzText.getGlobalBounds().height / 2) - 300);
 }
 
 void tamagotchiScreen::draw(sf::RenderWindow &window) {
     this->ts_topbar.draw(window);
     this->ts_indicatorbar.draw(window);
     this->ts_bottombar.draw(window);
-    this->ts_foodbar.draw(window);
+    if (eatBarEnabled) {
+        this->ts_foodbar.draw(window);
+    }
 
     tamagotchiSprite.setTexture(this->tamagotchiTexture);
     if (this->pet_pointer->getIsSleeping()) {
@@ -58,41 +61,94 @@ void tamagotchiScreen::update(sf::RenderWindow &window, tamagotchi &pet) {
 }
 
 void tamagotchiScreen::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
-    // TODO -> implement, this is temporary
+    // TODO -> block interaction with buttons if pet is sleeping
     sf::Event event;
-    while (window.pollEvent(event)) {
-        switch (event.type) {
-            case sf::Event::Closed:
-                window.close();
-                break;
-            case sf::Event::KeyPressed:
-                switch (event.key.code) {
-                    case sf::Keyboard::Escape:
-                        changeScreen(_screenName, ScreenName::MENU);
-                        break;
-                    case sf::Keyboard::Q:
-                        break;
-                    case sf::Keyboard::W:
-                        changeScreen(_screenName, ScreenName::MINIGAME);
-                        break;
-                    case sf::Keyboard::E:
-                        washPet(window);
-                        break;
-                    case sf::Keyboard::R:
-                        sleepPet(window);
-                        break;
-                    default:
-                        break;
-                }
 
-                break;
-            default:
-                break;
+    if (!eatBarEnabled) {
+        while (window.pollEvent(event)) {
+            switch (event.type) {
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+                case sf::Event::KeyPressed:
+                    switch (event.key.code) {
+                        case sf::Keyboard::Escape:
+                            changeScreen(_screenName, ScreenName::MENU);
+                            break;
+                        case sf::Keyboard::Q:
+                            // switch between eatbarEnabled true or false
+                            eatBarEnabled = !eatBarEnabled;
+                            break;
+                        case sf::Keyboard::W:
+                            changeScreen(_screenName, ScreenName::MINIGAME);
+                            break;
+                        case sf::Keyboard::E:
+                            washPet(window);
+                            break;
+                        case sf::Keyboard::R:
+                            sleepPet(window);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+        }
+    } else {
+        while (window.pollEvent(event)) {
+            switch (event.type) {
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+                case sf::Event::KeyPressed:
+                    switch (event.key.code) {
+                        case sf::Keyboard::Escape:
+                            changeScreen(_screenName, ScreenName::MENU);
+                            break;
+                        case sf::Keyboard::Q:
+                            // switch between eatbarEnabled true or false
+                            eatBarEnabled = !eatBarEnabled;
+                            break;
+                        case sf::Keyboard::W:
+                            changeScreen(_screenName, ScreenName::MINIGAME);
+                            break;
+                        case sf::Keyboard::E:
+                            washPet(window);
+                            break;
+                        case sf::Keyboard::R:
+                            sleepPet(window);
+                            break;
+                        case sf::Keyboard::A:
+                            this->ts_foodbar.activatePreviousButton();
+                            break;
+                        case sf::Keyboard::D:
+                            this->ts_foodbar.activateNextButton();
+                            break;
+                        case sf::Keyboard::Space:
+                            this->ts_foodbar.eatFood();
+                            break;
+                        case sf::Keyboard::S:
+                            this->ts_foodbar.sellFood();
+                            break;
+                        case sf::Keyboard::B:
+                            this->ts_foodbar.buyFood();
+                            break;
+                        default:
+                            break;
+                    }
+
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
 
-tamagotchiScreen::tamagotchiScreen(const std::string& textureName, tamagotchi &pet) {
+tamagotchiScreen::tamagotchiScreen(const std::string &textureName, tamagotchi &pet) {
     this->pet_pointer = static_cast<const std::shared_ptr<tamagotchi>>(&pet);
     tamagotchiTexture = assetManager::getInstance().getTexture(textureName);
     tamagotchiSprite.setTexture(tamagotchiTexture);
@@ -115,6 +171,9 @@ tamagotchiScreen::tamagotchiScreen(const std::string& textureName, tamagotchi &p
     zzzText.setCharacterSize(48);
     zzzText.setFillColor(sf::Color::White);
     zzzText.setPosition(0, 0);
+
+    // set eat bar to false
+    eatBarEnabled = false;
 }
 
 void tamagotchiScreen::washPet(sf::RenderWindow &window) {
@@ -127,7 +186,7 @@ void tamagotchiScreen::washPet(sf::RenderWindow &window) {
     text.setCharacterSize(48);
     text.setFillColor(sf::Color::White);
     text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2,
-                     (window.getSize().y / 2 - text.getGlobalBounds().height / 2) - 250);
+                     (window.getSize().y / 2 - text.getGlobalBounds().height / 2) - 300);
     sf::Clock clock;
     while (clock.getElapsedTime().asSeconds() < 2) {
         window.draw(text);
