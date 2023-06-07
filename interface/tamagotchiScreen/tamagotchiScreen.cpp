@@ -148,22 +148,15 @@ void tamagotchiScreen::handleInput(sf::RenderWindow &window, ScreenName &_screen
     }
 }
 
-tamagotchiScreen::tamagotchiScreen(const std::string &textureName, tamagotchi &pet) {
+tamagotchiScreen::tamagotchiScreen(const std::string &textureName, tamagotchi &pet, std::map<std::string, food> &_allOfTheFoods) {
     this->pet_pointer = static_cast<const std::shared_ptr<tamagotchi>>(&pet);
+    this->allOfTheFoods = static_cast<const std::shared_ptr<std::map<std::string, food>>>(&_allOfTheFoods);
     tamagotchiTexture = assetManager::getInstance().getTexture(textureName);
     tamagotchiSprite.setTexture(tamagotchiTexture);
 
     // food bar
-    std::vector<food> foodToPass;
-    foodToPass.emplace_back("apple", 1, 1, 1, 1, 1, 1);
-    foodToPass.emplace_back("banana", 1, 1, 1, 1, 1, 1);
-    foodToPass.emplace_back("blueberries", 1, 1, 1, 1, 1, 1);
-    foodToPass.emplace_back("carrot", 1, 1, 1, 1, 1, 1);
-    foodToPass.emplace_back("cherry", 1, 1, 1, 1, 1, 1);
-    foodToPass.emplace_back("grapes", 1, 1, 1, 1, 1, 1);
-    foodToPass.emplace_back("strawberries", 1, 1, 1, 1, 1, 1);
 
-    this->ts_foodbar = foodBar(foodToPass);
+    this->ts_foodbar = foodBar(*this->allOfTheFoods);
 
     // set zzz text
     zzzText.setString("ZZZ...");

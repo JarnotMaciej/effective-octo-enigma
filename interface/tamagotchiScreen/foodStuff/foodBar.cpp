@@ -4,9 +4,8 @@
 
 #include "foodBar.h"
 
-foodBar::foodBar(std::vector<food> _myFood) {
-    // load font
-
+foodBar::foodBar(std::map<std::string, food> _myFood)
+{
     // set text
     equipmentMove.setString("Use A and D to move");
     equipmentMove.setFont(assetManager::getInstance().getFont("silkscreen"));
@@ -36,7 +35,7 @@ foodBar::foodBar(std::vector<food> _myFood) {
 
     // create buttons
     for (auto & i : _myFood) {
-        buttons.emplace_back(i.getName());
+        buttons.emplace_back(i.first);
     }
 
     if(!buttons.empty()) {

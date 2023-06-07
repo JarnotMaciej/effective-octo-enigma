@@ -3,7 +3,6 @@
 //
 
 #include "game.h"
-#include "../interface/minigame/gameOver.h"
 
 using namespace sf;
 
@@ -43,12 +42,16 @@ void game::run() {
     myCat.setHygiene(90);
     myCat.setHealth(60);
 
+    // food stuff
+    std::map<std::string, food> foods;
+    foods = foodMechanics::loadGlobalFoods();
+
     // minigame connection
     std::shared_ptr<minigameConnector> magicConnector = std::make_shared<minigameConnector>();
 
     // testing
     menu mainMenu;
-    tamagotchiScreen myTamagotchiScreen("cat", myCat);
+    tamagotchiScreen myTamagotchiScreen("cat", myCat, foods);
     scoreboard myScoreBoard;
     minigame myMinigame("cat", magicConnector);
     gameOver myGameOver(magicConnector);

@@ -5,7 +5,7 @@
 #include "indicator.h"
 
 indicator::indicator(const std::string &name, const sf::Color &color, int value) {
-    debug("indicator::indicator");
+    // debug("indicator::indicator");
     indicatorName.setString(name);
     indicatorName.setFillColor(sf::Color::White);
     indicatorName.setCharacterSize(24);

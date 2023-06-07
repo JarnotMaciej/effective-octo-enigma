@@ -30,11 +30,12 @@ private:
 
 
 public:
+
     /**
      * @brief Constructor of food bar
-     * @param _myFood - vector of food
+     * @param _myFood - map of food
      */
-    explicit foodBar(std::vector<food> _myFood);
+    explicit foodBar(std::map<std::string, food> _myFood);
 
     /**
      * @brief Default constructor

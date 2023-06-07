@@ -28,15 +28,15 @@ int main() {
     // Google Test initialization in new thread
     std::thread t([] { testing::InitGoogleTest(); });
 
-    /*
+    
     // Food config loading
-    std::map<std::string, food> foods;
-    foods = foodMechanics::loadGlobalFoods();
-//    foodMechanics::printFoods(foods);
+    // std::map<std::string, food> foods;
+    // foods = foodMechanics::loadGlobalFoods();
+    // foodMechanics::printFoods(foods);
 
-    std::cout << tamagotchiMechanics::searchForTamagotchi() << std::endl;
+    // std::cout << tamagotchiMechanics::searchForTamagotchi() << std::endl;
 
-     */
+    
 
     /*
     myCat.meow();

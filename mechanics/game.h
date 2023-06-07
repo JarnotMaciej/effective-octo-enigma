@@ -20,6 +20,9 @@
 #include "../interface/minigame/minigame.h"
 #include "../structures/cat.h"
 #include "../interface/tamagotchiScreen/foodStuff/foodButton.h"
+#include "../interface/minigame/gameOver.h"
+#include "../mechanics/foodMechanics.h"
+
 
 /**
  * @brief Class for game

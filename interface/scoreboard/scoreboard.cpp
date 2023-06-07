@@ -25,7 +25,6 @@ scoreboard::scoreboard() {
         text.setFillColor(sf::Color::White);
         text.setPosition(0, 0);
         textScores.push_back(text);
-        debug(s.getTamagotchiName() + "pushed");
     }
 
     // add keycaps
@@ -102,7 +101,7 @@ void scoreboard::handleInput(sf::RenderWindow &window, ScreenName &_screenName) 
                     displayMode currentMode = getMode();
                     switch (currentMode) {
                         case displayMode::HIGHEST_SCORE:
-                            debug("LOWEST_SCORE");
+                            ("LOWEST_SCORE");
                             setMode(displayMode::LOWEST_SCORE);
                             std::ranges::sort(scores, [](const score &a, const score &b) {
                                 return a.getScoreNumber() < b.getScoreNumber();
@@ -110,7 +109,7 @@ void scoreboard::handleInput(sf::RenderWindow &window, ScreenName &_screenName) 
 
                             break;
                         case displayMode::LOWEST_SCORE:
-                            debug("HIGHEST_SCORE");
+                            ("HIGHEST_SCORE");
                             setMode(displayMode::HIGHEST_SCORE);
                             std::ranges::sort(scores, [](const score &a, const score &b) {
                                 return a.getScoreNumber() > b.getScoreNumber();
@@ -118,7 +117,7 @@ void scoreboard::handleInput(sf::RenderWindow &window, ScreenName &_screenName) 
 
                             break;
                         default:
-                            debug("HIGHEST_SCORE");
+                            ("HIGHEST_SCORE");
                             setMode(displayMode::HIGHEST_SCORE);
                             std::ranges::sort(scores, [](const score &a, const score &b) {
                                 return a.getScoreNumber() > b.getScoreNumber();
@@ -132,7 +131,7 @@ void scoreboard::handleInput(sf::RenderWindow &window, ScreenName &_screenName) 
                     displayMode currentMode = getMode();
                     switch (currentMode) {
                         case displayMode::ALPHABETICAL_NAME: {
-                            debug("REVERSE_ALPHABETICAL_NAME");
+                            ("REVERSE_ALPHABETICAL_NAME");
                             setMode(displayMode::REVERSE_ALPHABETICAL_NAME);
                             std::ranges::sort(scores, [](const score &a, const score &b) {
                                 std::string nameA = a.getTamagotchiName();
@@ -151,7 +150,6 @@ void scoreboard::handleInput(sf::RenderWindow &window, ScreenName &_screenName) 
                         }
                             break;
                         case displayMode::REVERSE_ALPHABETICAL_NAME: {
-                            debug("ALPHABETICAL_NAME");
                             setMode(displayMode::ALPHABETICAL_NAME);
                             std::ranges::sort(scores, [](const score &a, const score &b) {
                                 std::string nameA = a.getTamagotchiName();
@@ -170,7 +168,6 @@ void scoreboard::handleInput(sf::RenderWindow &window, ScreenName &_screenName) 
                         }
                             break;
                         default: {
-                            debug("REVERSE_ALPHABETICAL_NAME");
                             setMode(displayMode::REVERSE_ALPHABETICAL_NAME);
                             std::ranges::sort(scores, [](const score &a, const score &b) {
                                 std::string nameA = a.getTamagotchiName();
@@ -208,9 +205,7 @@ scoreboard::displayMode scoreboard::getMode() {
 }
 
 void scoreboard::scoresToText(sf::RenderWindow &window) {
-    debug("scoresToText");
     for (int i = 0; i < scores.size(); i++) {
-        debug(scores[i].getTamagotchiName() + " " + std::to_string(scores[i].getScoreNumber()));
         textScores[i].setString(scores[i].getTamagotchiName() + " " + std::to_string(scores[i].getScoreNumber()));
     }
     setPositions(window);

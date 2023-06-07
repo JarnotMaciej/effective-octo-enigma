@@ -13,7 +13,7 @@ foodButton::foodButton(const std::string &foodName) {
     foodSprite.setTexture(foodTexture);
     foodSprite.setScale(2.3, 2.3);
 
-    quantity = 99;
+    quantity = 0;
     quantityText.setString(std::to_string(quantity));
     quantityText.setFont(assetManager::getInstance().getFont("silkscreen"));
     quantityText.setCharacterSize(24);

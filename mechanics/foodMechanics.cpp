@@ -45,7 +45,7 @@ std::map<std::string, food> foodMechanics::loadGlobalFoods() {
         foodFile >> happiness;
         foodFile >> hygiene;
         foodFile >> energy;
-        foodFile >> texture; // TODO -> texture need to be implemented in food class
+
         foods.emplace(name, food(name, price, health, hunger, happiness, hygiene, energy));
     }
     foodFile.close();

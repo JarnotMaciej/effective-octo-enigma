@@ -170,3 +170,34 @@ _deps
 .ninja_log
 
 # End of https://www.toptal.com/developers/gitignore/api/clion,cmake,ninja,c++
+build/build.ninja
+.vscode/settings.json
+build/.cmake/api/v1/query/client-vscode/query.json
+build/.cmake/api/v1/reply/cache-v2-61d2f38a8d2f72b77220.json
+build/.cmake/api/v1/reply/cmakeFiles-v1-71e6815e687b8b66a1f5.json
+build/.cmake/api/v1/reply/directory-_deps.googletest-build-Debug-8b187651187085369010.json
+build/.cmake/api/v1/reply/codemodel-v2-16ab797bf29b8d19b2c6.json
+build/.cmake/api/v1/reply/directory-_deps.googletest-build.googlemock-Debug-bb2e24b7c43129f922e3.json
+build/.cmake/api/v1/reply/directory-_deps.googletest-build.googletest-Debug-c0d40bdb7c042934a78c.json
+build/.cmake/api/v1/reply/directory-_deps.sfml-build-Debug-eb2a2072e6f9c95b543b.json
+build/.cmake/api/v1/reply/directory-_deps.sfml-build.src.SFML-Debug-ce43665c07032d56571e.json
+build/.cmake/api/v1/reply/directory-_deps.sfml-build.src.SFML.Audio-Debug-9504ca80073c68209008.json
+build/.cmake/api/v1/reply/directory-_deps.sfml-build.src.SFML.Graphics-Debug-46025358c8a22785c442.json
+build/.cmake/api/v1/reply/directory-_deps.sfml-build.src.SFML.Main-Debug-58b7b0b202c03ae56b86.json
+build/.cmake/api/v1/reply/directory-_deps.sfml-build.src.SFML.Network-Debug-2968ce92fc2802dce5de.json
+build/.cmake/api/v1/reply/directory-_deps.sfml-build.src.SFML.System-Debug-fef87252003b67f596f3.json
+build/.cmake/api/v1/reply/directory-_deps.sfml-build.src.SFML.Window-Debug-0bccf53e1dc00400f085.json
+build/.cmake/api/v1/reply/directory-.-Debug-d0094a50bb2071803777.json
+build/.cmake/api/v1/reply/index-2023-06-07T20-24-28-0834.json
+build/.cmake/api/v1/reply/target-april-Debug-84fd17b0dcdf6d340d9b.json
+build/.cmake/api/v1/reply/target-gmock_main-Debug-7e17895cc3d718addb9b.json
+build/.cmake/api/v1/reply/target-gmock-Debug-169af08a2394d80e229e.json
+build/.cmake/api/v1/reply/target-gtest_main-Debug-1e1b226d4a41a5780e85.json
+build/.cmake/api/v1/reply/target-gtest-Debug-8fe02482dfbc8d5fac88.json
+build/.cmake/api/v1/reply/target-sfml-audio-Debug-ef09edb902dce60e94ce.json
+build/.cmake/api/v1/reply/target-sfml-graphics-Debug-a9071235b2b7d1806b49.json
+build/.cmake/api/v1/reply/target-sfml-main-Debug-b06106698b56f496d809.json
+build/.cmake/api/v1/reply/target-sfml-network-Debug-095688ef2d347e0911c0.json
+build/.cmake/api/v1/reply/target-sfml-system-Debug-d82fc5dbd83d95f818d8.json
+build/.cmake/api/v1/reply/target-sfml-window-Debug-84b0e73b76e4f42f52a9.json
+build/.cmake/api/v1/reply/toolchains-v1-376be6e5c3f465742bc4.json

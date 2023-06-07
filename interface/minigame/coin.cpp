@@ -15,7 +15,8 @@ void coin::draw(sf::RenderWindow &window)
 
 void coin::setRandomPosition(sf::RenderWindow &window)
 {
-    int x = rand() % window.getSize().x - coinSprite.getGlobalBounds().width;
+    int randExtent = window.getSize().x - coinSprite.getGlobalBounds().width;
+    int x = rand() % randExtent;
     int y = rand() % 30;
     coinSprite.setPosition(x, y);
 }
