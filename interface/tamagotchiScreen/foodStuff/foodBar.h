@@ -15,6 +15,7 @@
 
 // asset manager
 #include "../../assetManager.h"
+#include "../../../structures/tamagotchi.h"
 
 /**
  * @brief Class for food bar
@@ -47,6 +48,12 @@ public:
      * @param window - window to draw on
      */
     void draw(sf::RenderWindow& window);
+
+    /**
+     * @brief Updates food bar
+     * @param pet_pointer - pointer to pet
+     */
+    void update(std::shared_ptr<tamagotchi> pet_pointer);
 
     /**
      * @brief Sets positions of buttons

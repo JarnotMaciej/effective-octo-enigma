@@ -32,7 +32,7 @@ class tamagotchi
 	int energy; // Tamagotchi energy (in percent)
 	int money; // Tamagotchi money (in gold coins)
 	long long int bornTime; // Tamagotchi born time (in seconds)
-    std::vector<food> foods; // Tamagotchi foods
+    std::map<food, int> foods; // Tamagotchi foods -> food, quantity
 
     // sleepMechanics
     bool isSleeping;
@@ -48,7 +48,7 @@ class tamagotchi
      * @brief Constructor
      * @param _name - Tamagotchi name
      */
-	tamagotchi(std::string _name);
+	explicit tamagotchi(std::string _name);
 
     /**
      * @brief Get tamagotchi equipment
@@ -163,15 +163,16 @@ class tamagotchi
 	void printInfo();
 
     /**
-     * @brief Add food to tamagotchi
-     */
-    void addFood(food _food);
-
-    /**
      * @brief Get tamagotchi foods
      * @return Tamagotchi foods
      */
-    std::vector<food> getFoods() const;
+    [[nodiscard]] std::map<food, int> getFoods() const;
+
+    /**
+     * @brief Set tamagotchi foods
+     * @param _foods - Tamagotchi foods
+     */
+    void setFoods(std::map<food, int> _foods);
 
     /**
      * @brief Enum class for tamagotchi types

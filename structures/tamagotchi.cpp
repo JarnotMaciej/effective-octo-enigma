@@ -31,6 +31,9 @@ tamagotchi::tamagotchi(std::string _name)
 	energy = 100;
 	money = 20;
 	bornTime = getTime();
+
+    isSleeping = false;
+    sleepStart = 0;
 }
 
 void tamagotchi::printInfo()
@@ -44,9 +47,9 @@ void tamagotchi::printInfo()
 	std::cout << "Energy:\t\t" << energy << "/100%" << std::endl;
 	std::cout << "Money:\t\t" << money << " gold coins" << std::endl;
     std::cout << "Foods: " << std::endl;
-    for (auto food : foods)
+    for (const auto& food : foods)
     {
-        std::cout << "\t" << food.getName() << " - " << food.getPrice() << " gold coins" << std::endl;
+        std::cout << "\t" << food.first.getName() << " - " << food.second << std::endl;
     }
 }
 
@@ -134,14 +137,6 @@ long long int tamagotchi::getBornTime() const
 	return bornTime;
 }
 
-void tamagotchi::addFood(food _food) {
-    foods.push_back(_food);
-}
-
-std::vector<food> tamagotchi::getFoods() const {
-    return foods;
-}
-
 bool tamagotchi::getIsSleeping() const {
     return isSleeping;
 }
@@ -156,5 +151,13 @@ long long int tamagotchi::getSleepStart() const {
 
 void tamagotchi::setSleepStart(long long int sleepStart) {
     tamagotchi::sleepStart = sleepStart;
+}
+
+std::map<food, int> tamagotchi::getFoods() const {
+    return foods;
+}
+
+void tamagotchi::setFoods(std::map<food, int> _foods) {
+    foods = _foods;
 }
 

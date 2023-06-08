@@ -110,3 +110,7 @@ void foodBar::eatFood() {
     }
 }
 
+void foodBar::update(std::shared_ptr<tamagotchi> pet_pointer) {
+    
+}
+

@@ -70,7 +70,8 @@ void foodMechanics::saveFoods(const tamagotchi &pet) {
     foodFile.open(path);
 
     // writing data to a file
-    for (auto food : pet.getFoods()) {
-        foodFile << food.getName() << std::endl;
+    for (const auto& food : pet.getFoods())
+    {
+        foodFile << food.first.getName() << " " << food.second << std::endl;
     }
 }

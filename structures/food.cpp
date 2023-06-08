@@ -26,8 +26,7 @@ food::food(std::string name, int price, int health, int hunger, int happiness, i
 	this->energy = energy;
 }
 
-std::string food::getName()
-{
+std::string food::getName() const {
 	return name;
 }
 

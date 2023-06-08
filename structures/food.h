@@ -42,7 +42,7 @@ class food {
          * @brief Get food name
          * @return Food name
          */
-        std::string getName();
+        std::string getName() const;
 
         /**
          * @brief Get food price

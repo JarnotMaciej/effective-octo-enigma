@@ -5,13 +5,14 @@ A Tamagotchi-like game in C++.
 
 ### Todo
 
-- [ ] while sleeping -> no otheer interactions
 - [ ] animated coin  
 - [ ] animated washing  
 - [ ] credits screen  
 - [ ] coin spawning improvement  
 - [ ] adding game clock to tamagotchi screen  
 - [ ] 3d coin sound  
+- [ ] mechanism -> indicators decreased over the time  
+- [ ] opening files
 
 ### In Progress
 
@@ -23,4 +24,5 @@ A Tamagotchi-like game in C++.
 
 - [x] unordered map for asset manager  
 - [x] sleeping -> indicators will be decreased over the time  
+- [x] sleeping -> locking other interactions
 
