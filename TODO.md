@@ -19,6 +19,7 @@ A Tamagotchi-like game in C++.
 - [ ] player movement improvement  
 - [ ] tamagotchi interactions  
 - [ ] food and stuff  
+- [ ] update food bar with quantity
 
 ### Done ✓
 

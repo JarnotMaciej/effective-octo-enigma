@@ -5,6 +5,7 @@
 #include "foodButton.h"
 
 foodButton::foodButton(const std::string &foodName) {
+    buttonName = foodName;
     backgroundTexture = assetManager::getInstance().getTexture("16x16dark");
     backgroundSprite.setTexture(backgroundTexture);
     backgroundSprite.setScale(6.5, 6.5);
@@ -91,4 +92,8 @@ void foodButton::eat() {
         quantityText.setString(std::to_string(quantity));
         // TODO play sound, update hunger
     }
+}
+
+std::string foodButton::getName() {
+    return buttonName;
 }

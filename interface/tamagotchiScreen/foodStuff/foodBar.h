@@ -28,6 +28,7 @@ private:
     sf::Text buyText; // instruction how to buy food
     sf::Text eatText; // instruction how to eat food
     short int activeButton; // index of active button
+    std::map<std::string, food> myFood; // map of food
 
 
 public:

@@ -42,9 +42,15 @@ void game::run() {
     myCat.setHygiene(90);
     myCat.setHealth(60);
 
-    // food stuff
+    // food related stuff
     std::map<std::string, food> foods;
     foods = foodMechanics::loadGlobalFoods();
+
+    // adding food to cat
+    myCat.addFood(foods["apple"], 64);
+    myCat.addFood(foods["banana"], 14);
+    myCat.addFood(foods["cherry"], 16);
+    myCat.addFood(foods["carrot"], 16);
 
     // minigame connection
     std::shared_ptr<minigameConnector> magicConnector = std::make_shared<minigameConnector>();

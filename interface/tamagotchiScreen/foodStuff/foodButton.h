@@ -18,6 +18,7 @@
  */
 class foodButton {
 private:
+    std::string buttonName; // name of button
     sf::Texture backgroundTexture; // texture of background
     sf::Sprite backgroundSprite; // sprite of background
     sf::Texture foodTexture; // texture of food
@@ -82,6 +83,12 @@ public:
     void sell();
 
     void eat();
+
+    /**
+     * @brief Gets the name of the button
+     * @return name of the button
+     */
+    std::string getName();
 };
 
 

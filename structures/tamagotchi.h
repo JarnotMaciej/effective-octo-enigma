@@ -173,6 +173,13 @@ class tamagotchi
     void setFoods(std::map<food, int> _foods);
 
     /**
+     * @brief Add food to tamagotchi foods
+     * @param _food - Food to add
+     * @param quantity - Quantity of food to add
+     */
+    void addFood(food _food, int quantity);
+
+    /**
      * @brief Enum class for tamagotchi types
      */
     enum class tamagotchiType

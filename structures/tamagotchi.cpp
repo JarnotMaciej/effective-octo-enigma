@@ -165,3 +165,14 @@ tamagotchi::tamagotchiType tamagotchi::getTamagotchiType() {
     return tamagotchi::tamagotchiType::CAT;
 }
 
+void tamagotchi::addFood(food _food, int quantity){
+    auto it = foods.find(_food);
+    if (it != foods.end())
+    {
+        it->second += quantity;
+    }
+    else
+    {
+        foods[_food] = quantity;
+    }
+}

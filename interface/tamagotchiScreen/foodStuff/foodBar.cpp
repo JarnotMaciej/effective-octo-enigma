@@ -42,6 +42,8 @@ foodBar::foodBar(std::map<std::string, food> _myFood)
         buttons[0].setActive(true);
         activeButton = 0;
     }
+
+    this->myFood = _myFood;
 }
 
 void foodBar::draw(sf::RenderWindow &window) {
@@ -111,6 +113,5 @@ void foodBar::eatFood() {
 }
 
 void foodBar::update(std::shared_ptr<tamagotchi> pet_pointer) {
-    
+    // TODO - update food bar with quantity
 }
-
