@@ -30,10 +30,17 @@ namespace tamagotchiMechanics {
     /**
      * @brief Method used for saving tamagotchi
      * @param pet - tamagotchi object
+     * @param isSaved - is tamagotchi saved
      */
-    void saveTamagotchi(tamagotchi &pet);
+    void saveTamagotchi(tamagotchi &pet, bool &isSaved);
 
+    /**
+     * @brief Method used for loading tamagotchi from file
+     * @param name - tamagotchi name
+     * @return tamagotchi object
+     */
 //	tamagotchi loadTamagotchi(const std::string &name); // TODO -> make it real
+
     /**
      * @brief Method used for transforming seconds to days
      * @param bornTime
@@ -69,7 +76,7 @@ namespace tamagotchiMechanics {
      * @brief Method used for printing scores
      * @param scores - vector of scores
      */
-    void printScores(std::vector<score> scores);
+    [[maybe_unused]] void printScores(std::vector<score> scores);
 
     /**
      * @brief Method used for adding energy to tamagotchi during sleeping

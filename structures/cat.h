@@ -23,7 +23,7 @@ public:
     /**
      * @brief Method used for getting tamagotchi type
      */
-    tamagotchiType getTamagotchiType() override {return tamagotchiType::CAT;}
+    static tamagotchiType getTamagotchiType()  {return tamagotchiType::CAT;}
 };
 
 

@@ -31,12 +31,10 @@ class tamagotchi
 	int hygiene; // Tamagotchi hygiene (in percent)
 	int energy; // Tamagotchi energy (in percent)
 	int money; // Tamagotchi money (in gold coins)
-	long long int bornTime; // Tamagotchi born time (in seconds)
+    bool isSleeping; // Is tamagotchi sleeping?
+    long long int bornTime; // Tamagotchi born time (in seconds)
+    long long int sleepStart; // Tamagotchi sleep start time (in seconds)
     std::map<food, int> foods; // Tamagotchi foods -> food, quantity
-
-    // sleepMechanics
-    bool isSleeping;
-    long long int sleepStart;
 
  public:
     /**
@@ -188,7 +186,7 @@ class tamagotchi
      * @brief Get tamagotchi type
      * @return Tamagotchi type
      */
-    virtual tamagotchiType getTamagotchiType() = 0;
+    tamagotchiType getTamagotchiType();
 
     /**
      * @brief Get sleeping bool

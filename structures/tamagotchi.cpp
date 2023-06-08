@@ -161,3 +161,7 @@ void tamagotchi::setFoods(std::map<food, int> _foods) {
     foods = _foods;
 }
 
+tamagotchi::tamagotchiType tamagotchi::getTamagotchiType() {
+    return tamagotchi::tamagotchiType::CAT;
+}
+

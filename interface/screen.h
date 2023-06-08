@@ -23,7 +23,8 @@ enum class ScreenName {
     SCOREBOARD,
     CREDITS,
     MINIGAME,
-    GAME_OVER
+    GAME_OVER,
+    EXIT_SCREEN
 };
 
 /**

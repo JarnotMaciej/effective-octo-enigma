@@ -79,7 +79,8 @@ void menu::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
 //                        changeScreen(_screenName, ScreenName::CREDITS);
                         break;
                     case sf::Keyboard::Escape:
-                        window.close();
+                        //save before exit -> some screen can be added | 'are you sure you want to quit?'
+                        changeScreen(_screenName, ScreenName::EXIT_SCREEN);
                         break;
                     default:
                         break;

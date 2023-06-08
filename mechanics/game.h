@@ -22,6 +22,7 @@
 #include "../interface/tamagotchiScreen/foodStuff/foodButton.h"
 #include "../interface/minigame/gameOver.h"
 #include "../mechanics/foodMechanics.h"
+#include "../interface/exit/exitScreen.h"
 
 
 /**
@@ -49,7 +50,6 @@ public:
      * @param pet - tamagotchi object
      */
     void screenProcessing(sf::RenderWindow &window, tamagotchi &pet);
-
 };
 
 

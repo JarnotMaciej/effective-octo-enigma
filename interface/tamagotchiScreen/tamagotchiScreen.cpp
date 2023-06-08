@@ -197,3 +197,4 @@ void tamagotchiScreen::sleepPet(sf::RenderWindow &window) {
         pet_pointer->setIsSleeping(true);
     }
 }
+

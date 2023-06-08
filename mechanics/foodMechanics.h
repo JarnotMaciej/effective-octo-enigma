@@ -35,10 +35,9 @@ namespace foodMechanics {
 
     /**
      * @brief Method used for saving foods to file
-     * @param tamagotchi Tamagotchi
+     * @param pet - tamagotchi object (theirs food will be saved)
      */
-    void saveFoods(const tamagotchi& pet);
-
+    void saveFood(tamagotchi &pet, bool saved);
 }
 
 #endif //PROJECT_NAME_FOODMECHANICS_H

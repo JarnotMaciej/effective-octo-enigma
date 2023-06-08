@@ -55,6 +55,7 @@ void game::run() {
     scoreboard myScoreBoard;
     minigame myMinigame("cat", magicConnector);
     gameOver myGameOver(magicConnector);
+    exitScreen myExitScreen;
 
 
     // adding screens to map
@@ -63,6 +64,7 @@ void game::run() {
     screens[ScreenName::SCOREBOARD] = std::make_unique<scoreboard>(myScoreBoard);
     screens[ScreenName::MINIGAME] = std::make_unique<minigame>(myMinigame);
     screens[ScreenName::GAME_OVER] = std::make_unique<gameOver>(myGameOver);
+    screens[ScreenName::EXIT_SCREEN] = std::make_unique<exitScreen>(myExitScreen);
 
 
     // setPositions everywhere

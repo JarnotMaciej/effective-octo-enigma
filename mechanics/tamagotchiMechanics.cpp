@@ -8,7 +8,7 @@ int tamagotchiMechanics::transformSecondsToDays(long long int bornTime) {
     return (getTime() - bornTime) / 86400;
 }
 
-void tamagotchiMechanics::saveTamagotchi(tamagotchi &pet) {
+void tamagotchiMechanics::saveTamagotchi(tamagotchi &pet, bool &isSaved) {
     debug("saving tamagotchi");
     namespace fs = std::filesystem;
 
@@ -27,14 +27,20 @@ void tamagotchiMechanics::saveTamagotchi(tamagotchi &pet) {
     // writing data to a file
     tamagotchiFile << name << std::endl;
     tamagotchiFile << static_cast<int>(pet.getTamagotchiType()) << std::endl;
-    tamagotchiFile << pet.getBornTime() << std::endl;
-    tamagotchiFile << getTime() << std::endl;
+
     tamagotchiFile << pet.getHealth() << std::endl;
     tamagotchiFile << pet.getHunger() << std::endl;
     tamagotchiFile << pet.getHappiness() << std::endl;
     tamagotchiFile << pet.getHygiene() << std::endl;
     tamagotchiFile << pet.getEnergy() << std::endl;
     tamagotchiFile << pet.getMoney() << std::endl;
+    tamagotchiFile << pet.getIsSleeping() << std::endl;
+    tamagotchiFile << pet.getBornTime() << std::endl;
+    tamagotchiFile << pet.getSleepStart() << std::endl;
+    tamagotchiFile << getTime() << std::endl;
+
+    tamagotchiFile.close();
+    isSaved = true;
 }
 
 int tamagotchiMechanics::realDaysToGameDays(long long int bornTime) {
@@ -151,7 +157,7 @@ std::vector<score> tamagotchiMechanics::getScores() {
     return scores;
 }
 
-void tamagotchiMechanics::printScores(std::vector<score> scores) {
+[[maybe_unused]] void tamagotchiMechanics::printScores(std::vector<score> scores) {
     std::cout << "Scores: " << std::endl;
     for (auto &myScore: scores) {
         std::cout << "Name: " << myScore.getTamagotchiName() << std::endl;
@@ -184,5 +190,17 @@ void tamagotchiMechanics::sleepMechanics(tamagotchi &pet) {
     }
 
 }
+
+//tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
+//    // opening file using filesystem
+//    namespace fs = std::filesystem;
+//    fs::path path = fs::current_path().parent_path();
+//    path /= "saves";
+//    path /= name + ".tmg";
+//
+//    std::ifstream tamagotchiFile;
+//    tamagotchiFile.open(path);
+//
+//}
 
 // TODO -> testing tamagotchiMechanics

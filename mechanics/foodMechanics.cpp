@@ -53,7 +53,7 @@ std::map<std::string, food> foodMechanics::loadGlobalFoods() {
     return foods;
 }
 
-void foodMechanics::saveFoods(const tamagotchi &pet) {
+void foodMechanics::saveFood(tamagotchi &pet, bool saved) {
     debug("saving foods");
     namespace fs = std::filesystem;
 
@@ -74,4 +74,7 @@ void foodMechanics::saveFoods(const tamagotchi &pet) {
     {
         foodFile << food.first.getName() << " " << food.second << std::endl;
     }
+
+    foodFile.close();
+    saved = true;
 }
