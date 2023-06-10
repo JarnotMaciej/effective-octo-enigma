@@ -36,6 +36,13 @@ public:
     explicit foodButton(const std::string &foodName);
 
     /**
+     * @brief Constructor
+     * @param foodName name of food
+     * @param quantity quantity of food
+     */
+    foodButton(const std::string &foodName, const int &quantity);
+
+    /**
      * @brief Draws the button
      * @param window window to draw the button
      */

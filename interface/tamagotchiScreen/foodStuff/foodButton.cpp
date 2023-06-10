@@ -25,6 +25,28 @@ foodButton::foodButton(const std::string &foodName) {
     active = false;
 }
 
+foodButton::foodButton(const std::string &foodName, const int &quantity) {
+    buttonName = foodName;
+    backgroundTexture = assetManager::getInstance().getTexture("16x16dark");
+    backgroundSprite.setTexture(backgroundTexture);
+    backgroundSprite.setScale(6.5, 6.5);
+
+    foodTexture = assetManager::getInstance().getTexture(foodName);
+    foodSprite.setTexture(foodTexture);
+    foodSprite.setScale(2.3, 2.3);
+
+    this->quantity = quantity;
+    quantityText.setString(std::to_string(quantity));
+    quantityText.setFont(assetManager::getInstance().getFont("silkscreen"));
+    quantityText.setCharacterSize(24);
+    quantityText.setFillColor(sf::Color::White);
+    quantityText.setPosition(0, 0);
+    quantityText.setLetterSpacing(0.);
+
+    active = false;
+}
+
+
 void foodButton::draw(sf::RenderWindow &window) {
     backgroundSprite.setTexture(backgroundTexture);
     window.draw(backgroundSprite);

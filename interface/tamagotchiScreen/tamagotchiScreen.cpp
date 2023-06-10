@@ -148,9 +148,9 @@ void tamagotchiScreen::handleInput(sf::RenderWindow &window, ScreenName &_screen
 }
 
 
-tamagotchiScreen::tamagotchiScreen(const std::string &textureName, tamagotchi &pet, std::map<std::string, food> &_allOfTheFoods) {
+tamagotchiScreen::tamagotchiScreen(const std::string &textureName, tamagotchi &pet, std::map<food, int> &_allOfTheFoods) {
     this->pet_pointer = static_cast<const std::shared_ptr<tamagotchi>>(&pet);
-    this->allOfTheFoods = static_cast<const std::shared_ptr<std::map<std::string, food>>>(&_allOfTheFoods);
+    this->allOfTheFoods = static_cast<const std::shared_ptr<std::map<food, int>>>(&_allOfTheFoods);
     tamagotchiTexture = assetManager::getInstance().getTexture(textureName);
     tamagotchiSprite.setTexture(tamagotchiTexture);
 

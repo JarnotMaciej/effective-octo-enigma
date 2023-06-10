@@ -177,7 +177,7 @@ class tamagotchi
      * @param _food - Food to add
      * @param quantity - Quantity of food to add
      */
-    void addFood(food _food, int quantity);
+    void addFood(const std::string& foodName, int quantity);
 
     /**
      * @brief Enum class for tamagotchi types

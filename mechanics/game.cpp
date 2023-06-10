@@ -30,34 +30,20 @@ void game::run() {
     setIcon(window);
     setCursor(window);
 
-    cat myCat;
-    std::string catName = "Neko";
-    myCat.setName(catName);
-    myCat.setAge(373);
-    myCat.setMoney(121);
+    // loading myOwnPet
+    std::string myOwnPetName = tamagotchiMechanics::searchForTamagotchi();
+    tamagotchi myOwnPet = tamagotchiMechanics::checkIfTamagotchiExistsThenReturn(myOwnPetName);
 
-    myCat.setEnergy(20);
-    myCat.setHappiness(90);
-    myCat.setHunger(40);
-    myCat.setHygiene(90);
-    myCat.setHealth(60);
+    // loading foods
+    auto foods = foodMechanics::loadGlobalFoods();
 
-    // food related stuff
-    std::map<std::string, food> foods;
-    foods = foodMechanics::loadGlobalFoods();
-
-    // adding food to cat
-    myCat.addFood(foods["apple"], 64);
-    myCat.addFood(foods["banana"], 14);
-    myCat.addFood(foods["cherry"], 16);
-    myCat.addFood(foods["carrot"], 16);
 
     // minigame connection
     std::shared_ptr<minigameConnector> magicConnector = std::make_shared<minigameConnector>();
 
     // testing
     menu mainMenu;
-    tamagotchiScreen myTamagotchiScreen("cat", myCat, foods);
+    tamagotchiScreen myTamagotchiScreen("cat", myOwnPet, foods);
     scoreboard myScoreBoard;
     minigame myMinigame("cat", magicConnector);
     gameOver myGameOver(magicConnector);
@@ -81,7 +67,7 @@ void game::run() {
     while (window.isOpen())
 	{
 
-        screenProcessing(window, myCat);
+        screenProcessing(window, myOwnPet);
 
     }
 }

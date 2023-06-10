@@ -48,37 +48,37 @@ public:
      * @brief Get food price
      * @return Food price
      */
-    int getPrice();
+    int getPrice() const;
 
     /**
      * @brief Get food health
      * @return Food health
      */
-    int getHealth();
+    int getHealth() const;
 
     /**
      * @brief Get food hunger
      * @return Food hunger
      */
-    int getHunger();
+    int getHunger() const;
 
     /**
      * @brief Get food happiness
      * @return Food happiness
      */
-    int getHappiness();
+    int getHappiness() const;
 
     /**
      * @brief Get food hygiene
      * @return Food hygiene
      */
-    int getHygiene();
+    int getHygiene() const;
 
     /**
      * @brief Get food energy
      * @return Food energy
      */
-    int getEnergy();
+    int getEnergy() const;
 
     // Setters
     /**

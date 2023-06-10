@@ -5,22 +5,22 @@
 #include "foodMechanics.h"
 
 
-void foodMechanics::printFoods(const std::map<std::string, food>& foods) {
+void foodMechanics::printFoods(const std::map<food, int>& foods) {
     for (auto food : foods)
     {
-        std::cout << "Name: " << food.second.getName() << std::endl;
-        std::cout << "Price: " << food.second.getPrice() << std::endl;
-        std::cout << "Health: " << food.second.getHealth() << std::endl;
-        std::cout << "Hunger: " << food.second.getHunger() << std::endl;
-        std::cout << "Happiness: " << food.second.getHappiness() << std::endl;
-        std::cout << "Hygiene: " << food.second.getHygiene() << std::endl;
-        std::cout << "Energy: " << food.second.getEnergy() << std::endl;
+        std::cout << "Name: " << food.first.getName() << std::endl;
+        std::cout << "Price: " << food.first.getPrice() << std::endl;
+        std::cout << "Health: " << food.first.getHealth() << std::endl;
+        std::cout << "Hunger: " << food.first.getHunger() << std::endl;
+        std::cout << "Happiness: " << food.first.getHappiness() << std::endl;
+        std::cout << "Hygiene: " << food.first.getHygiene() << std::endl;
+        std::cout << "Energy: " << food.first.getEnergy() << std::endl;
         std::cout << "---" << std::endl;
     }
 }
 
-std::map<std::string, food> foodMechanics::loadGlobalFoods() {
-        debug("loading global foods");
+std::map<food, int> foodMechanics::loadGlobalFoods() {
+    debug("loading global foods");
     namespace fs = std::filesystem;
 
     // getting a path
@@ -33,7 +33,7 @@ std::map<std::string, food> foodMechanics::loadGlobalFoods() {
     foodFile.open(path);
 
     //generating a map of foods
-    std::map<std::string, food> foods;
+    std::map<food, int> foods;
     std::string name;
     int price, health, hunger, happiness, hygiene, energy;
     std::string texture;
@@ -46,7 +46,7 @@ std::map<std::string, food> foodMechanics::loadGlobalFoods() {
         foodFile >> hygiene;
         foodFile >> energy;
 
-        foods.emplace(name, food(name, price, health, hunger, happiness, hygiene, energy));
+        foods.emplace(food(name, price, health, hunger, happiness, hygiene, energy), 0);
     }
     foodFile.close();
 
@@ -77,4 +77,34 @@ void foodMechanics::saveFood(tamagotchi &pet, bool saved) {
 
     foodFile.close();
     saved = true;
+}
+
+void foodMechanics::loadTamagotchiFoods(const std::string &fileName, tamagotchi &pet) {
+    // opening file using filesystem
+    namespace fs = std::filesystem;
+    fs::path path = fs::current_path().parent_path();
+    path /= "saves";
+    path /= fileName + ".tmgfood";
+
+    std::list <std::pair<std::string, int>> foodsList;
+
+    std::ifstream foodFile;
+    foodFile.open(path);
+
+    std::string name;
+    int amount;
+
+    while (foodFile >> name)
+    {
+        foodFile >> amount;
+        foodsList.emplace_back(name, amount);
+    }
+
+    foodFile.close();
+
+    // loading foods to tamagotchi
+    for (const auto& food : foodsList)
+    {
+        pet.addFood(food.first, food.second);
+    }
 }

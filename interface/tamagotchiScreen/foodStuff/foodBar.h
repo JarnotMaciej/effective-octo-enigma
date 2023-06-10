@@ -28,7 +28,7 @@ private:
     sf::Text buyText; // instruction how to buy food
     sf::Text eatText; // instruction how to eat food
     short int activeButton; // index of active button
-    std::map<std::string, food> myFood; // map of food
+    std::map<food, int> myFood; // map of food
 
 
 public:
@@ -37,7 +37,7 @@ public:
      * @brief Constructor of food bar
      * @param _myFood - map of food
      */
-    explicit foodBar(std::map<std::string, food> _myFood);
+    explicit foodBar(std::map<food, int> _myFood);
 
     /**
      * @brief Default constructor

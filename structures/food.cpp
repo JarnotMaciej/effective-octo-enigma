@@ -30,33 +30,27 @@ std::string food::getName() const {
 	return name;
 }
 
-int food::getPrice()
-{
+int food::getPrice() const {
 	return price;
 }
 
-int food::getHealth()
-{
+int food::getHealth() const {
 	return health;
 }
 
-int food::getHunger()
-{
+int food::getHunger() const {
 	return hunger;
 }
 
-int food::getHappiness()
-{
+int food::getHappiness() const {
 	return happiness;
 }
 
-int food::getHygiene()
-{
+int food::getHygiene() const {
 	return hygiene;
 }
 
-int food::getEnergy()
-{
+int food::getEnergy() const {
 	return energy;
 }
 

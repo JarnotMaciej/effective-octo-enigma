@@ -165,14 +165,38 @@ tamagotchi::tamagotchiType tamagotchi::getTamagotchiType() {
     return tamagotchi::tamagotchiType::CAT;
 }
 
-void tamagotchi::addFood(food _food, int quantity){
-    auto it = foods.find(_food);
-    if (it != foods.end())
-    {
-        it->second += quantity;
-    }
-    else
-    {
-        foods[_food] = quantity;
+//void tamagotchi::addFood(const food& _food, int quantity){
+//    auto it = foods.find(_food);
+//    if (it != foods.end())
+//    {
+//        it->second += quantity;
+//    }
+//    else
+//    {
+//        foods[_food] = quantity;
+//    }
+//}
+
+void tamagotchi::setBornTime(long long int bornTime) {
+    tamagotchi::bornTime = bornTime;
+}
+
+//void tamagotchi::addFood(const std::string &foodName, int quantity) {
+//
+//}
+
+void tamagotchi::addFood(const std::string& foodName, int quantity) {
+    // Check if the food already exists in the map
+    auto foodIterator = std::find_if(foods.begin(), foods.end(), [&](const std::pair<food, int>& pair) {
+        return pair.first.getName() == foodName;
+    });
+
+    if (foodIterator != foods.end()) {
+        // Food already exists, update the quantity
+        foodIterator->second += quantity;
+    } else {
+        // Food doesn't exist, create a new food object and add it to the map
+        food newFood(foodName, 0, 0, 0, 0, 0, 0);  // You can replace the default values with the actual values
+        foods.insert(std::make_pair(newFood, quantity));
     }
 }

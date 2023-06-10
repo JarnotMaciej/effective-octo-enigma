@@ -1,10 +1,6 @@
-//
-// Created by menox on 06.06.2023.
-//
-
 #include "foodBar.h"
 
-foodBar::foodBar(std::map<std::string, food> _myFood)
+foodBar::foodBar(std::map<food, int> _myFood)
 {
     // set text
     equipmentMove.setString("Use A and D to move");
@@ -35,7 +31,7 @@ foodBar::foodBar(std::map<std::string, food> _myFood)
 
     // create buttons
     for (auto & i : _myFood) {
-        buttons.emplace_back(i.first);
+        buttons.emplace_back(i.first.getName(), i.second);
     }
 
     if(!buttons.empty()) {

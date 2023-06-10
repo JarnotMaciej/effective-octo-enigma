@@ -12,6 +12,8 @@
 #include "../functions.h"
 #include "../structures/tamagotchi.h"
 #include "../structures/score.h"
+#include "../structures/cat.h"
+#include "foodMechanics.h"
 
 #ifndef PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_
 #define PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_
@@ -39,7 +41,7 @@ namespace tamagotchiMechanics {
      * @param name - tamagotchi name
      * @return tamagotchi object
      */
-//	tamagotchi loadTamagotchi(const std::string &name); // TODO -> make it real
+	tamagotchi loadTamagotchi(const std::string &name); // TODO -> make it real
 
     /**
      * @brief Method used for transforming seconds to days
@@ -60,7 +62,7 @@ namespace tamagotchiMechanics {
      * @param pet - tamagotchi object
      * @param lastSaved - last saved time
      */
-    void subtractIndicators(tamagotchi &pet,
+    [[maybe_unused]] void subtractIndicators(tamagotchi &pet,
                             long long int &lastSaved); // Subtracts tamagotchi indicators (health, hunger, happiness, hygiene, energy) after loading tamagotchi from file
 
     // TODO -> make it real
@@ -83,6 +85,49 @@ namespace tamagotchiMechanics {
      * @param pet
      */
     void sleepMechanics(tamagotchi &pet);
+
+    /**
+     * @brief Method used for decreasing tamagotchi energy
+     * @param pet - tamagotchi object
+     * @param difference - difference between last saved time and current time
+     */
+    void energyDecreaseMechanics(tamagotchi tamagotchiToModify, long long int difference);
+
+    /**
+     * @brief Method used for decreasing tamagotchi hunger
+     * @param tamagotchiToModify - tamagotchi object
+     * @param difference - difference between last saved time and current time
+     */
+    void hungerMechanics(tamagotchi tamagotchiToModify, long long int difference);
+
+    /**
+     * @brief Method used for decreasing tamagotchi hygiene
+     * @param tamagotchiToModify - tamagotchi object
+     * @param difference - difference between last saved time and current time
+     */
+    void hygieneMechanics(tamagotchi tamagotchiToModify, long long int difference);
+
+    /**
+     * @brief Method used for decreasing tamagotchi happiness
+     * @param tamagotchiToModify - tamagotchi object
+     * @param difference - difference between last saved time and current time
+     */
+    void happinessMechanics(tamagotchi tamagotchiToModify, long long int difference);
+
+    /**
+     * @brief Method used for decreasing tamagotchi health
+     * @param tamagotchiToModify - tamagotchi object
+     * @param difference - difference between last saved time and current time
+     */
+    void healthMechanics(tamagotchi tamagotchiToModify, long long int difference);
+
+    /**
+     * @brief Method used for checking if tamagotchi exists
+     * @param tamagotchiName - tamagotchi name
+     * @return tamagotchi object
+     */
+    tamagotchi checkIfTamagotchiExistsThenReturn(std::string basicString);
+
 }
 
 #endif //PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_

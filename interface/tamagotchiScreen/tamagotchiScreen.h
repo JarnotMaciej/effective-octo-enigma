@@ -28,7 +28,7 @@ private:
     sf::Texture tamagotchiTexture; // texture of tamagotchi
     sf::Sprite tamagotchiSprite; // sprite of tamagotchi
     std::shared_ptr<tamagotchi> pet_pointer; // pointer to tamagotchi object
-    std::shared_ptr<std::map<std::string, food>> allOfTheFoods; // pointer to map of all foods
+    std::shared_ptr<std::map<food, int>> allOfTheFoods; // pointer to map of all foods
     sf::Clock zzzClock; // clock for zzz animation
     sf::Text zzzText; // text for zzz animation
     bool eatBarEnabled; // flag for eat bar
@@ -41,7 +41,7 @@ public:
      * @param pet tamagotchi object
      * @param _allOfTheFoods map of all foods
      */
-    tamagotchiScreen(const std::string& textureName, tamagotchi &pet, std::map<std::string, food> &_allOfTheFoods);
+    tamagotchiScreen(const std::string& textureName, tamagotchi &pet, std::map<food, int> &_allOfTheFoods);
 
     /**
      * @brief Draws tamagotchi screen
