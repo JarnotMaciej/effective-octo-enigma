@@ -91,35 +91,35 @@ namespace tamagotchiMechanics {
      * @param pet - tamagotchi object
      * @param difference - difference between last saved time and current time
      */
-    void energyDecreaseMechanics(tamagotchi tamagotchiToModify, long long int difference);
+    void energyDecreaseMechanics(tamagotchi &tamagotchiToModify, long long int difference);
 
     /**
      * @brief Method used for decreasing tamagotchi hunger
      * @param tamagotchiToModify - tamagotchi object
      * @param difference - difference between last saved time and current time
      */
-    void hungerMechanics(tamagotchi tamagotchiToModify, long long int difference);
+    void hungerMechanics(tamagotchi &tamagotchiToModify, long long int difference);
 
     /**
      * @brief Method used for decreasing tamagotchi hygiene
      * @param tamagotchiToModify - tamagotchi object
      * @param difference - difference between last saved time and current time
      */
-    void hygieneMechanics(tamagotchi tamagotchiToModify, long long int difference);
+    void hygieneMechanics(tamagotchi &tamagotchiToModify, long long int difference);
 
     /**
      * @brief Method used for decreasing tamagotchi happiness
      * @param tamagotchiToModify - tamagotchi object
      * @param difference - difference between last saved time and current time
      */
-    void happinessMechanics(tamagotchi tamagotchiToModify, long long int difference);
+    void happinessMechanics(tamagotchi &tamagotchiToModify, long long int difference);
 
     /**
      * @brief Method used for decreasing tamagotchi health
      * @param tamagotchiToModify - tamagotchi object
      * @param difference - difference between last saved time and current time
      */
-    void healthMechanics(tamagotchi tamagotchiToModify, long long int difference);
+    void healthMechanics(tamagotchi &tamagotchiToModify, long long int difference);
 
     /**
      * @brief Method used for checking if tamagotchi exists

@@ -129,6 +129,22 @@ void minigame::update(sf::RenderWindow &window, tamagotchi &pet)
         // Add coins to pet
         pet.setMoney(pet.getMoney() + coins);
 
+        // Modify indicators
+        auto happiness = pet.getHappiness() + 20;
+        auto hunger = pet.getHunger() - 10;
+        auto hygiene = pet.getHygiene() - 15;
+        auto energy = pet.getEnergy() - 10;
+
+        if (happiness > 100) happiness = 100;
+        if (hunger < 0) hunger = 0;
+        if (hygiene < 0) hygiene = 0;
+        if (energy < 0) energy = 0;
+
+        pet.setHappiness(happiness);
+        pet.setHunger(hunger);
+        pet.setHygiene(hygiene);
+        pet.setEnergy(energy);
+
         coins = 0;
         time = 30;
 

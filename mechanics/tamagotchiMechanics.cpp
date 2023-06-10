@@ -279,7 +279,7 @@ tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
     return toReturn;
 }
 
-void tamagotchiMechanics::energyDecreaseMechanics(tamagotchi tamagotchiToModify, long long int difference) {
+void tamagotchiMechanics::energyDecreaseMechanics(tamagotchi &tamagotchiToModify, long long int difference) {
     // energy is decreasing over time -> 1 energy point per 5 minutes
     int energy = tamagotchiToModify.getEnergy() - difference / 300;
     if (energy < 0) {
@@ -291,7 +291,7 @@ void tamagotchiMechanics::energyDecreaseMechanics(tamagotchi tamagotchiToModify,
     }
 }
 
-void tamagotchiMechanics::hungerMechanics(tamagotchi tamagotchiToModify, long long int difference) {
+void tamagotchiMechanics::hungerMechanics(tamagotchi &tamagotchiToModify, long long int difference) {
     // hunger is decreasing over time -> 1 hunger point per 10 minutes
     int hunger = tamagotchiToModify.getHunger() - difference / 600;
     if (hunger < 0) {
@@ -303,7 +303,7 @@ void tamagotchiMechanics::hungerMechanics(tamagotchi tamagotchiToModify, long lo
     }
 }
 
-void tamagotchiMechanics::hygieneMechanics(tamagotchi tamagotchiToModify, long long int difference) {
+void tamagotchiMechanics::hygieneMechanics(tamagotchi &tamagotchiToModify, long long int difference) {
     // hygiene is decreasing over time -> 1 hygiene point per 7.5 minutes
     int hygiene = tamagotchiToModify.getHygiene() - difference / 450;
     if (hygiene < 0) {
@@ -315,7 +315,7 @@ void tamagotchiMechanics::hygieneMechanics(tamagotchi tamagotchiToModify, long l
     }
 }
 
-void tamagotchiMechanics::happinessMechanics(tamagotchi tamagotchiToModify, long long int difference) {
+void tamagotchiMechanics::happinessMechanics(tamagotchi &tamagotchiToModify, long long int difference) {
     // happiness is decreasing over time -> 1 happiness point per 3 minutes
     int happiness = tamagotchiToModify.getHappiness() - difference / 180;
     if (happiness < 0) {
@@ -327,7 +327,7 @@ void tamagotchiMechanics::happinessMechanics(tamagotchi tamagotchiToModify, long
     }
 }
 
-void tamagotchiMechanics::healthMechanics(tamagotchi tamagotchiToModify, long long int difference) {
+void tamagotchiMechanics::healthMechanics(tamagotchi &tamagotchiToModify, long long int difference) {
     // health is decreasing over time, but it is also based on other stats, according to the stats, multiplier will be calculated and then health will be decreased
     int health = tamagotchiToModify.getHealth();
     float multiplier = .6f;
