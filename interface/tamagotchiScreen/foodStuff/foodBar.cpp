@@ -44,6 +44,8 @@ foodBar::foodBar(const tamagotchi &pet) {
         activeButton = -1;
     }
 
+    // set sound
+    foodBarBuffer = assetManager::getInstance().getSound("crunch1", "ogg");
 }
 
 void foodBar::draw(sf::RenderWindow &window) {
@@ -118,14 +120,32 @@ void foodBar::activatePreviousButton() {
 }
 
 void foodBar::buyFood(tamagotchi &pet) {
+    int random = rand() % 12 + 1;
+    std::string soundName = "coin" + std::to_string(random);
+    foodBarBuffer = assetManager::getInstance().getSound(soundName, "ogg");
+    foodBarSound;
+    foodBarSound.setBuffer(foodBarBuffer);
+    foodBarSound.play();
     pet.buyFood(getActiveButtonName());
 }
 
 void foodBar::sellFood(tamagotchi &pet) {
+    int random = rand() % 12 + 1;
+    std::string soundName = "coin" + std::to_string(random);
+    foodBarBuffer = assetManager::getInstance().getSound(soundName, "ogg");
+    foodBarSound;
+    foodBarSound.setBuffer(foodBarBuffer);
+    foodBarSound.play();
     pet.sellFood(getActiveButtonName());
 }
 
 void foodBar::eatFood(tamagotchi &pet) {
+    int random = rand() % 7 + 1;
+    std::string soundName = "crunch" + std::to_string(random);
+    foodBarBuffer = assetManager::getInstance().getSound(soundName, "ogg");
+    foodBarSound;
+    foodBarSound.setBuffer(foodBarBuffer);
+    foodBarSound.play();
     pet.eatFood(getActiveButtonName());
 }
 

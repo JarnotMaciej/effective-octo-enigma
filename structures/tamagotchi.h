@@ -238,4 +238,7 @@ class tamagotchi
     void addFood(const std::string &foodName, int quantity);
 };
 
+int indicatorFunction(int value);
+
+
 #endif //TAMAGOTCHI_TAMAGOTCHI_H

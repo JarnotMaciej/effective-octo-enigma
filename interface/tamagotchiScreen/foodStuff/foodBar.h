@@ -30,6 +30,8 @@ private:
     sf::Text buyText; // instruction how to buy food
     sf::Text eatText; // instruction how to eat food
     short int activeButton; // index of active button
+    sf::Sound foodBarSound; // sound of food bar
+    sf::SoundBuffer foodBarBuffer; // buffer of food bar sound
 
     /**
      * @brief Gets name of active button

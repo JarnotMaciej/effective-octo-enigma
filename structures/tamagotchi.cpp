@@ -203,11 +203,11 @@ void tamagotchi::eatFood(const std::string& foodName){
     {
         if (food.first.getName() == foodName && food.second > 0)
         {
-            tamagotchi::hunger += food.first.getHunger();
-            tamagotchi::happiness += food.first.getHappiness();
-            tamagotchi::hygiene += food.first.getHygiene();
-            tamagotchi::energy += food.first.getEnergy();
-            tamagotchi::health += food.first.getHealth();
+            tamagotchi::hunger = indicatorFunction(tamagotchi::hunger + food.first.getHunger());
+            tamagotchi::happiness = indicatorFunction(tamagotchi::happiness + food.first.getHappiness());
+            tamagotchi::hygiene = indicatorFunction(tamagotchi::hygiene + food.first.getHygiene());
+            tamagotchi::energy = indicatorFunction(tamagotchi::energy + food.first.getEnergy());
+            tamagotchi::health = indicatorFunction(tamagotchi::health + food.first.getHealth());
             food.second--;
             break;
         }
@@ -239,5 +239,16 @@ void tamagotchi::sellFood(const std::string &foodName) {
             food.second--;
             break;
         }
+    }
+}
+
+int indicatorFunction(int value) {
+    // This function is used to make sure that the value is between 0 and 100
+    if (value < 0) {
+        return 0;
+    } else if (value > 100) {
+        return 100;
+    } else {
+        return value;
     }
 }
