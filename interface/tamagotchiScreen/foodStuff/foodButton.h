@@ -30,6 +30,11 @@ private:
 public:
 
     /**
+     * @brief Default constructor
+     */
+    foodButton() = default;
+
+    /**
      * @brief Constructor
      * @param foodName name of food
      */
@@ -96,6 +101,7 @@ public:
      * @return name of the button
      */
     std::string getName();
+
 };
 
 

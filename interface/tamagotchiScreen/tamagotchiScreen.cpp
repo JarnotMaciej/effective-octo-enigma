@@ -57,6 +57,7 @@ void tamagotchiScreen::update(sf::RenderWindow &window, tamagotchi &pet) {
     tamagotchiMechanics::sleepMechanics(pet);
     this->ts_indicatorbar.update(pet);
     this->ts_topbar.update(pet, window);
+    this->ts_foodbar.update(pet);
 
     // if pet is sleeping, display zzz text
     if (pet.getIsSleeping()) {
@@ -124,17 +125,17 @@ void tamagotchiScreen::handleInput(sf::RenderWindow &window, ScreenName &_screen
                         break;
                     case sf::Keyboard::Space:
                         if (!isSleeping && eatBarEnabled) {
-                            this->ts_foodbar.eatFood();
+                            this->ts_foodbar.eatFood(*pet_pointer);
                         }
                         break;
                     case sf::Keyboard::S:
                         if (!isSleeping && eatBarEnabled) {
-                            this->ts_foodbar.sellFood();
+                            this->ts_foodbar.sellFood(*pet_pointer);
                         }
                         break;
                     case sf::Keyboard::B:
                         if (!isSleeping && eatBarEnabled) {
-                            this->ts_foodbar.buyFood();
+                            this->ts_foodbar.buyFood(*pet_pointer);
                         }
                         break;
                     default:
@@ -156,7 +157,7 @@ tamagotchiScreen::tamagotchiScreen(const std::string &textureName, tamagotchi &p
 
     // food bar
 
-    this->ts_foodbar = foodBar(*this->allOfTheFoods);
+    this->ts_foodbar = foodBar(pet);
 
     // set zzz text
     zzzText.setString("ZZZ...");

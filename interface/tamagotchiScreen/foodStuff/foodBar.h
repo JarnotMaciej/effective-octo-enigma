@@ -8,6 +8,8 @@
 
 // C++
 #include <vector>
+#include <string>
+#include <map>
 
 // header files
 #include "foodButton.h"
@@ -22,22 +24,31 @@
  */
 class foodBar {
 private:
-    std::vector<foodButton> buttons; // vector of buttons
+    std::map<std::string, foodButton> buttons; // map of buttons
     sf::Text equipmentMove; // instruction how to move in equipment
     sf::Text sellText; // instruction how to sell food
     sf::Text buyText; // instruction how to buy food
     sf::Text eatText; // instruction how to eat food
     short int activeButton; // index of active button
-    std::map<food, int> myFood; // map of food
 
+    /**
+     * @brief Gets name of active button
+     * @return name of active button
+     */
+    std::string getActiveButtonName()
+    {
+        auto it = buttons.begin();
+        std::advance(it, activeButton);
+        return it->first;
+    }
 
 public:
 
     /**
      * @brief Constructor of food bar
-     * @param _myFood - map of food
+     * @param pet - map of food
      */
-    explicit foodBar(std::map<food, int> _myFood);
+    explicit foodBar(const tamagotchi &pet);
 
     /**
      * @brief Default constructor
@@ -52,9 +63,9 @@ public:
 
     /**
      * @brief Updates food bar
-     * @param pet_pointer - pointer to pet
+     * @param pet - pointer to pet
      */
-    void update(std::shared_ptr<tamagotchi> pet_pointer);
+    void update(tamagotchi &pet);
 
     /**
      * @brief Sets positions of buttons
@@ -74,18 +85,21 @@ public:
 
     /**
      * @brief Buys food
+     * @param pet - pointer to pet
      */
-    void buyFood();
+    void buyFood(tamagotchi &pet);
 
     /**
      * @brief Sells food
+     * @param pet - pointer to pet
      */
-    void sellFood();
+    void sellFood(tamagotchi &pet);
 
     /**
      * @brief Eats food
+     * @param pet - pointer to pet
      */
-    void eatFood();
+    void eatFood(tamagotchi &pet);
 };
 
 

@@ -1,7 +1,6 @@
 #include "foodBar.h"
 
-foodBar::foodBar(std::map<food, int> _myFood)
-{
+foodBar::foodBar(const tamagotchi &pet) {
     // set text
     equipmentMove.setString("Use A and D to move");
     equipmentMove.setFont(assetManager::getInstance().getFont("silkscreen"));
@@ -30,16 +29,21 @@ foodBar::foodBar(std::map<food, int> _myFood)
     eatText.setPosition(10, 100);
 
     // create buttons
-    for (auto & i : _myFood) {
-        buttons.emplace_back(i.first.getName(), i.second);
+    std::vector<std::string> foodNames;
+    for (auto &foodPair: pet.getFoods()) {
+        std::string foodName = foodPair.first.getName();
+        buttons[foodName] = foodButton(foodName);
+        foodNames.push_back(foodName);
     }
 
-    if(!buttons.empty()) {
-        buttons[0].setActive(true);
+    // set active button
+    if (!buttons.empty()) {
         activeButton = 0;
+        buttons[foodNames[activeButton]].setActive(true);
+    } else {
+        activeButton = -1;
     }
 
-    this->myFood = _myFood;
 }
 
 void foodBar::draw(sf::RenderWindow &window) {
@@ -50,64 +54,88 @@ void foodBar::draw(sf::RenderWindow &window) {
     window.draw(eatText);
 
     // draw buttons
-    for (auto & i : buttons) {
-        i.draw(window);
+    for (auto &buttonPair: buttons) {
+        buttonPair.second.draw(window);
     }
 }
 
 void foodBar::setPositions(sf::RenderWindow &window) {
-    int buttonWidth = buttons[0].getSprite().getGlobalBounds().width;
-    int buttonHeight = buttons[0].getSprite().getGlobalBounds().height;
+    int buttonWidth = buttons[getActiveButtonName()].getSprite().getGlobalBounds().width;
+    int buttonHeight = buttons[getActiveButtonName()].getSprite().getGlobalBounds().height;
     int buttonSpacing = (window.getSize().x - buttons.size() * buttonWidth) / (buttons.size() + 1);
 
-    for (int i = 0; i < buttons.size(); i++) {
-        buttons[i].setPosition(buttonSpacing + i * (buttonSpacing + buttonWidth),
-                               window.getSize().y - buttonHeight / 2 - 220);
+//    for (int i = 0; i < buttons.size(); i++) {
+//        buttons[i].setPosition(buttonSpacing + i * (buttonSpacing + buttonWidth),
+//                               window.getSize().y - buttonHeight / 2 - 220);
+//    }
+//
+//    // set positions of texts -> above buttons, left aligned to the leftmost button
+//    eatText.setPosition(buttons[0].getSprite().getPosition().x,
+//                        buttons[0].getSprite().getPosition().y - eatText.getGlobalBounds().height - 60);
+//    buyText.setPosition(buttons[0].getSprite().getPosition().x,
+//                        eatText.getPosition().y - buyText.getGlobalBounds().height - 10);
+//    sellText.setPosition(buttons[0].getSprite().getPosition().x,
+//                         buyText.getPosition().y - sellText.getGlobalBounds().height - 10);
+//    equipmentMove.setPosition(buttons[0].getSprite().getPosition().x,
+//                              sellText.getPosition().y - equipmentMove.getGlobalBounds().height - 10);
+
+    // code after refactoring
+    int i = 0;
+    for (auto &buttonPair: buttons) {
+        buttonPair.second.setPosition(buttonSpacing + i * (buttonSpacing + buttonWidth),
+                                      window.getSize().y - buttonHeight / 2 - 220);
+        i++;
     }
 
     // set positions of texts -> above buttons, left aligned to the leftmost button
-    eatText.setPosition(buttons[0].getSprite().getPosition().x, buttons[0].getSprite().getPosition().y - eatText.getGlobalBounds().height - 60);
-    buyText.setPosition(buttons[0].getSprite().getPosition().x, eatText.getPosition().y - buyText.getGlobalBounds().height - 10);
-    sellText.setPosition(buttons[0].getSprite().getPosition().x, buyText.getPosition().y - sellText.getGlobalBounds().height - 10);
-    equipmentMove.setPosition(buttons[0].getSprite().getPosition().x, sellText.getPosition().y - equipmentMove.getGlobalBounds().height - 10);
-
+    eatText.setPosition(buttons[getActiveButtonName()].getSprite().getPosition().x,
+                        buttons[getActiveButtonName()].getSprite().getPosition().y - eatText.getGlobalBounds().height - 60);
+    buyText.setPosition(buttons[getActiveButtonName()].getSprite().getPosition().x,
+                        eatText.getPosition().y - buyText.getGlobalBounds().height - 10);
+    sellText.setPosition(buttons[getActiveButtonName()].getSprite().getPosition().x,
+                         buyText.getPosition().y - sellText.getGlobalBounds().height - 10);
+    equipmentMove.setPosition(buttons[getActiveButtonName()].getSprite().getPosition().x,
+                              sellText.getPosition().y - equipmentMove.getGlobalBounds().height - 10);
 
 }
 
 void foodBar::activateNextButton() {
-    if(activeButton < buttons.size() - 1) {
-        buttons[activeButton].setActive(false);
-        activeButton++;
-        buttons[activeButton].setActive(true);
+    buttons[getActiveButtonName()].setActive(false);
+    activeButton++;
+    if (activeButton >= buttons.size()) {
+        activeButton = 0;
     }
+    buttons[getActiveButtonName()].setActive(true);
 }
 
 void foodBar::activatePreviousButton() {
-    if(activeButton > 0) {
-        buttons[activeButton].setActive(false);
-        activeButton--;
-        buttons[activeButton].setActive(true);
+    buttons[getActiveButtonName()].setActive(false);
+    activeButton--;
+    if (activeButton < 0) {
+        activeButton = buttons.size() - 1;
     }
+    buttons[getActiveButtonName()].setActive(true);
 }
 
-void foodBar::buyFood() {
-    if(!buttons.empty()) {
-        buttons[activeButton].buy();
-    }
+void foodBar::buyFood(tamagotchi &pet) {
+    pet.buyFood(getActiveButtonName());
 }
 
-void foodBar::sellFood() {
-    if(!buttons.empty()) {
-        buttons[activeButton].sell();
-    }
+void foodBar::sellFood(tamagotchi &pet) {
+    pet.sellFood(getActiveButtonName());
 }
 
-void foodBar::eatFood() {
-    if(!buttons.empty()) {
-        buttons[activeButton].eat();
-    }
+void foodBar::eatFood(tamagotchi &pet) {
+    pet.eatFood(getActiveButtonName());
 }
 
-void foodBar::update(std::shared_ptr<tamagotchi> pet_pointer) {
-    // TODO - update food bar with quantity
+void foodBar::update(tamagotchi &pet) {
+    for (const auto &foodPair: pet.getFoods()) {
+        const std::string &foodName = foodPair.first.getName();
+        int newQuantity = foodPair.second;
+
+        if (buttons.find(foodName) != buttons.end()) {
+            buttons[foodName].setQuantity(newQuantity);
+        }
+    }
 }

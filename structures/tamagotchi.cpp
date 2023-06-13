@@ -181,9 +181,6 @@ void tamagotchi::setBornTime(long long int bornTime) {
     tamagotchi::bornTime = bornTime;
 }
 
-//void tamagotchi::addFood(const std::string &foodName, int quantity) {
-//
-//}
 
 void tamagotchi::addFood(const std::string& foodName, int quantity) {
     // Check if the food already exists in the map
@@ -198,5 +195,49 @@ void tamagotchi::addFood(const std::string& foodName, int quantity) {
         // Food doesn't exist, create a new food object and add it to the map
         food newFood(foodName, 0, 0, 0, 0, 0, 0);  // You can replace the default values with the actual values
         foods.insert(std::make_pair(newFood, quantity));
+    }
+}
+
+void tamagotchi::eatFood(const std::string& foodName){
+    for (auto& food : foods)
+    {
+        if (food.first.getName() == foodName && food.second > 0)
+        {
+            tamagotchi::hunger += food.first.getHunger();
+            tamagotchi::happiness += food.first.getHappiness();
+            tamagotchi::hygiene += food.first.getHygiene();
+            tamagotchi::energy += food.first.getEnergy();
+            tamagotchi::health += food.first.getHealth();
+            food.second--;
+            break;
+        }
+    }
+}
+
+void tamagotchi::buyFood(const std::string &foodName) {
+    for (auto& food : foods)
+    {
+        if (food.first.getName() == foodName)
+        {
+            if (tamagotchi::money >= food.first.getPrice())
+            {
+                tamagotchi::money -= food.first.getPrice();
+                food.second++;
+            }
+            break;
+        }
+    }
+}
+
+void tamagotchi::sellFood(const std::string &foodName) {
+    // sell tamagotchi food for 50% of the price
+    for (auto& food : foods)
+    {
+        if (food.first.getName() == foodName && food.second > 0)
+        {
+            tamagotchi::money += food.first.getPrice() / 2;
+            food.second--;
+            break;
+        }
     }
 }

@@ -173,13 +173,6 @@ class tamagotchi
     void setFoods(std::map<food, int> _foods);
 
     /**
-     * @brief Add food to tamagotchi foods
-     * @param _food - Food to add
-     * @param quantity - Quantity of food to add
-     */
-    void addFood(const std::string& foodName, int quantity);
-
-    /**
      * @brief Enum class for tamagotchi types
      */
     enum class tamagotchiType
@@ -218,6 +211,31 @@ class tamagotchi
      * @param sleepStart - Sleep start time
      */
     void setSleepStart(long long int sleepStart);
+
+    /**
+     * @brief Eat food
+     * @param foodName - Food name
+     */
+    void eatFood(const std::string& foodName);
+
+    /**
+     * @brief Buy food
+     * @param foodName - Food name
+     */
+    void buyFood(const std::string& foodName);
+
+    /**
+     * @brief Sell food
+     * @param foodName - Food name
+     */
+    void sellFood(const std::string& foodName);
+
+    /**
+     * @brief Add food - method used during opening save file
+     * @param foodName - Food name
+     * @param quantity - Food quantity
+     */
+    void addFood(const std::string &foodName, int quantity);
 };
 
 #endif //TAMAGOTCHI_TAMAGOTCHI_H
