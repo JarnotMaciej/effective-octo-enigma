@@ -90,12 +90,6 @@ public:
      */
     sf::Sprite getSprite();
 
-    void buy();
-
-    void sell();
-
-    void eat();
-
     /**
      * @brief Gets the name of the button
      * @return name of the button

@@ -45,7 +45,7 @@ void menu::setPositions(sf::RenderWindow &window) {
 void menu::draw(sf::RenderWindow &window) {
     window.draw(logo);
 
-    for (auto button : buttons) {
+    for (auto &button : buttons) {
         button.draw(window);
     }
 }

@@ -24,8 +24,10 @@ void bottomBar::setPositions(sf::RenderWindow &window) {
     int buttonHeight = buttons[0].getSprite().getGlobalBounds().height;
     int buttonSpacing = (window.getSize().x - buttons.size() * buttonWidth) / (buttons.size() + 1);
 
-    for (int i = 0; i < buttons.size(); i++) {
-        buttons[i].setPosition(buttonSpacing + i * (buttonSpacing + buttonWidth),
-                               window.getSize().y - buttonHeight / 2 - 100);
+    int i = 0;
+    for (auto& button : buttons) {
+        button.setPosition(buttonSpacing + i * (buttonSpacing + buttonWidth),
+                           window.getSize().y - buttonHeight / 2 - 100);
+        i++;
     }
 }

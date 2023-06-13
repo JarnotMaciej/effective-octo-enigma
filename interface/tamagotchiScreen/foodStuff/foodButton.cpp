@@ -92,30 +92,6 @@ sf::Sprite foodButton::getSprite() {
     return backgroundSprite;
 }
 
-void foodButton::buy() {
-    if (quantity < 99) {
-        quantity++;
-        quantityText.setString(std::to_string(quantity));
-        // TODO play sound, update money
-    }
-}
-
-void foodButton::sell() {
-    if (quantity > 0) {
-        quantity--;
-        quantityText.setString(std::to_string(quantity));
-        // TODO play sound, update money
-    }
-}
-
-void foodButton::eat() {
-    if (quantity > 0) {
-        quantity--;
-        quantityText.setString(std::to_string(quantity));
-        // TODO play sound, update hunger
-    }
-}
-
 std::string foodButton::getName() {
     return buttonName;
 }

@@ -6,8 +6,7 @@
 
 #include <utility>
 
-minigame::minigame(std::string textureName, const std::shared_ptr<minigameConnector> &_magicConnector)
-{
+minigame::minigame(std::string textureName, const std::shared_ptr<minigameConnector> &_magicConnector) {
     // set connector
     magicConnector = _magicConnector;
 
@@ -41,59 +40,41 @@ minigame::minigame(std::string textureName, const std::shared_ptr<minigameConnec
     coinSoundBuffer = assetManager::getInstance().getSound("coin1", "ogg");
 }
 
-void minigame::draw(sf::RenderWindow &window)
-{
+void minigame::draw(sf::RenderWindow &window) {
     // drawing coins
-    for (auto &coin : coinsVector)
-    {
+    for (auto &coin: coinsVector) {
         coin.draw(window);
     }
 
     // other stuff
-    this->sprite.setTexture(texture);
+//    this->sprite.setTexture(texture);
     window.draw(sprite);
     window.draw(timeText);
     window.draw(coinsText);
 }
 
-void minigame::handleInput(sf::RenderWindow &window, ScreenName &_screenName)
-{
+void minigame::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
     sf::Event event;
 
-    if (isRunning)
-    {
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::KeyPressed)
-            {
-                if (event.key.code == sf::Keyboard::A)
-                {
+    if (isRunning) {
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::A) {
                     isMovingLeft = true;
-                }
-                else if (event.key.code == sf::Keyboard::D)
-                {
+                } else if (event.key.code == sf::Keyboard::D) {
                     isMovingRight = true;
                 }
-            }
-            else if (event.type == sf::Event::KeyReleased)
-            {
-                if (event.key.code == sf::Keyboard::A)
-                {
+            } else if (event.type == sf::Event::KeyReleased) {
+                if (event.key.code == sf::Keyboard::A) {
                     isMovingLeft = false;
-                }
-                else if (event.key.code == sf::Keyboard::D)
-                {
+                } else if (event.key.code == sf::Keyboard::D) {
                     isMovingRight = false;
                 }
-            }
-            else if (event.type == sf::Event::Closed)
-            {
+            } else if (event.type == sf::Event::Closed) {
                 window.close();
             }
         }
-    }
-    else
-    {
+    } else {
         isRunning = true;
         // play sound
         minigameSound.setBuffer(assetManager::getInstance().getSound("gameover", "wav"));
@@ -102,8 +83,7 @@ void minigame::handleInput(sf::RenderWindow &window, ScreenName &_screenName)
     }
 }
 
-void minigame::setPositions(sf::RenderWindow &window)
-{
+void minigame::setPositions(sf::RenderWindow &window) {
     int margin = 32;
     // setting time text position -> top left corner
     timeText.setPosition(margin, margin);
@@ -116,10 +96,10 @@ void minigame::setPositions(sf::RenderWindow &window)
                        window.getSize().y - sprite.getGlobalBounds().height);
 }
 
-void minigame::update(sf::RenderWindow &window, tamagotchi &pet)
-{
-    if (time == 0)
-    {
+void minigame::update(sf::RenderWindow &window, tamagotchi &pet) {
+    std::stringstream ss;
+
+    if (time == 0) {
         isRunning = false;
 
         // TODO -> connector here
@@ -151,18 +131,15 @@ void minigame::update(sf::RenderWindow &window, tamagotchi &pet)
         coinsVector.clear();
     }
 
-    if (isRunning)
-    {
+    if (isRunning) {
         // updating time according to clock from SFML
-        if (minigameClock.getElapsedTime().asSeconds() >= 1 && time > 0)
-        {
+        if (minigameClock.getElapsedTime().asSeconds() >= 1 && time > 0) {
             time--;
             minigameClock.restart();
         }
 
         // spawning coins if there are less than maxCoins and the coin clock is greater than 400ms
-        if (coinsVector.size() < maxCoins && coinClock.getElapsedTime().asMilliseconds() >= 400)
-        {
+        if (coinsVector.size() < maxCoins && coinClock.getElapsedTime().asMilliseconds() >= 400) {
             coin newCoin;
             newCoin.setRandomPosition(window);
             coinsVector.push_back(newCoin);
@@ -170,16 +147,13 @@ void minigame::update(sf::RenderWindow &window, tamagotchi &pet)
         }
 
         // updating coins
-        for (auto &coin : coinsVector)
-        {
+        for (auto &coin: coinsVector) {
             coin.update();
         }
 
         // checking if player has collected a coin
-        for (int i = 0; i < coinsVector.size(); i++)
-        {
-            if (coinsVector[i].getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds()))
-            {
+        for (int i = 0; i < coinsVector.size(); ++i) {
+            if (coinsVector[i].getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds())) {
                 coinsVector.erase(coinsVector.begin() + i);
                 // Play the coin sound
                 setCoinSoundBuffer();
@@ -192,53 +166,41 @@ void minigame::update(sf::RenderWindow &window, tamagotchi &pet)
         }
 
         // deleting coins that are out of screen
-        for (int i = 0; i < coinsVector.size(); i++)
-        {
-            if (coinsVector[i].getSprite().getPosition().y > window.getSize().y)
-            {
+        for (int i = 0; i < coinsVector.size(); ++i) {
+            if (coinsVector[i].getSprite().getPosition().y > window.getSize().y) {
                 coinsVector.erase(coinsVector.begin() + i);
             }
         }
 
         // Move the pet based on continuous input
-        if (isMovingLeft && sprite.getPosition().x >= petSpeed)
-        {
+        if (isMovingLeft && sprite.getPosition().x >= petSpeed) {
             sprite.move(-petSpeed, 0);
-        }
-        else if (isMovingRight && sprite.getPosition().x <= window.getSize().x - sprite.getGlobalBounds().width - petSpeed)
-        {
+        } else if (isMovingRight &&
+                   sprite.getPosition().x <= window.getSize().x - sprite.getGlobalBounds().width - petSpeed) {
             sprite.move(petSpeed, 0);
         }
 
         //------------------------
         // displaying time in format 0:00
-        if (time >= 10)
-        {
+        if (time >= 10) {
             timeText.setString("0:" + std::to_string(time));
-        }
-        else
-        {
+        } else {
             timeText.setString("0:0" + std::to_string(time));
         }
 
         // updating coins text in 000 format
-        if (coins < 10)
-        {
-            coinsText.setString("00" + std::to_string(coins));
+        if (coins < 10) {
+            ss << "00" << coins;
+        } else if (coins < 100) {
+            ss << "0" << coins;
+        } else {
+            ss << coins;
         }
-        else if (coins < 100)
-        {
-            coinsText.setString("0" + std::to_string(coins));
-        }
-        else
-        {
-            coinsText.setString(std::to_string(coins));
-        }
+        coinsText.setString(ss.str());
     }
 }
 
-void minigame::setCoinSoundBuffer()
-{
+void minigame::setCoinSoundBuffer() {
     // generating random number from 1 to 12
     int random = rand() % 12 + 1;
     std::string soundName = "coin" + std::to_string(random);
