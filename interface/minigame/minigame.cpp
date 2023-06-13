@@ -35,6 +35,9 @@ minigame::minigame(std::string textureName, const std::shared_ptr<minigameConnec
     sprite.setPosition(0, 0);
     sprite.setScale(0.4, 0.4);
 
+    isMovingLeft = false;
+    isMovingRight = false;
+
     coinSoundBuffer = assetManager::getInstance().getSound("coin1", "ogg");
 }
 
@@ -65,26 +68,22 @@ void minigame::handleInput(sf::RenderWindow &window, ScreenName &_screenName)
             {
                 if (event.key.code == sf::Keyboard::A)
                 {
-                    if (sprite.getPosition().x >= petSpeed)
-                    {
-                        sprite.move(-petSpeed, 0);
-                    }
-                    else
-                    {
-                        sprite.setPosition(0, sprite.getPosition().y);
-                    }
+                    isMovingLeft = true;
                 }
-                if (event.key.code == sf::Keyboard::D)
+                else if (event.key.code == sf::Keyboard::D)
                 {
-                    if (sprite.getPosition().x <= window.getSize().x - sprite.getGlobalBounds().width - petSpeed)
-                    {
-                        sprite.move(petSpeed, 0);
-                    }
-                    else
-                    {
-                        sprite.setPosition(window.getSize().x - sprite.getGlobalBounds().width,
-                                           sprite.getPosition().y);
-                    }
+                    isMovingRight = true;
+                }
+            }
+            else if (event.type == sf::Event::KeyReleased)
+            {
+                if (event.key.code == sf::Keyboard::A)
+                {
+                    isMovingLeft = false;
+                }
+                else if (event.key.code == sf::Keyboard::D)
+                {
+                    isMovingRight = false;
                 }
             }
             else if (event.type == sf::Event::Closed)
@@ -199,6 +198,16 @@ void minigame::update(sf::RenderWindow &window, tamagotchi &pet)
             {
                 coinsVector.erase(coinsVector.begin() + i);
             }
+        }
+
+        // Move the pet based on continuous input
+        if (isMovingLeft && sprite.getPosition().x >= petSpeed)
+        {
+            sprite.move(-petSpeed, 0);
+        }
+        else if (isMovingRight && sprite.getPosition().x <= window.getSize().x - sprite.getGlobalBounds().width - petSpeed)
+        {
+            sprite.move(petSpeed, 0);
         }
 
         //------------------------

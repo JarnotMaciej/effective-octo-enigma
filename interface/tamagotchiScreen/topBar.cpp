@@ -50,8 +50,9 @@ void topBar::setCoins(int coins, sf::RenderWindow &window) {
     this->coins.setPosition((window.getSize().x / 2) - (this->coins.getLocalBounds().width / 2), 10);
 }
 
-void topBar::setDaysAlive(int daysAlive, sf::RenderWindow &window) {
-    this->daysAlive.setString("Days alive: " + std::to_string(daysAlive));
+void topBar::setDaysAlive(int bornTime, sf::RenderWindow &window) {
+    int age = tamagotchiMechanics::realDaysToGameDays(bornTime);
+    this->daysAlive.setString("Days alive: " + std::to_string(age));
     //update the position of the days alive text
     this->daysAlive.setPosition(window.getSize().x - this->daysAlive.getLocalBounds().width - 20, 10);
 }
@@ -63,6 +64,6 @@ float topBar::getHeight() {
 void topBar::update(tamagotchi &tamagotchi, sf::RenderWindow &window) {
     setTamagotchiName(tamagotchi.getName());
     setCoins(tamagotchi.getMoney(), window);
-    setDaysAlive(tamagotchi.getAge(), window);
+    setDaysAlive(tamagotchi.getBornTime(), window);
     setPosition(window);
 }

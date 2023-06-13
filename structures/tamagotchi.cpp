@@ -7,7 +7,6 @@
 tamagotchi::tamagotchi()
 {
 	name = "Tamagotchi";
-	age = 0;
 	health = 100;
 	hunger = 100;
 	happiness = 100;
@@ -23,7 +22,6 @@ tamagotchi::tamagotchi()
 tamagotchi::tamagotchi(std::string _name)
 {
 	name = _name;
-	age = 0;
 	health = 100;
 	hunger = 100;
 	happiness = 100;
@@ -38,9 +36,6 @@ tamagotchi::tamagotchi(std::string _name)
 
 void tamagotchi::printInfo()
 {
-	std::cout << "Name:\t\t" << name << std::endl;
-	std::cout << "Age:\t\t" << age << " days" << std::endl;
-	std::cout << "Health:\t\t" << health << "/100%" << std::endl;
 	std::cout << "Hunger:\t\t" << hunger << "/100%" << std::endl;
 	std::cout << "Happiness:\t" << happiness << "/100%" << std::endl;
 	std::cout << "Hygiene:\t" << hygiene << "/100%" << std::endl;
@@ -83,11 +78,6 @@ void tamagotchi::setHealth(int health)
 	tamagotchi::health = health;
 }
 
-void tamagotchi::setAge(int age)
-{
-	tamagotchi::age = age;
-}
-
 void tamagotchi::setName(std::string name)
 {
 	tamagotchi::name = name;
@@ -121,11 +111,6 @@ int tamagotchi::getHunger()
 int tamagotchi::getHealth()
 {
 	return health;
-}
-
-int tamagotchi::getAge()
-{
-	return age;
 }
 
 std::string tamagotchi::getName() const {
@@ -198,7 +183,7 @@ void tamagotchi::addFood(const std::string& foodName, int quantity) {
     }
 }
 
-void tamagotchi::eatFood(const std::string& foodName){
+bool tamagotchi::eatFood(const std::string& foodName){
     for (auto& food : foods)
     {
         if (food.first.getName() == foodName && food.second > 0)
@@ -209,12 +194,13 @@ void tamagotchi::eatFood(const std::string& foodName){
             tamagotchi::energy = indicatorFunction(tamagotchi::energy + food.first.getEnergy());
             tamagotchi::health = indicatorFunction(tamagotchi::health + food.first.getHealth());
             food.second--;
-            break;
+            return true;
         }
     }
+    return false;
 }
 
-void tamagotchi::buyFood(const std::string &foodName) {
+bool tamagotchi::buyFood(const std::string &foodName) {
     for (auto& food : foods)
     {
         if (food.first.getName() == foodName)
@@ -223,13 +209,15 @@ void tamagotchi::buyFood(const std::string &foodName) {
             {
                 tamagotchi::money -= food.first.getPrice();
                 food.second++;
+                return true;
             }
             break;
         }
     }
+    return false;
 }
 
-void tamagotchi::sellFood(const std::string &foodName) {
+bool tamagotchi::sellFood(const std::string &foodName) {
     // sell tamagotchi food for 50% of the price
     for (auto& food : foods)
     {
@@ -237,9 +225,10 @@ void tamagotchi::sellFood(const std::string &foodName) {
         {
             tamagotchi::money += food.first.getPrice() / 2;
             food.second--;
-            break;
+            return true;
         }
     }
+    return false;
 }
 
 int indicatorFunction(int value) {

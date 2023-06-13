@@ -13,6 +13,7 @@
 #include "../assetManager.h"
 #include "../../functions.h"
 #include "../../structures/tamagotchi.h"
+#include "../../mechanics/tamagotchiMechanics.h"
 
 /**
  * @brief Class for top bar -> tamagotchi name, coins, days alive
@@ -57,10 +58,10 @@ public:
 
     /**
      * @brief Method used for setting days alive
-     * @param daysAlive - new days alive
+     * @param bornTime - born time of tamagotchi
      * @param window - window to draw top bar on
      */
-    void setDaysAlive(int daysAlive, sf::RenderWindow &window);
+    void setDaysAlive(int bornTime, sf::RenderWindow &window);
 
     /**
      * @brief Method used for getting height of top bar

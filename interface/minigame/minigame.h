@@ -31,12 +31,14 @@ private:
     short int maxCoins; // max coins to spawns
     std::vector<coin> coinsVector; // vector of coins
     sf::Clock minigameClock; // clock for minigame
-    sf::Clock coinClock; // clock for spawning coins
+    sf::Clock coinClock; // clock aaaadfor spawning coins
     bool isRunning; // is minigame running
     sf::Sound minigameSound; // sound of the coin
     sf::SoundBuffer coinSoundBuffer; // buffer of the coin sound
     std::shared_ptr<minigameConnector> magicConnector; // connector to minigame
-    const float petSpeed = 30.f; // speed of the pet
+    const float petSpeed = 12.f; // speed of the pet
+    bool isMovingLeft;
+    bool isMovingRight;
 
 
 public:

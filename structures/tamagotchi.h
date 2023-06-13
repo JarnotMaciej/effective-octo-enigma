@@ -24,7 +24,6 @@ class tamagotchi
 {
  private:
 	std::string name; // Tamagotchi name
-	int age; // Tamagotchi age (in days)
 	int health; // Tamagotchi health (in percent)
 	int hunger; // Tamagotchi hunger (in percent)
 	int happiness; // Tamagotchi happiness (in percent)
@@ -54,11 +53,6 @@ class tamagotchi
      */
 	std::string getName() const;
 
-    /**
-     * @brief Get tamagotchi age
-     * @return Tamagotchi age
-     */
-	int getAge();
     /**
      * @brief Get tamagotchi health
      * @return Tamagotchi health
@@ -106,12 +100,6 @@ class tamagotchi
      * @param name - Tamagotchi name
      */
 	void setName(std::string name);
-
-    /**
-     * @brief Set tamagotchi age
-     * @param age - Tamagotchi age
-     */
-	void setAge(int age);
 
     /**
      * @brief Set tamagotchi health
@@ -215,20 +203,23 @@ class tamagotchi
     /**
      * @brief Eat food
      * @param foodName - Food name
+     * @return True if food was eaten, false if not
      */
-    void eatFood(const std::string& foodName);
+    bool eatFood(const std::string& foodName);
 
     /**
      * @brief Buy food
      * @param foodName - Food name
+     * @return True if food was bought, false if not
      */
-    void buyFood(const std::string& foodName);
+    bool buyFood(const std::string& foodName);
 
     /**
      * @brief Sell food
      * @param foodName - Food name
+     * @return True if food was sold, false if not
      */
-    void sellFood(const std::string& foodName);
+    bool sellFood(const std::string& foodName);
 
     /**
      * @brief Add food - method used during opening save file
