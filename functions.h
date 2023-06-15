@@ -34,6 +34,18 @@ bool nameValidation(const std::string &name);
 bool deadTamagotchiValidation(const std::string &name);
 
 /**
+ * @brief Method used for validating scores
+ * @param name - name to be validated
+ */
+bool scoreLineValidation(const std::string &name);
+
+/**
+ * @brief Method used for validating food config
+ * @param name - name to be validated
+ */
+bool foodConfigValidation(const std::string &name);
+
+/**
  * @brief Method used for getting time
  * @return time in seconds
  */

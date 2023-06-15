@@ -20,6 +20,16 @@ bool deadTamagotchiValidation(const std::string &name) {
     std::regex nameRegex("[a-zA-Z]{1,32}.dtf");
     return std::regex_match(name, nameRegex);
 }
+bool scoreLineValidation(const std::string &name)
+{
+    std::regex nameRegex("[a-zA-Z]{1,32}\\s\\d{1,}\\s\\d{1,}");
+    return std::regex_match(name, nameRegex);
+}
+bool foodConfigValidation(const std::string &name)
+{
+    std::regex nameRegex("[a-zA-Z]{1,32}\\s-?\\d+\\s-?\\d+\\s-?\\d+\\s-?\\d+\\s-?\\d+\\s-?\\d+");
+    return std::regex_match(name, nameRegex);
+}
 long long int getTime()
 {
 	// to be more precise, this functions gets time in seconds since 1.1.1970

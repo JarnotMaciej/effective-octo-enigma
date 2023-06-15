@@ -68,7 +68,7 @@ std::string tamagotchiMechanics::searchForTamagotchi() {
             // entering directory and checking if the name of tamagotchi is the same as the name of directory
             fs::path tamagotchiPath = path;
             tamagotchiPath /= entry.path().filename().string();
-            if (entry.path().filename().string() == entry.path().filename().string()) {
+            if (entry.path().filename().string() == entry.path().filename().string() && nameValidation(entry.path().filename().string().substr(0, entry.path().filename().string().length() - 4))) {
                 debug("tamagotchi found");
                 // return file name without extension
                 return entry.path().filename().string().substr(0, entry.path().filename().string().length() - 4);
@@ -141,6 +141,8 @@ std::vector<score> tamagotchiMechanics::getScores() {
             if (deadTamagotchiValidation(filename)) {
                 std::ifstream scoreFile;
                 scoreFile.open(entry.path());
+                // TODO -> validate file content using bool scoreLineValidation(const std::string &name) function
+                
                 std::string name;
                 int score, daysAlive;
                 scoreFile >> name;

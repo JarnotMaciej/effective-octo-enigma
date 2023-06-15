@@ -28,26 +28,12 @@ int main() {
     // Google Test initialization in new thread
     std::thread t([] { testing::InitGoogleTest(); });
 
-    
-    // Food config loading
-    // std::map<std::string, food> foods;
-    // foods = foodMechanics::loadGlobalFoods();
-    // foodMechanics::printFoods(foods);
-
-    // std::cout << tamagotchiMechanics::searchForTamagotchi() << std::endl;
-
-    
-
     /*
     myCat.meow();
     // add food from global foods
     myCat.addFood(foods["Apple"]);
 
     myCat.printInfo();
-
-    // saving cat and his food
-    tamagotchiMechanics::saveTamagotchi(myCat);
-    foodMechanics::saveFoods(myCat);
 
     //getting time test
 //    std::this_thread::sleep_for(std::chrono::seconds(2));
@@ -57,10 +43,6 @@ int main() {
     std::vector<score> scores = tamagotchiMechanics::getScores();
     tamagotchiMechanics::printScores(scores);
     */
-
-    // sound
-//    auto soundBuff = assetManager::getInstance().getSound("menu", "wav");
-//    sf::Sound sound(soundBuff);
 
     game myGame;
     myGame.run();
