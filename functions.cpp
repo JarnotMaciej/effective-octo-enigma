@@ -78,6 +78,11 @@ void setCursor(sf::RenderWindow &window) {
 }
 
 bool tamagotchiSaveValidation(const std::string &tamagotchiFile) {
-    std::regex fileRegex("[0-9]{1}\\n[a-zA-Z]{1,32}\\n\\d{1,3}\\n\\d{1,3}\\n\\d{1,3}\\n\\d{1,3}\\n\\d{1,3}\\n\\d{1,}\\n[0,1]{1}\\n\\d{1,}\\n\\d{1,}\\n\\d{1,}\\n{0,1}");
+    std::regex fileRegex("[0-9]{1}\\n[a-zA-Z]{1,32}\\n\\d{1,3}\\n\\d{1,3}\\n\\d{1,3}\\n\\d{1,3}\\n\\d{1,3}\\n\\d{1,}\\n[0,1]{1}\\n\\d{1,}\\n\\d{1,}\\n\\d{1,}\\n?");
     return std::regex_match(tamagotchiFile, fileRegex);
+}
+
+bool foodSaveValidation(const std::string &lineToValidate) {
+    std::regex lineRegex("[a-z]{1,}\\s\\d{1,3}");
+    return std::regex_match(lineToValidate, lineRegex);
 }

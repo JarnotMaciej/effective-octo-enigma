@@ -101,8 +101,17 @@ void foodMechanics::loadTamagotchiFoods(const std::string &fileName, tamagotchi 
     std::string name;
     int amount;
 
-    while (foodFile >> name) {
-        foodFile >> amount;
+    std::string line;
+    while (std::getline(foodFile, line)) {
+        if (!foodSaveValidation(line)) {
+            continue;
+        }
+
+        std::istringstream iss(line);
+        if (!(iss >> name >> amount)) {
+            continue;
+        }
+
         foodsList.emplace_back(name, amount);
     }
 

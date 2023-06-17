@@ -46,6 +46,12 @@ bool scoreLineValidation(const std::string &lineToValidate);
 bool foodConfigValidation(const std::string &lineToValidate);
 
 /**
+ * @brief Method used for validating food config
+ * @param lineToValidate - line to be validated
+ */
+bool foodSaveValidation(const std::string &lineToValidate);
+
+/**
  * @brief Method used for validating tamagotchi config
  * @param tamagotchiFile - tamagotchi file to be validated
  */
