@@ -141,16 +141,27 @@ std::vector<score> tamagotchiMechanics::getScores() {
             if (deadTamagotchiValidation(filename)) {
                 std::ifstream scoreFile;
                 scoreFile.open(entry.path());
-                // TODO -> validate file content using bool scoreLineValidation(const std::string &name) function
-                
-                std::string name;
-                int score, daysAlive;
-                scoreFile >> name;
-                scoreFile >> score;
-                scoreFile >> daysAlive;
+
+                std::string line;
+                while (std::getline(scoreFile, line)) {
+                    // Validate the line using the scoreLineValidation function
+                    if (!scoreLineValidation(line)) {
+                        // Invalid line, handle the error or skip it
+                        continue;
+                    }
+
+                    std::istringstream iss(line);
+                    std::string name;
+                    int score, daysAlive;
+                    if (!(iss >> name >> score >> daysAlive)) {
+                        // Invalid line format, handle the error or skip it
+                        continue;
+                    }
+
+                    scores.emplace_back(name, score, daysAlive);
+                }
+
                 scoreFile.close();
-                class score s(name, score, daysAlive);
-                scores.push_back(s);
             }
         }
     }

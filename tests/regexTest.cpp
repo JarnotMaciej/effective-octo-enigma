@@ -91,3 +91,23 @@ INSTANTIATE_TEST_CASE_P(Names, foodConfigValidationTest,
                              std::make_pair("apple 3 5 10 0 -2 -5", true),
                              std::make_pair("apple -3 -5 -10 -12 -2 -5", true),
                              std::make_pair("apple 3 5 10 0 2 5", true)));
+
+
+class tamagotchiFileValidationTest : public ::testing::TestWithParam<std::pair<std::string, bool>> {};
+
+TEST_P(tamagotchiFileValidationTest, tamagotchiFileValidation) {
+  std::string name = GetParam().first;
+  bool expected = GetParam().second;
+  ASSERT_EQ(tamagotchiSaveValidation(name), expected);
+}
+
+INSTANTIATE_TEST_CASE_P(Names, tamagotchiFileValidationTest,
+                        ::testing::Values(
+                             std::make_pair("0\nNeko\n45\n100\n100\n0\n0\n572\n1\n1686422245\n1687002698\n1687002704", true),
+                             std::make_pair("0\nNeko\n45\n100\n100\n0\n0\n572\n1\n1686422245\n1687002698\n1687002704\n", true),
+                                std::make_pair("0\nNeko\n45\n100\n100\n0\n0\n572\n1\n1686422245\n1687002698\n1687002704\n1687002704", false),
+                                std::make_pair("0", false),
+                                std::make_pair("dasd", false),
+                                std::make_pair("0\nDog\n70\n90\n20\n0\n0\n500\n1\n1686422245\n1687002698\n", false),
+                                std::make_pair("1\nRabbit\n20\n200\n80\n0\n0\n100\n1\n1686422245\n1687002698\n1687002704\n", true)
+                             ));

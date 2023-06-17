@@ -16,7 +16,7 @@ gameOver::gameOver(const std::shared_ptr<minigameConnector> &_magicConnector) {
     message.setPosition(0, 0);
 
     // coins won
-    coinsWon.setString("Coins won: 0");
+    coinsWon.setString(" ");
     coinsWon.setFont(assetManager::getInstance().getFont("silkscreen"));
     coinsWon.setCharacterSize(56);
     coinsWon.setFillColor(sf::Color::White);

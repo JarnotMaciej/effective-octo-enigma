@@ -20,15 +20,15 @@ bool deadTamagotchiValidation(const std::string &name) {
     std::regex nameRegex("[a-zA-Z]{1,32}.dtf");
     return std::regex_match(name, nameRegex);
 }
-bool scoreLineValidation(const std::string &name)
+bool scoreLineValidation(const std::string &lineToValidate)
 {
-    std::regex nameRegex("[a-zA-Z]{1,32}\\s\\d{1,}\\s\\d{1,}");
-    return std::regex_match(name, nameRegex);
+    std::regex lineRegex("[a-zA-Z]{1,32}\\s\\d{1,}\\s\\d{1,}");
+    return std::regex_match(lineToValidate, lineRegex);
 }
-bool foodConfigValidation(const std::string &name)
+bool foodConfigValidation(const std::string &lineToValidate)
 {
-    std::regex nameRegex("[a-zA-Z]{1,32}\\s-?\\d+\\s-?\\d+\\s-?\\d+\\s-?\\d+\\s-?\\d+\\s-?\\d+");
-    return std::regex_match(name, nameRegex);
+    std::regex lineRegex("[a-zA-Z]{1,32}\\s-?\\d+\\s-?\\d+\\s-?\\d+\\s-?\\d+\\s-?\\d+\\s-?\\d+");
+    return std::regex_match(lineToValidate, lineRegex);
 }
 long long int getTime()
 {
@@ -75,4 +75,9 @@ void setCursor(sf::RenderWindow &window) {
 
     // Set the window's cursor
     window.setMouseCursor(cursor);
+}
+
+bool tamagotchiSaveValidation(const std::string &tamagotchiFile) {
+    std::regex fileRegex("[0-9]{1}\\n[a-zA-Z]{1,32}\\n\\d{1,3}\\n\\d{1,3}\\n\\d{1,3}\\n\\d{1,3}\\n\\d{1,3}\\n\\d{1,}\\n[0,1]{1}\\n\\d{1,}\\n\\d{1,}\\n\\d{1,}\\n{0,1}");
+    return std::regex_match(tamagotchiFile, fileRegex);
 }

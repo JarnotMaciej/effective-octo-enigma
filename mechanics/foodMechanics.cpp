@@ -5,9 +5,8 @@
 #include "foodMechanics.h"
 
 
-void foodMechanics::printFoods(const std::map<food, int>& foods) {
-    for (auto food : foods)
-    {
+void foodMechanics::printFoods(const std::map<food, int> &foods) {
+    for (auto food: foods) {
         std::cout << "Name: " << food.first.getName() << std::endl;
         std::cout << "Price: " << food.first.getPrice() << std::endl;
         std::cout << "Health: " << food.first.getHealth() << std::endl;
@@ -37,18 +36,27 @@ std::map<food, int> foodMechanics::loadGlobalFoods() {
     std::string name;
     int price, health, hunger, happiness, hygiene, energy;
     std::string texture;
-    // reading from file
-    while (foodFile >> name) {
-        foodFile >> price;
-        foodFile >> health;
-        foodFile >> hunger;
-        foodFile >> happiness;
-        foodFile >> hygiene;
-        foodFile >> energy;
+
+    std::string line;
+
+    // reading from file line by line
+    while (std::getline(foodFile, line)) {
+        // Validate the line using the foodConfigValidation function
+        if (!foodConfigValidation(line)) {
+            // Invalid line, handle the error or skip it
+            continue;
+        }
+
+        std::istringstream iss(line);
+        if (!(iss >> name >> price >> health >> hunger >> happiness >> hygiene >> energy)) {
+            // Invalid line format, handle the error or skip it
+            continue;
+        }
 
         foods.emplace(food(name, price, health, hunger, happiness, hygiene, energy), 0);
     }
     foodFile.close();
+
 
     return foods;
 }
@@ -70,8 +78,7 @@ void foodMechanics::saveFood(tamagotchi &pet, bool saved) {
     foodFile.open(path);
 
     // writing data to a file
-    for (const auto& food : pet.getFoods())
-    {
+    for (const auto &food: pet.getFoods()) {
         foodFile << food.first.getName() << " " << food.second << std::endl;
     }
 
@@ -86,7 +93,7 @@ void foodMechanics::loadTamagotchiFoods(const std::string &fileName, tamagotchi 
     path /= "saves";
     path /= fileName + ".tmgfood";
 
-    std::list <std::pair<std::string, int>> foodsList;
+    std::list<std::pair<std::string, int>> foodsList;
 
     std::ifstream foodFile;
     foodFile.open(path);
@@ -94,8 +101,7 @@ void foodMechanics::loadTamagotchiFoods(const std::string &fileName, tamagotchi 
     std::string name;
     int amount;
 
-    while (foodFile >> name)
-    {
+    while (foodFile >> name) {
         foodFile >> amount;
         foodsList.emplace_back(name, amount);
     }
@@ -103,8 +109,7 @@ void foodMechanics::loadTamagotchiFoods(const std::string &fileName, tamagotchi 
     foodFile.close();
 
     // loading foods to tamagotchi
-    for (const auto& food : foodsList)
-    {
+    for (const auto &food: foodsList) {
         pet.addFood(food.first, food.second);
     }
 }

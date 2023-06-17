@@ -35,15 +35,21 @@ bool deadTamagotchiValidation(const std::string &name);
 
 /**
  * @brief Method used for validating scores
- * @param name - name to be validated
+ * @param lineToValidate - line to be validated
  */
-bool scoreLineValidation(const std::string &name);
+bool scoreLineValidation(const std::string &lineToValidate);
 
 /**
  * @brief Method used for validating food config
- * @param name - name to be validated
+ * @param lineToValidate - line to be validated
  */
-bool foodConfigValidation(const std::string &name);
+bool foodConfigValidation(const std::string &lineToValidate);
+
+/**
+ * @brief Method used for validating tamagotchi config
+ * @param tamagotchiFile - tamagotchi file to be validated
+ */
+bool tamagotchiSaveValidation(const std::string &tamagotchiFile);
 
 /**
  * @brief Method used for getting time
