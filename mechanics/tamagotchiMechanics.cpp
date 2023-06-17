@@ -214,6 +214,29 @@ tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
     std::ifstream tamagotchiFile;
     tamagotchiFile.open(path);
 
+    if (!tamagotchiFile.is_open()) {
+        debug("failed to open file");
+        return cat();
+    }
+
+    // read file content into a string
+    std::stringstream buffer;
+    buffer << tamagotchiFile.rdbuf();
+    tamagotchiFile.close();
+
+    std::string fileContent = buffer.str();
+
+    // validate file content using tamagotchiSaveValidation function
+    if (!tamagotchiSaveValidation(fileContent)) {
+        debug("invalid file");
+        return cat();
+    }
+
+    debug("valid file");
+
+    // create a stringstream from the file content string
+    std::stringstream fileStream(fileContent);
+
     tamagotchi toReturn;
     int petType;
     std::string petName;
@@ -221,9 +244,8 @@ tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
     bool isSleeping;
     long long int bornTime, sleepStart, lastSaved;
 
-    // reading data from file
-    // check the type of pet
-    tamagotchiFile >> petType;
+    // reading data from the file stream
+    fileStream >> petType;
 
     // switch case for pet type -> in the future there will be more types of pets
     // CAT
@@ -239,21 +261,17 @@ tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
             break;
     }
 
-    // reading rest of the data from file
-    tamagotchiFile >> petName;
-    tamagotchiFile >> health;
-    tamagotchiFile >> hunger;
-    tamagotchiFile >> happiness;
-    tamagotchiFile >> hygiene;
-    tamagotchiFile >> energy;
-    tamagotchiFile >> money;
-    tamagotchiFile >> isSleeping;
-    tamagotchiFile >> bornTime;
-    tamagotchiFile >> sleepStart;
-    tamagotchiFile >> lastSaved;
-
-    // closing file
-    tamagotchiFile.close();
+    fileStream >> petName;
+    fileStream >> health;
+    fileStream >> hunger;
+    fileStream >> happiness;
+    fileStream >> hygiene;
+    fileStream >> energy;
+    fileStream >> money;
+    fileStream >> isSleeping;
+    fileStream >> bornTime;
+    fileStream >> sleepStart;
+    fileStream >> lastSaved;
 
     // setting data to pet
     toReturn.setName(petName);
