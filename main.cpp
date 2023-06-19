@@ -14,6 +14,7 @@
 // mechanics
 #include "mechanics/tamagotchiMechanics.h"
 #include "mechanics/foodMechanics.h"
+#include "mechanics/errorHandler.h"
 
 // interface
 #include "interface/menu/menu.h"
@@ -46,6 +47,9 @@ int main() {
 
     game myGame;
     myGame.run();
+
+    // error handler test
+    errorHandler myErrorHandler(errorCode::FileError);
 
 
     // Google Test run
