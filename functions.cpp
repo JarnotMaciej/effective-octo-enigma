@@ -40,7 +40,7 @@ long long int getTime()
 }
 
 void setIcon(sf::RenderWindow &window) {
-    auto path = std::filesystem::current_path().parent_path().string() + "/resources/icon/tamagotchi.png";
+    auto path = std::filesystem::current_path().parent_path().string() + "/resources/icon/cat.png";
     sf::Image icon;
     icon.loadFromFile(path);
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
