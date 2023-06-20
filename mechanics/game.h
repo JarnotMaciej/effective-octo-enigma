@@ -24,7 +24,6 @@
 #include "../mechanics/foodMechanics.h"
 #include "../interface/exit/exitScreen.h"
 
-
 /**
  * @brief Class for game
  */

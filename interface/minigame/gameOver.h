@@ -7,7 +7,7 @@
 
 // header files
 #include "../screen.h"
-#include "../assetManager.h"
+#include "../../mechanics/assetManager.h"
 #include "minigameConnector.h"
 
 /**

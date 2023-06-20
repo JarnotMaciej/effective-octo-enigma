@@ -17,7 +17,12 @@ enum class errorCode {
     Unspecified,
     OutOfRange,
     FileError,
-    NoDirectory
+    ValidationError,
+    FoodDoesNotExist,
+    EmptyString,
+    TextureNotFound,
+    SoundNotFound,
+    FontNotFound
 };
 
 /**
@@ -55,6 +60,8 @@ public:
      * @brief Logs the error message to a file
      */
     void logError();
+
+    void printError();
 };
 
 

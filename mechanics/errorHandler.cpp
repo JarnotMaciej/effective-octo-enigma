@@ -35,8 +35,20 @@ std::string errorHandler::getErrorMessage() {
         case errorCode::FileError:
             errorString = "File error";
             break;
-        case errorCode::NoDirectory:
-            errorString = "No directory";
+        case errorCode::EmptyString:
+            errorString = "Empty String";
+            break;
+        case errorCode::ValidationError:
+            errorString = "Validation error";
+            break;
+        case errorCode::TextureNotFound:
+            errorString = "Texture not found";
+            break;
+        case errorCode::SoundNotFound:
+            errorString = "Sound not found";
+            break;
+        case errorCode::FontNotFound:
+            errorString = "Font not found";
             break;
         default:
             errorString = "Unknown error";
@@ -48,10 +60,10 @@ std::string errorHandler::getErrorMessage() {
 
 void errorHandler::logError() {
     std::time_t currentTime = std::time(nullptr);
-    std::tm* localTime = std::localtime(&currentTime);
+    std::tm *localTime = std::localtime(&currentTime);
 
-//    std::string timeString = std::to_string(localTime->tm_mday) + "." + std::to_string(localTime->tm_mon + 1) + "." + std::to_string(localTime->tm_year + 1900) + " " + std::to_string(localTime->tm_hour) + ":" + std::to_string(localTime->tm_min) + ":" + std::to_string(localTime->tm_sec);
-//    std::string timeString in format DD.MM.YYYY HH:MM:SS
+    //    std::string timeString = std::to_string(localTime->tm_mday) + "." + std::to_string(localTime->tm_mon + 1) + "." + std::to_string(localTime->tm_year + 1900) + " " + std::to_string(localTime->tm_hour) + ":" + std::to_string(localTime->tm_min) + ":" + std::to_string(localTime->tm_sec);
+    //    std::string timeString in format DD.MM.YYYY HH:MM:SS
     std::string timeString;
     if (localTime->tm_mday < 10) {
         timeString += "0";
@@ -86,4 +98,8 @@ errorHandler::~errorHandler() {
     if (logFile.is_open()) {
         logFile.close();
     }
+}
+
+void errorHandler::printError() {
+    std::cout << this->getErrorMessage() << std::endl;
 }

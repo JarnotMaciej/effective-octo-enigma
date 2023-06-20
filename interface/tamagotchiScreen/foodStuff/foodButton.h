@@ -11,7 +11,7 @@
 #include "SFML/Graphics/Text.hpp"
 
 // assetManager
-#include "../../assetManager.h"
+#include "../../../mechanics/assetManager.h"
 
 /**
  * @brief Class for food button

@@ -10,7 +10,7 @@
 #include "SFML/Graphics/Texture.hpp"
 
 // C++
-#include "../assetManager.h"
+#include "../../mechanics/assetManager.h"
 #include "../../functions.h"
 #include "../../structures/tamagotchi.h"
 #include "../../mechanics/tamagotchiMechanics.h"

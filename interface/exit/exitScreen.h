@@ -14,7 +14,7 @@
 
 // Headers
 #include "../screen.h"
-#include "../assetManager.h"
+#include "../../mechanics/assetManager.h"
 #include "../../mechanics/tamagotchiMechanics.h"
 #include "../../mechanics/foodMechanics.h"
 

@@ -12,7 +12,7 @@
 
 // header files
 #include "../screen.h"
-#include "../assetManager.h"
+#include "../../mechanics/assetManager.h"
 #include "../../structures/score.h"
 #include "../../mechanics/tamagotchiMechanics.h"
 #include "../keycapButton.h"

@@ -16,7 +16,7 @@
 #include "SFML/Audio.hpp"
 
 // headers
-#include "assetManager.h"
+#include "../mechanics/assetManager.h"
 
 /**
  * @brief Bottom button class

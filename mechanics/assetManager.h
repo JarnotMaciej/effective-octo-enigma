@@ -1,11 +1,14 @@
 // SFML
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 
 // C++
 #include <unordered_map>
 #include <memory>
 #include <filesystem>
+
+// headers
+#include "errorHandler.h"
 
 #ifndef TAMAGOTCHI_ASSETMANAGER_H
 #define TAMAGOTCHI_ASSETMANAGER_H

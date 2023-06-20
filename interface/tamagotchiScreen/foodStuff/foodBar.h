@@ -16,7 +16,7 @@
 #include "../../../structures/food.h"
 
 // asset manager
-#include "../../assetManager.h"
+#include "../../../mechanics/assetManager.h"
 #include "../../../structures/tamagotchi.h"
 
 /**

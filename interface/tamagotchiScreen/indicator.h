@@ -9,7 +9,7 @@
 #include "../../functions.h"
 
 // asset manager
-#include "../assetManager.h"
+#include "../../mechanics/assetManager.h"
 
 // SFML
 #include "SFML/Graphics/Text.hpp"

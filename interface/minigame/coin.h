@@ -12,7 +12,7 @@
 
 // Header files
 #include "flyingElement.h"
-#include "../assetManager.h"
+#include "../../mechanics/assetManager.h"
 
 #ifndef TAMAGOTCHI_MENU_COIN_H
 #define TAMAGOTCHI_MENU_COIN_H

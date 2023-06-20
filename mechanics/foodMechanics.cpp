@@ -31,6 +31,14 @@ std::map<food, int> foodMechanics::loadGlobalFoods() {
     path /= "food.tconf";
     foodFile.open(path);
 
+    try {
+        if(!foodFile.is_open()){
+            throw errorHandler(errorCode::FileError);
+        }
+    } catch (errorHandler &e) {
+        return {};
+    }
+
     //generating a map of foods
     std::map<food, int> foods;
     std::string name;
@@ -42,14 +50,21 @@ std::map<food, int> foodMechanics::loadGlobalFoods() {
     // reading from file line by line
     while (std::getline(foodFile, line)) {
         // Validate the line using the foodConfigValidation function
-        if (!foodConfigValidation(line)) {
-            // Invalid line, handle the error or skip it
+        try {
+            if (!foodConfigValidation(line)) {
+                throw errorHandler(errorCode::ValidationError);
+            }
+        } catch (errorHandler &e) {
             continue;
         }
 
         std::istringstream iss(line);
-        if (!(iss >> name >> price >> health >> hunger >> happiness >> hygiene >> energy)) {
-            // Invalid line format, handle the error or skip it
+
+        try {
+            if (!(iss >> name >> price >> health >> hunger >> happiness >> hygiene >> energy)) {
+                throw errorHandler(errorCode::FileError);
+            }
+        } catch (errorHandler &e) {
             continue;
         }
 
@@ -77,6 +92,14 @@ void foodMechanics::saveFood(tamagotchi &pet, bool saved) {
     path /= name + ".tmgfood"; // food file extension
     foodFile.open(path);
 
+    try {
+        if(!foodFile.is_open()){
+            throw errorHandler(errorCode::FileError);
+        }
+    } catch (errorHandler &e) {
+        return;
+    }
+
     // writing data to a file
     for (const auto &food: pet.getFoods()) {
         foodFile << food.first.getName() << " " << food.second << std::endl;
@@ -98,17 +121,33 @@ void foodMechanics::loadTamagotchiFoods(const std::string &fileName, tamagotchi 
     std::ifstream foodFile;
     foodFile.open(path);
 
+    try {
+        if(!foodFile.is_open()){
+            throw errorHandler(errorCode::FileError);
+        }
+    } catch (errorHandler &e) {
+        return;
+    }
+
     std::string name;
     int amount;
 
     std::string line;
     while (std::getline(foodFile, line)) {
-        if (!foodSaveValidation(line)) {
+        try {
+            if (!foodSaveValidation(line)) {
+                throw errorHandler(errorCode::ValidationError);
+            }
+        } catch (errorHandler &e) {
             continue;
         }
 
-        std::istringstream iss(line);
-        if (!(iss >> name >> amount)) {
+        try {
+            std::istringstream iss(line);
+            if (!(iss >> name >> amount)) {
+                throw errorHandler(errorCode());
+            }
+        } catch (errorHandler &e) {
             continue;
         }
 

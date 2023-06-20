@@ -16,6 +16,7 @@
 // Headers
 #include "food.h"
 #include "../functions.h"
+#include "../mechanics/errorHandler.h"
 
 /**
  * Tamagotchi class

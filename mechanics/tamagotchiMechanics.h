@@ -14,6 +14,7 @@
 #include "../structures/score.h"
 #include "../structures/cat.h"
 #include "foodMechanics.h"
+#include "errorHandler.h"
 
 #ifndef PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_
 #define PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_
@@ -78,7 +79,7 @@ namespace tamagotchiMechanics {
      * @brief Method used for printing scores
      * @param scores - vector of scores
      */
-    [[maybe_unused]] void printScores(std::vector<score> scores);
+    [[maybe_unused]] void printScores(const std::vector<score>& scores);
 
     /**
      * @brief Method used for adding energy to tamagotchi during sleeping

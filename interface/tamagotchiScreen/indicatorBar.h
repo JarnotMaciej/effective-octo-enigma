@@ -12,7 +12,7 @@
 // header files
 #include "indicator.h"
 #include "../../structures/tamagotchi.h"
-#include "../assetManager.h"
+#include "../../mechanics/assetManager.h"
 
 
 /*

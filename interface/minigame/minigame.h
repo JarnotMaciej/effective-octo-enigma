@@ -9,7 +9,7 @@
 
 // header files
 #include "../screen.h"
-#include "../assetManager.h"
+#include "../../mechanics/assetManager.h"
 #include "coin.h"
 #include "gameOver.h"
 #include "minigameConnector.h"

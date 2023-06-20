@@ -22,24 +22,33 @@ void tamagotchiMechanics::saveTamagotchi(tamagotchi &pet, bool &isSaved) {
     // creating a file with a name of tamagotchi
     std::ofstream tamagotchiFile;
     path /= name + ".tmg"; // tamagotchi file extension
-    tamagotchiFile.open(path);
 
-    // writing data to a file
-    tamagotchiFile << static_cast<int>(pet.getTamagotchiType()) << std::endl;
-    tamagotchiFile << name << std::endl;
+    try {
+        tamagotchiFile.open(path);
+        if (!tamagotchiFile.is_open()) {
+            throw errorHandler(errorCode::FileError);
+        }
+        tamagotchiFile << static_cast<int>(pet.getTamagotchiType()) << std::endl;
+        tamagotchiFile << name << std::endl;
 
-    tamagotchiFile << pet.getHealth() << std::endl;
-    tamagotchiFile << pet.getHunger() << std::endl;
-    tamagotchiFile << pet.getHappiness() << std::endl;
-    tamagotchiFile << pet.getHygiene() << std::endl;
-    tamagotchiFile << pet.getEnergy() << std::endl;
-    tamagotchiFile << pet.getMoney() << std::endl;
-    tamagotchiFile << pet.getIsSleeping() << std::endl;
-    tamagotchiFile << pet.getBornTime() << std::endl;
-    tamagotchiFile << pet.getSleepStart() << std::endl;
-    tamagotchiFile << getTime() << std::endl;
+        tamagotchiFile << pet.getHealth() << std::endl;
+        tamagotchiFile << pet.getHunger() << std::endl;
+        tamagotchiFile << pet.getHappiness() << std::endl;
+        tamagotchiFile << pet.getHygiene() << std::endl;
+        tamagotchiFile << pet.getEnergy() << std::endl;
+        tamagotchiFile << pet.getMoney() << std::endl;
+        tamagotchiFile << pet.getIsSleeping() << std::endl;
+        tamagotchiFile << pet.getBornTime() << std::endl;
+        tamagotchiFile << pet.getSleepStart() << std::endl;
+        tamagotchiFile << getTime() << std::endl;
 
-    tamagotchiFile.close();
+        tamagotchiFile.close();
+
+    } catch (errorHandler &e) {
+        isSaved = false;
+        return;
+    }
+
     isSaved = true;
 }
 
@@ -56,27 +65,29 @@ std::string tamagotchiMechanics::searchForTamagotchi() {
     path /= "saves";
     debug(path.string());
 
-    // checking if there is any folder in a directory
-    if (fs::is_empty(path)) {
-        debug("there is no tamagotchi in saves directory");
-        return "";
-    } else {
-        std::vector<std::string> tamagotchiNames;
-        for (const auto &entry: fs::directory_iterator(path)) {
-            debug(entry.path().filename().string());
-            tamagotchiNames.push_back(entry.path().filename().string());
-            // entering directory and checking if the name of tamagotchi is the same as the name of directory
-            fs::path tamagotchiPath = path;
-            tamagotchiPath /= entry.path().filename().string();
-            if (entry.path().filename().string() == entry.path().filename().string() && nameValidation(entry.path().filename().string().substr(0, entry.path().filename().string().length() - 4))) {
-                debug("tamagotchi found");
-                // return file name without extension
-                return entry.path().filename().string().substr(0, entry.path().filename().string().length() - 4);
+    try {
+        if (fs::is_empty(path)) {
+            throw errorHandler(errorCode::FileError);
+        } else {
+            std::vector<std::string> tamagotchiNames;
+            for (const auto &entry: fs::directory_iterator(path)) {
+                debug(entry.path().filename().string());
+                tamagotchiNames.push_back(entry.path().filename().string());
+                // entering directory and checking if the name of tamagotchi is the same as the name of directory
+                fs::path tamagotchiPath = path;
+                tamagotchiPath /= entry.path().filename().string();
+                if (entry.path().filename().string() == entry.path().filename().string() && nameValidation(
+                        entry.path().filename().string().substr(0, entry.path().filename().string().length() - 4))) {
+                    debug("tamagotchi found");
+                    // return file name without extension
+                    return entry.path().filename().string().substr(0, entry.path().filename().string().length() - 4);
+                }
             }
         }
+        throw errorHandler(errorCode::FileError);
+    } catch (errorHandler &e) {
+        return "";
     }
-    debug("something went wrong");
-    return "";
 }
 
 [[maybe_unused]] void tamagotchiMechanics::subtractIndicators(tamagotchi &pet, long long int &lastSaved) {
@@ -144,21 +155,24 @@ std::vector<score> tamagotchiMechanics::getScores() {
 
                 std::string line;
                 while (std::getline(scoreFile, line)) {
-                    // Validate the line using the scoreLineValidation function
-                    if (!scoreLineValidation(line)) {
-                        // Invalid line, handle the error or skip it
+                    try {
+                        // Validate the line using the scoreLineValidation function
+                        if (!scoreLineValidation(line)) {
+                            // Invalid line, handle the error or skip it
+                            throw errorHandler(errorCode::ValidationError);
+                        }
+                        std::istringstream iss(line);
+                        std::string name;
+                        int score, daysAlive;
+                        if (!(iss >> name >> score >> daysAlive)) {
+                            // Invalid line format, handle the error or skip it
+                            throw errorHandler(errorCode::ValidationError);
+                        }
+
+                        scores.emplace_back(name, score, daysAlive);
+                    } catch (errorHandler &e) {
                         continue;
                     }
-
-                    std::istringstream iss(line);
-                    std::string name;
-                    int score, daysAlive;
-                    if (!(iss >> name >> score >> daysAlive)) {
-                        // Invalid line format, handle the error or skip it
-                        continue;
-                    }
-
-                    scores.emplace_back(name, score, daysAlive);
                 }
 
                 scoreFile.close();
@@ -170,7 +184,7 @@ std::vector<score> tamagotchiMechanics::getScores() {
     return scores;
 }
 
-[[maybe_unused]] void tamagotchiMechanics::printScores(std::vector<score> scores) {
+[[maybe_unused]] void tamagotchiMechanics::printScores(const std::vector<score>& scores) {
     std::cout << "Scores: " << std::endl;
     for (auto &myScore: scores) {
         std::cout << "Name: " << myScore.getTamagotchiName() << std::endl;
@@ -205,107 +219,111 @@ void tamagotchiMechanics::sleepMechanics(tamagotchi &pet) {
 }
 
 tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
+
     // opening file using filesystem
     namespace fs = std::filesystem;
     fs::path path = fs::current_path().parent_path();
     path /= "saves";
     path /= name + ".tmg";
+    tamagotchi toReturn;
 
     std::ifstream tamagotchiFile;
-    tamagotchiFile.open(path);
+    try {
+        tamagotchiFile.open(path);
 
-    if (!tamagotchiFile.is_open()) {
-        debug("failed to open file");
+        if (!tamagotchiFile.is_open()) {
+            throw errorHandler(errorCode::FileError);
+        }
+
+        // read file content into a string
+        std::stringstream buffer;
+        buffer << tamagotchiFile.rdbuf();
+        tamagotchiFile.close();
+
+        std::string fileContent = buffer.str();
+
+        // validate file content using tamagotchiSaveValidation function
+        if (!tamagotchiSaveValidation(fileContent)) {
+            throw errorHandler(errorCode::ValidationError);
+        }
+        // create a stringstream from the file content string
+        std::stringstream fileStream(fileContent);
+
+        int petType;
+        std::string petName;
+        int health, hunger, happiness, hygiene, energy, money;
+        bool isSleeping;
+        long long int bornTime, sleepStart, lastSaved;
+
+        // reading data from the file stream
+        fileStream >> petType;
+
+        // switch case for pet type -> in the future there will be more types of pets
+        // CAT
+        // DOG
+        // FISH
+
+        switch (petType) {
+            case 0:
+                toReturn = cat();
+                break;
+            default:
+                toReturn = cat();
+                break;
+        }
+
+        fileStream >> petName;
+        fileStream >> health;
+        fileStream >> hunger;
+        fileStream >> happiness;
+        fileStream >> hygiene;
+        fileStream >> energy;
+        fileStream >> money;
+        fileStream >> isSleeping;
+        fileStream >> bornTime;
+        fileStream >> sleepStart;
+        fileStream >> lastSaved;
+
+        // setting data to pet
+        toReturn.setName(petName);
+        toReturn.setHealth(health);
+        toReturn.setHunger(hunger);
+        toReturn.setHappiness(happiness);
+        toReturn.setHygiene(hygiene);
+        toReturn.setEnergy(energy);
+        toReturn.setMoney(money);
+        toReturn.setIsSleeping(isSleeping);
+        toReturn.setBornTime(bornTime);
+        toReturn.setSleepStart(sleepStart);
+
+        // according to last saved time, we need to update pet's stats
+        long long int timeDifference = getTime() - lastSaved;
+
+        // function for the mechanism -> sleeping YES/NO
+        if (isSleeping) {
+            sleepMechanics(toReturn);
+        } else {
+            energyDecreaseMechanics(toReturn, timeDifference);
+        }
+
+        // indicator mechanisms
+        hungerMechanics(toReturn, timeDifference);
+        hygieneMechanics(toReturn, timeDifference);
+        happinessMechanics(toReturn, timeDifference);
+        healthMechanics(toReturn, timeDifference);
+
+        // f00d
+        std::map<food, int> foodsToAdd = foodMechanics::loadGlobalFoods();
+        if (foodsToAdd.empty()) {
+            throw errorHandler(errorCode::FileError);
+        }
+
+        toReturn.setFoods(foodsToAdd);
+
+        foodMechanics::loadTamagotchiFoods(name, toReturn);
+    } catch (errorHandler &e) {
         return cat();
     }
-
-    // read file content into a string
-    std::stringstream buffer;
-    buffer << tamagotchiFile.rdbuf();
-    tamagotchiFile.close();
-
-    std::string fileContent = buffer.str();
-
-    // validate file content using tamagotchiSaveValidation function
-    if (!tamagotchiSaveValidation(fileContent)) {
-        debug("invalid file");
-        return cat();
-    }
-
-    debug("valid file");
-
-    // create a stringstream from the file content string
-    std::stringstream fileStream(fileContent);
-
-    tamagotchi toReturn;
-    int petType;
-    std::string petName;
-    int health, hunger, happiness, hygiene, energy, money;
-    bool isSleeping;
-    long long int bornTime, sleepStart, lastSaved;
-
-    // reading data from the file stream
-    fileStream >> petType;
-
-    // switch case for pet type -> in the future there will be more types of pets
-    // CAT
-    // DOG
-    // FISH
-
-    switch (petType) {
-        case 0:
-            toReturn = cat();
-            break;
-        default:
-            toReturn = cat();
-            break;
-    }
-
-    fileStream >> petName;
-    fileStream >> health;
-    fileStream >> hunger;
-    fileStream >> happiness;
-    fileStream >> hygiene;
-    fileStream >> energy;
-    fileStream >> money;
-    fileStream >> isSleeping;
-    fileStream >> bornTime;
-    fileStream >> sleepStart;
-    fileStream >> lastSaved;
-
-    // setting data to pet
-    toReturn.setName(petName);
-    toReturn.setHealth(health);
-    toReturn.setHunger(hunger);
-    toReturn.setHappiness(happiness);
-    toReturn.setHygiene(hygiene);
-    toReturn.setEnergy(energy);
-    toReturn.setMoney(money);
-    toReturn.setIsSleeping(isSleeping);
-    toReturn.setBornTime(bornTime);
-    toReturn.setSleepStart(sleepStart);
-
-    // according to last saved time, we need to update pet's stats
-    long long int timeDifference = getTime() - lastSaved;
-
-    // function for the mechanism -> sleeping YES/NO
-    if (isSleeping){
-        sleepMechanics(toReturn);
-    } else {
-        energyDecreaseMechanics(toReturn, timeDifference);
-    }
-
-    // indicator mechanisms
-    hungerMechanics(toReturn, timeDifference);
-    hygieneMechanics(toReturn, timeDifference);
-    happinessMechanics(toReturn, timeDifference);
-    healthMechanics(toReturn, timeDifference);
-
-    // f00d
-    std::map<food, int> foodsToAdd = foodMechanics::loadGlobalFoods();
-    toReturn.setFoods(foodsToAdd);
-
-    foodMechanics::loadTamagotchiFoods(name, toReturn);
 
     return toReturn;
 }
@@ -397,7 +415,7 @@ void tamagotchiMechanics::healthMechanics(tamagotchi &tamagotchiToModify, long l
 }
 
 tamagotchi tamagotchiMechanics::checkIfTamagotchiExistsThenReturn(std::string basicString) {
-    if(!basicString.empty()){
+    if (!basicString.empty()) {
         return tamagotchiMechanics::loadTamagotchi(basicString);
     }
     debug("You don't have any tamagotchi yet!");

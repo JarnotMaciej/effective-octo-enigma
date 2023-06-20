@@ -17,6 +17,7 @@
 #include "../structures/food.h"
 #include "../functions.h"
 #include "../structures/tamagotchi.h"
+#include "errorHandler.h"
 
 
 /**

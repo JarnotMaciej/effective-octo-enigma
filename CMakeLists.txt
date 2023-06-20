@@ -30,8 +30,8 @@ add_executable(
         main.cpp
         interface/screen.cpp
         interface/screen.h
-        interface/assetManager.cpp
-        interface/assetManager.h
+        mechanics/assetManager.cpp
+        mechanics/assetManager.h
         interface/menu/button.cpp
         functions.cpp functions.h
         interface/tamagotchiScreen/indicator.cpp

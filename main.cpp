@@ -6,7 +6,7 @@
 #include <string>
 
 // asset manager
-#include "interface/assetManager.h"
+#include "mechanics/assetManager.h"
 
 // Header files
 // structures
@@ -29,28 +29,8 @@ int main() {
     // Google Test initialization in new thread
     std::thread t([] { testing::InitGoogleTest(); });
 
-    /*
-    myCat.meow();
-    // add food from global foods
-    myCat.addFood(foods["Apple"]);
-
-    myCat.printInfo();
-
-    //getting time test
-//    std::this_thread::sleep_for(std::chrono::seconds(2));
-//    tamagotchiMechanics::saveTamagotchi(myTamagotchi);
-
-    // getting scores
-    std::vector<score> scores = tamagotchiMechanics::getScores();
-    tamagotchiMechanics::printScores(scores);
-    */
-
     game myGame;
     myGame.run();
-
-    // error handler test
-    errorHandler myErrorHandler(errorCode::FileError);
-
 
     // Google Test run
     t.join();

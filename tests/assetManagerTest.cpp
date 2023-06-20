@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 
 // assetManager
-#include "../interface/assetManager.h"
+#include "../mechanics/assetManager.h"
 
 // SFML
 #include "SFML/Graphics/Sprite.hpp"

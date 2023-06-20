@@ -6,23 +6,6 @@
 
 using namespace sf;
 
-//game::game() {
-//    menu menuScreen;
-//    tamagotchiScreen tamagotchiScreen;
-//    scoreboard scoreboardScreen;
-//
-//    screens["menu"] = std::make_unique<menu>(menuScreen);
-//    screens["tamagotchiScreen"] = std::make_unique<tamagotchiScreen>(tamagotchiScreen);
-//    screens["scoreboard"] = std::make_unique<scoreboard>(scoreboardScreen);
-//
-//
-//    setCurrentScreen("menu");
-//}
-
-//void game::setCurrentScreen(std::string screenName) {
-//    currentScreen = std::move(screens[screenName]);
-//}
-
 void game::run() {
 	RenderWindow window(VideoMode(1536, 1024), "Tamagotchi", sf::Style::None);
     window.setFramerateLimit(60);
@@ -76,7 +59,6 @@ void game::screenProcessing(RenderWindow &window, tamagotchi &pet) {
     screens[currentScreenName]->handleInput(window, currentScreenName);
     window.clear();
     screens[currentScreenName]->update(window, pet);
-
     screens[currentScreenName]->draw(window);
 
     window.display();

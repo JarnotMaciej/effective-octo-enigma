@@ -150,18 +150,6 @@ tamagotchi::tamagotchiType tamagotchi::getTamagotchiType() {
     return tamagotchi::tamagotchiType::CAT;
 }
 
-//void tamagotchi::addFood(const food& _food, int quantity){
-//    auto it = foods.find(_food);
-//    if (it != foods.end())
-//    {
-//        it->second += quantity;
-//    }
-//    else
-//    {
-//        foods[_food] = quantity;
-//    }
-//}
-
 void tamagotchi::setBornTime(long long int bornTime) {
     tamagotchi::bornTime = bornTime;
 }
@@ -173,13 +161,30 @@ void tamagotchi::addFood(const std::string& foodName, int quantity) {
         return pair.first.getName() == foodName;
     });
 
-    if (foodIterator != foods.end()) {
-        // Food already exists, update the quantity
-        foodIterator->second += quantity;
-    } else {
-        // Food doesn't exist, create a new food object and add it to the map
-        food newFood(foodName, 0, 0, 0, 0, 0, 0);  // You can replace the default values with the actual values
-        foods.insert(std::make_pair(newFood, quantity));
+    try {
+        if (quantity < 0) {
+            throw errorHandler{errorCode::OutOfRange};
+        }
+        if (foodName.empty()) {
+            throw errorHandler{errorCode::EmptyString};
+        }
+    } catch (errorHandler& e) {
+        std::cout << e.what() << std::endl;
+        return;
+    }
+
+    try {
+        if (foodIterator != foods.end()) {
+            // Food already exists, update the quantity
+            foodIterator->second += quantity;
+        } else {
+            // Food doesn't exist, create a new food object and add it to the map
+            throw errorHandler{errorCode::FoodDoesNotExist};
+            food newFood(foodName, 0, 0, 0, 0, 0, 0);  // You can replace the default values with the actual values
+            foods.insert(std::make_pair(newFood, quantity));
+        }
+    } catch (errorHandler& e) {
+        std::cout << e.what() << std::endl;
     }
 }
 
