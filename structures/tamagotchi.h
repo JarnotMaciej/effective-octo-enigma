@@ -227,6 +227,13 @@ class tamagotchi
      * @param quantity - Food quantity
      */
     void addFood(const std::string &foodName, int quantity);
+
+    /**
+     * @brief Find food
+     * @param foodName - Food name
+     * @return Food
+     */
+    food findFood(const std::string& foodName) const;
 };
 
 /**

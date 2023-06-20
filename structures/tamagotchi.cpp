@@ -236,6 +236,18 @@ bool tamagotchi::sellFood(const std::string &foodName) {
     return false;
 }
 
+food tamagotchi::findFood(const std::string& foodName) const {
+    // find food by name and return it
+    for (auto& food : foods)
+    {
+        if (food.first.getName() == foodName)
+        {
+            return food.first;
+        }
+    }
+    return food();
+}
+
 int indicatorFunction(int value) {
     // This function is used to make sure that the value is between 0 and 100
     if (value < 0) {

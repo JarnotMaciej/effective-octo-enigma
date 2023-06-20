@@ -44,6 +44,21 @@ foodBar::foodBar(const tamagotchi &pet) {
         activeButton = -1;
     }
 
+    // add food stats
+    foodStats.emplace_back("Food statistics:", assetManager::getInstance().getFont("silkscreen"), 22);
+    foodStats.emplace_back("Price: " + std::to_string(pet.findFood(foodNames[activeButton]).getPrice()),
+                           assetManager::getInstance().getFont("silkscreen"), 22);
+    foodStats.emplace_back("Health: " + std::to_string(pet.findFood(foodNames[activeButton]).getHealth()),
+                           assetManager::getInstance().getFont("silkscreen"), 22);
+    foodStats.emplace_back("Hunger: " + std::to_string(pet.findFood(foodNames[activeButton]).getHunger()),
+                           assetManager::getInstance().getFont("silkscreen"), 22);
+    foodStats.emplace_back("Happiness: " + std::to_string(pet.findFood(foodNames[activeButton]).getHappiness()),
+                             assetManager::getInstance().getFont("silkscreen"), 22);
+    foodStats.emplace_back("Hygiene: " + std::to_string(pet.findFood(foodNames[activeButton]).getHygiene()),
+                           assetManager::getInstance().getFont("silkscreen"), 22);
+    foodStats.emplace_back("Energy: " + std::to_string(pet.findFood(foodNames[activeButton]).getEnergy()),
+                           assetManager::getInstance().getFont("silkscreen"), 22);
+
     // set sound
     foodBarBuffer = assetManager::getInstance().getSound("crunch1", "ogg");
 }
@@ -59,6 +74,11 @@ void foodBar::draw(sf::RenderWindow &window) {
     for (auto &buttonPair: buttons) {
         buttonPair.second.draw(window);
     }
+
+    // draw food stats
+    for (auto &foodStat: foodStats) {
+        window.draw(foodStat);
+    }
 }
 
 void foodBar::setPositions(sf::RenderWindow &window) {
@@ -66,22 +86,6 @@ void foodBar::setPositions(sf::RenderWindow &window) {
     int buttonHeight = buttons[getActiveButtonName()].getSprite().getGlobalBounds().height;
     int buttonSpacing = (window.getSize().x - buttons.size() * buttonWidth) / (buttons.size() + 1);
 
-//    for (int i = 0; i < buttons.size(); i++) {
-//        buttons[i].setPosition(buttonSpacing + i * (buttonSpacing + buttonWidth),
-//                               window.getSize().y - buttonHeight / 2 - 220);
-//    }
-//
-//    // set positions of texts -> above buttons, left aligned to the leftmost button
-//    eatText.setPosition(buttons[0].getSprite().getPosition().x,
-//                        buttons[0].getSprite().getPosition().y - eatText.getGlobalBounds().height - 60);
-//    buyText.setPosition(buttons[0].getSprite().getPosition().x,
-//                        eatText.getPosition().y - buyText.getGlobalBounds().height - 10);
-//    sellText.setPosition(buttons[0].getSprite().getPosition().x,
-//                         buyText.getPosition().y - sellText.getGlobalBounds().height - 10);
-//    equipmentMove.setPosition(buttons[0].getSprite().getPosition().x,
-//                              sellText.getPosition().y - equipmentMove.getGlobalBounds().height - 10);
-
-    // code after refactoring
     int i = 0;
     for (auto &buttonPair: buttons) {
         buttonPair.second.setPosition(buttonSpacing + i * (buttonSpacing + buttonWidth),
@@ -100,6 +104,17 @@ void foodBar::setPositions(sf::RenderWindow &window) {
     equipmentMove.setPosition(buttons[getActiveButtonName()].getSprite().getPosition().x,
                               sellText.getPosition().y - equipmentMove.getGlobalBounds().height - 10);
 
+    // set positions of food stats -> right aligned to the rightmost button
+    int foodStatsSpacing = 10;
+    // based on map size, window, and button size calculate rightmost stats position
+    int foodStatsPositionX = window.getSize().x - buttonSpacing - buttons.size() * buttonWidth - foodStats[0].getGlobalBounds().width - foodStatsSpacing;
+    int foodStatsPositionY = buttons[getActiveButtonName()].getSprite().getPosition().y - foodStats[0].getGlobalBounds().height - 60;
+
+    // position are set backwards, starting from the last element
+    for (int i = foodStats.size() - 1; i >= 0; i--) {
+        foodStats[i].setPosition(foodStatsPositionX, foodStatsPositionY);
+        foodStatsPositionY -= foodStats[i].getGlobalBounds().height + foodStatsSpacing;
+    }
 }
 
 void foodBar::activateNextButton() {
@@ -150,7 +165,7 @@ void foodBar::eatFood(tamagotchi &pet) {
     }
 }
 
-void foodBar::update(tamagotchi &pet) {
+void foodBar::update(tamagotchi &pet, sf::RenderWindow &window) {
     for (const auto &foodPair: pet.getFoods()) {
         const std::string &foodName = foodPair.first.getName();
         int newQuantity = foodPair.second;
@@ -158,5 +173,30 @@ void foodBar::update(tamagotchi &pet) {
         if (buttons.find(foodName) != buttons.end()) {
             buttons[foodName].setQuantity(newQuantity);
         }
+    }
+
+    // update food stats
+    foodStats[1].setString("Price: " + std::to_string(pet.findFood(getActiveButtonName()).getPrice()));
+    foodStats[2].setString("Health: " + std::to_string(pet.findFood(getActiveButtonName()).getHealth()));
+    foodStats[3].setString("Hunger: " + std::to_string(pet.findFood(getActiveButtonName()).getHunger()));
+    foodStats[4].setString("Happiness: " + std::to_string(pet.findFood(getActiveButtonName()).getHappiness()));
+    foodStats[5].setString("Hygiene: " + std::to_string(pet.findFood(getActiveButtonName()).getHygiene()));
+    foodStats[6].setString("Energy: " + std::to_string(pet.findFood(getActiveButtonName()).getEnergy()));
+
+    // update positions
+    setStatsPositions(window);
+}
+
+void foodBar::setStatsPositions(sf::RenderWindow &window) {
+    // set positions of food stats -> right aligned to the rightmost button
+    int foodStatsSpacing = 10;
+    // based on map size, window, and button size calculate rightmost stats position
+    int foodStatsPositionY = buttons[getActiveButtonName()].getSprite().getPosition().y - foodStats[0].getGlobalBounds().height - 60;
+
+    // position are set backwards, starting from the last element
+    for (int i = foodStats.size() - 1; i >= 0; i--) {
+        int foodStatsPositionX = window.getSize().x - buttons[getActiveButtonName()].getSprite().getGlobalBounds().width - foodStats[i].getGlobalBounds().width - foodStatsSpacing;
+        foodStats[i].setPosition(foodStatsPositionX, foodStatsPositionY);
+        foodStatsPositionY -= foodStats[i].getGlobalBounds().height + foodStatsSpacing;
     }
 }

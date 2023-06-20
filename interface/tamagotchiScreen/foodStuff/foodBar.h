@@ -32,6 +32,7 @@ private:
     short int activeButton; // index of active button
     sf::Sound foodBarSound; // sound of food bar
     sf::SoundBuffer foodBarBuffer; // buffer of food bar sound
+    std::vector<sf::Text> foodStats; // vector of texts with food statistics
 
     /**
      * @brief Gets name of active button
@@ -66,8 +67,9 @@ public:
     /**
      * @brief Updates food bar
      * @param pet - pointer to pet
+     * @param window - window to update on
      */
-    void update(tamagotchi &pet);
+    void update(tamagotchi &pet, sf::RenderWindow &window);
 
     /**
      * @brief Sets positions of buttons
@@ -102,6 +104,8 @@ public:
      * @param pet - pointer to pet
      */
     void eatFood(tamagotchi &pet);
+
+    void setStatsPositions(sf::RenderWindow &window);
 };
 
 

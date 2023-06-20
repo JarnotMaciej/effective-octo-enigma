@@ -57,7 +57,7 @@ void tamagotchiScreen::update(sf::RenderWindow &window, tamagotchi &pet) {
     tamagotchiMechanics::sleepMechanics(pet);
     this->ts_indicatorbar.update(pet);
     this->ts_topbar.update(pet, window);
-    this->ts_foodbar.update(pet);
+    this->ts_foodbar.update(pet, window);
 
     // if pet is sleeping, display zzz text
     if (pet.getIsSleeping()) {
