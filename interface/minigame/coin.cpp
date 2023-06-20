@@ -2,14 +2,19 @@
 
 coin::coin()
 {
-    coinTexture = assetManager::getInstance().getTexture("coin");
-    coinSprite.setTexture(coinTexture);
-    coinSprite.setScale(2, 2);
+    for (int i = 1; i <= animationFrames; i++)
+    {
+        std::string textureName = "coin_0" + std::to_string(i);
+        animation.push_back(assetManager::getInstance().getTexture(textureName));
+    }
+    coinSprite.setTexture(animation[0]);
+    coinSprite.setScale(.8, .8);
 }
 
 void coin::draw(sf::RenderWindow &window)
 {
-    this->coinSprite.setTexture(coinTexture);
+    this->coinSprite.setTexture(animation[currentFrame]);
+//    this->coinSprite.setScale(.9, .9);
     window.draw(coinSprite);
 }
 
@@ -23,5 +28,17 @@ void coin::setRandomPosition(sf::RenderWindow &window)
 
 void coin::update()
 {
-    coinSprite.move(0, 4);
+    sf::Time time = clock.getElapsedTime();
+
+    if (time.asMilliseconds() > animationTime)
+    {
+        currentFrame++;
+        clock.restart();
+    }
+
+    if (currentFrame == animationFrames)
+    {
+        currentFrame = 0;
+    }
+    coinSprite.move(0, 5);
 }

@@ -24,6 +24,11 @@ class coin : public flyingElement{
 private:
     sf::Texture coinTexture; // texture of the coin
     sf::Sprite coinSprite; // sprite of the coin
+    sf::Clock clock; // clock for animation
+    static const int animationTime = 150; // time of animation in ms
+    static const int animationFrames = 8; // number of animation frames
+    int currentFrame = 0; // current animation frame
+    std::vector<sf::Texture> animation; // vector of animation frames
     
 public:
     /**

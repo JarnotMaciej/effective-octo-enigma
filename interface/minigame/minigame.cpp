@@ -124,13 +124,19 @@ void minigame::update(sf::RenderWindow &window, tamagotchi &pet) {
         coins = 0;
         time = MAX_TIME;
 
+        // reset pet position -> bottom center
+        sprite.setPosition((window.getSize().x - sprite.getGlobalBounds().width) / 2,
+                           window.getSize().y - sprite.getGlobalBounds().height);
+        isMovingLeft = false;
+        isMovingRight = false;
+
         // Erase all coins
         coinsVector.clear();
     }
 
     if (isRunning) {
         std::thread threadForMoving([&]() {
-            // Task 2: Move the pet based on continuous input
+            // Task: Move the pet based on continuous input
             if (isMovingLeft && sprite.getPosition().x >= petSpeed) {
                 sprite.move(-petSpeed, 0);
             } else if (isMovingRight &&
