@@ -9,6 +9,7 @@
 
 // C++
 #include <iostream>
+#include <random>
 
 // Header files
 #include "flyingElement.h"
@@ -29,6 +30,7 @@ private:
     static const int animationFrames = 8; // number of animation frames
     int currentFrame = 0; // current animation frame
     std::vector<sf::Texture> animation; // vector of animation frames
+    float speed; // speed of the coin
     
 public:
     /**

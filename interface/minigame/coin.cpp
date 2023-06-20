@@ -9,6 +9,11 @@ coin::coin()
     }
     coinSprite.setTexture(animation[0]);
     coinSprite.setScale(.8, .8);
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> dis(4.2f, 5.8f);
+    speed = dis(gen);
 }
 
 void coin::draw(sf::RenderWindow &window)
@@ -40,5 +45,5 @@ void coin::update()
     {
         currentFrame = 0;
     }
-    coinSprite.move(0, 5);
+    coinSprite.move(0, speed);
 }

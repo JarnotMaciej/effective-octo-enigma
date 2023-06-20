@@ -208,7 +208,7 @@ bool tamagotchi::eatFood(const std::string& foodName){
 bool tamagotchi::buyFood(const std::string &foodName) {
     for (auto& food : foods)
     {
-        if (food.first.getName() == foodName)
+        if (food.first.getName() == foodName && food.second < 999)
         {
             if (tamagotchi::money >= food.first.getPrice())
             {
