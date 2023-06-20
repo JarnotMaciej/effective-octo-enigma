@@ -49,9 +49,7 @@ void game::run() {
 
     while (window.isOpen())
 	{
-
         screenProcessing(window, myOwnPet);
-
     }
 }
 

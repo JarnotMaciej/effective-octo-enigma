@@ -28,13 +28,33 @@ void indicatorBar::setPositions(sf::RenderWindow &window) {
         indicator.setPosition(x, y);
         x += indicatorWidth + margin;
     }
-
 }
 
 void indicatorBar::update(tamagotchi &pet) {
-    indicators[0].update(pet.getHealth());
-    indicators[1].update(pet.getHunger());
-    indicators[2].update(pet.getHappiness());
-    indicators[3].update(pet.getHygiene());
-    indicators[4].update(pet.getEnergy());
+    std::thread t1([&]() {
+        indicators[0].update(pet.getHealth());
+    });
+
+    std::thread t2([&]() {
+        indicators[1].update(pet.getHunger());
+    });
+
+    std::thread t3([&]() {
+        indicators[2].update(pet.getHappiness());
+    });
+
+    std::thread t4([&]() {
+        indicators[3].update(pet.getHygiene());
+    });
+
+    std::thread t5([&]() {
+        indicators[4].update(pet.getEnergy());
+    });
+
+    // Wait for all threads to finish
+    t1.join();
+    t2.join();
+    t3.join();
+    t4.join();
+    t5.join();
 }

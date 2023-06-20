@@ -75,7 +75,6 @@ private:
      */
     assetManager &operator=(const assetManager &) = delete;
 
-    // TODO -> try unordered map
     std::unordered_map<std::string, std::unique_ptr<sf::Texture>> m_textures; // map of textures
     std::unordered_map<std::string, std::unique_ptr<sf::SoundBuffer>> m_sounds; // map of sounds
     std::unordered_map<std::string, std::unique_ptr<sf::Font>> m_fonts; // map of fonts

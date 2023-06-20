@@ -95,5 +95,5 @@ void menu::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
 }
 
 void menu::update(sf::RenderWindow &window, tamagotchi &pet) {
-    // TODO -> implement, this is temporary
+
 }

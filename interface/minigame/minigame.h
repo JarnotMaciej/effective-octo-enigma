@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <thread>
 
 // header files
 #include "../screen.h"

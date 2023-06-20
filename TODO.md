@@ -13,15 +13,14 @@ A Tamagotchi-like game in C++.
 
 ### In Progress
 
-- [ ] player movement improvement  
-- [ ] food and stuff -> eating, selling and buying food
-- [ ] update food bar with quantity
+- [ ] multithreading
 
 ### Done ✓
 
+- [x] regex
+- [x] food and stuff -> eating, selling and buying food
+- [x] update food bar with quantity
+- [x] player movement improvement
 - [x] unordered map for asset manager  
-- [x] sleeping -> locking other interactions
-- [x] opening files
 - [x] mechanism -> indicators decreased over the time
-- [x] coin spawning improvement
 

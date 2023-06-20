@@ -35,5 +35,4 @@ int main() {
     // Google Test run
     t.join();
     return RUN_ALL_TESTS();
-    // TODO -> checking file structure using regex
 }

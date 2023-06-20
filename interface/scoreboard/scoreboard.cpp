@@ -212,6 +212,6 @@ void scoreboard::scoresToText(sf::RenderWindow &window) {
 }
 
 void scoreboard::update(sf::RenderWindow &window, tamagotchi &pet) {
-    // TODO -> dunno what should be here
+
 }
 

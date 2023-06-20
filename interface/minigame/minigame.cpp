@@ -97,12 +97,14 @@ void minigame::setPositions(sf::RenderWindow &window) {
 }
 
 void minigame::update(sf::RenderWindow &window, tamagotchi &pet) {
+    static const int MAX_TIME = 30;
+    static const int COIN_SPAWN_INTERVAL_MS = 400;
+
     std::stringstream ss;
 
     if (time == 0) {
         isRunning = false;
 
-        // TODO -> connector here
         magicConnector->setCoinsValue(coins);
 
         // Add coins to pet
@@ -114,47 +116,48 @@ void minigame::update(sf::RenderWindow &window, tamagotchi &pet) {
         auto hygiene = pet.getHygiene() - 15;
         auto energy = pet.getEnergy() - 10;
 
-        if (happiness > 100) happiness = 100;
-        if (hunger < 0) hunger = 0;
-        if (hygiene < 0) hygiene = 0;
-        if (energy < 0) energy = 0;
-
-        pet.setHappiness(happiness);
-        pet.setHunger(hunger);
-        pet.setHygiene(hygiene);
-        pet.setEnergy(energy);
+        pet.setHappiness(std::min(happiness, 100));
+        pet.setHunger(std::max(hunger, 0));
+        pet.setHygiene(std::max(hygiene, 0));
+        pet.setEnergy(std::max(energy, 0));
 
         coins = 0;
-        time = 30;
+        time = MAX_TIME;
 
         // Erase all coins
         coinsVector.clear();
     }
 
     if (isRunning) {
+        std::thread threadForMoving([&]() {
+            // Task 2: Move the pet based on continuous input
+            if (isMovingLeft && sprite.getPosition().x >= petSpeed) {
+                sprite.move(-petSpeed, 0);
+            } else if (isMovingRight &&
+                       sprite.getPosition().x <= window.getSize().x - sprite.getGlobalBounds().width - petSpeed) {
+                sprite.move(petSpeed, 0);
+            }
+        });
+
         // updating time according to clock from SFML
         if (minigameClock.getElapsedTime().asSeconds() >= 1 && time > 0) {
             time--;
             minigameClock.restart();
         }
 
-        // spawning coins if there are less than maxCoins and the coin clock is greater than 400ms
-        if (coinsVector.size() < maxCoins && coinClock.getElapsedTime().asMilliseconds() >= 400) {
+        // spawning coins if there are less than maxCoins and the coin clock is greater than COIN_SPAWN_INTERVAL_MS
+        if (coinsVector.size() < maxCoins && coinClock.getElapsedTime().asMilliseconds() >= COIN_SPAWN_INTERVAL_MS) {
             coin newCoin;
             newCoin.setRandomPosition(window);
             coinsVector.push_back(newCoin);
             coinClock.restart();
         }
 
-        // updating coins
-        for (auto &coin: coinsVector) {
-            coin.update();
-        }
-
-        // checking if player has collected a coin
-        for (int i = 0; i < coinsVector.size(); ++i) {
-            if (coinsVector[i].getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds())) {
-                coinsVector.erase(coinsVector.begin() + i);
+        // updating coins and checking if player has collected a coin
+        auto spriteBounds = sprite.getGlobalBounds();
+        coinsVector.erase(std::remove_if(coinsVector.begin(), coinsVector.end(), [&](coin &c) {
+            c.update(); // update the coin position
+            if (c.getSprite().getGlobalBounds().intersects(spriteBounds)) { // check if the coin intersects with the pet
                 // Play the coin sound
                 setCoinSoundBuffer();
                 minigameSound.setBuffer(coinSoundBuffer);
@@ -162,43 +165,23 @@ void minigame::update(sf::RenderWindow &window, tamagotchi &pet) {
                 minigameSound.play();
 
                 coins++;
+                return true; // remove the coin from the vector
             }
-        }
-
-        // deleting coins that are out of screen
-        for (int i = 0; i < coinsVector.size(); ++i) {
-            if (coinsVector[i].getSprite().getPosition().y > window.getSize().y) {
-                coinsVector.erase(coinsVector.begin() + i);
-            }
-        }
-
-        // Move the pet based on continuous input
-        if (isMovingLeft && sprite.getPosition().x >= petSpeed) {
-            sprite.move(-petSpeed, 0);
-        } else if (isMovingRight &&
-                   sprite.getPosition().x <= window.getSize().x - sprite.getGlobalBounds().width - petSpeed) {
-            sprite.move(petSpeed, 0);
-        }
+            return c.getSprite().getPosition().y > window.getSize().y;
+        }), coinsVector.end());
 
         //------------------------
         // displaying time in format 0:00
-        if (time >= 10) {
-            timeText.setString("0:" + std::to_string(time));
-        } else {
-            timeText.setString("0:0" + std::to_string(time));
-        }
+        timeText.setString("0:" + std::to_string(time / 10) + std::to_string(time % 10));
 
         // updating coins text in 000 format
-        if (coins < 10) {
-            ss << "00" << coins;
-        } else if (coins < 100) {
-            ss << "0" << coins;
-        } else {
-            ss << coins;
-        }
-        coinsText.setString(ss.str());
+        coinsText.setString(std::to_string(coins));
+        coinsText.setString(std::string(3 - coinsText.getString().getSize(), '0') + coinsText.getString());
+
+        threadForMoving.join();
     }
 }
+
 
 void minigame::setCoinSoundBuffer() {
     // generating random number from 1 to 12

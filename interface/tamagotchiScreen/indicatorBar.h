@@ -8,6 +8,7 @@
 // C++
 #include <iostream>
 #include <vector>
+#include <thread>
 
 // header files
 #include "indicator.h"

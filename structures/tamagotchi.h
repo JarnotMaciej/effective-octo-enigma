@@ -1,7 +1,6 @@
 //
 // Created by menox on 19.03.2023.
 //
-// TODO -> Kill Tamagotchi after 2 days od inactivity
 
 #ifndef TAMAGOTCHI_TAMAGOTCHI_H
 #define TAMAGOTCHI_TAMAGOTCHI_H
