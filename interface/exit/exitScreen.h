@@ -18,7 +18,9 @@
 #include "../../mechanics/tamagotchiMechanics.h"
 #include "../../mechanics/foodMechanics.h"
 
-
+/**
+ * @brief The exit screen class
+ */
 class exitScreen : public screen {
 private:
     sf::Text savingText; // text for saving game

@@ -100,6 +100,3 @@ errorHandler::~errorHandler() {
     }
 }
 
-void errorHandler::printError() {
-    std::cout << this->getErrorMessage() << std::endl;
-}

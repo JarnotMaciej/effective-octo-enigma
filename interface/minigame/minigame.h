@@ -38,8 +38,8 @@ private:
     sf::SoundBuffer coinSoundBuffer; // buffer of the coin sound
     std::shared_ptr<minigameConnector> magicConnector; // connector to minigame
     const float petSpeed = 12.f; // speed of the pet
-    bool isMovingLeft;
-    bool isMovingRight;
+    bool isMovingLeft; // is pet moving left
+    bool isMovingRight; // is pet moving right
 
 
 public:

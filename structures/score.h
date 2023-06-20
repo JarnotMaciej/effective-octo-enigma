@@ -19,7 +19,7 @@ private:
     int daysAlive; // days alive
 
 public:
-    /*
+    /**
      * @brief Constructor
      * @param tamagotchiName tamagotchi name
      * @param scoreNumber score number

@@ -18,7 +18,7 @@
 #include "../mechanics/errorHandler.h"
 
 /**
- * Tamagotchi class
+ * @brief Tamagotchi class
  */
 class tamagotchi
 {
@@ -229,6 +229,10 @@ class tamagotchi
     void addFood(const std::string &foodName, int quantity);
 };
 
+/**
+ * @brief Function for normalizing tamagotchi indicators
+ * @param value - Indicator value
+ */
 int indicatorFunction(int value);
 
 

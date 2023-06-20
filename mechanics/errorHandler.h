@@ -60,8 +60,6 @@ public:
      * @brief Logs the error message to a file
      */
     void logError();
-
-    void printError();
 };
 
 
