@@ -7,10 +7,10 @@
 tamagotchi::tamagotchi()
 {
 	name = "Tamagotchi";
-	health = 100;
-	hunger = 100;
-	happiness = 100;
-	hygiene = 100;
+	health = 90;
+	hunger = 50;
+	happiness = 50;
+	hygiene = 50;
 	energy = 100;
 	money = 20;
     bornTime = getTime();
@@ -22,12 +22,12 @@ tamagotchi::tamagotchi()
 tamagotchi::tamagotchi(std::string _name)
 {
 	name = _name;
-	health = 100;
-	hunger = 100;
-	happiness = 100;
-	hygiene = 100;
+	health = 90;
+	hunger = 50;
+	happiness = 50;
+	hygiene = 50;
 	energy = 100;
-	money = 20;
+    money = 20;
 	bornTime = getTime();
 
     isSleeping = false;

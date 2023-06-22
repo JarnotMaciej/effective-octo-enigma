@@ -42,7 +42,7 @@ namespace tamagotchiMechanics {
      * @param name - tamagotchi name
      * @return tamagotchi object
      */
-	tamagotchi loadTamagotchi(const std::string &name); // TODO -> make it real
+	tamagotchi loadTamagotchi(const std::string &name);
 
     /**
      * @brief Method used for transforming seconds to days
@@ -66,8 +66,12 @@ namespace tamagotchiMechanics {
     [[maybe_unused]] void subtractIndicators(tamagotchi &pet,
                             long long int &lastSaved); // Subtracts tamagotchi indicators (health, hunger, happiness, hygiene, energy) after loading tamagotchi from file
 
-    // TODO -> make it real
-    //    void killTamagotchi(tamagotchi &pet); // Transforms tamagotchi to dead tamagotchi (function calculates score)
+
+    /**
+     * @brief Method used for killing tamagotchi
+     * @param pet
+     */
+    void killTamagotchi(tamagotchi &pet); // Transforms tamagotchi to dead tamagotchi (function calculates score)
 
     /**
      * @brief Method used for getting scores from file
@@ -129,6 +133,12 @@ namespace tamagotchiMechanics {
      */
     tamagotchi checkIfTamagotchiExistsThenReturn(std::string basicString);
 
+    /**
+     * @brief Method used for calculating score
+     * @param pet - pet object
+     * @return score
+     */
+    int calculateScore(tamagotchi &pet);
 }
 
 #endif //PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_

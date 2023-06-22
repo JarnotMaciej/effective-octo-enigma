@@ -184,7 +184,7 @@ std::vector<score> tamagotchiMechanics::getScores() {
     return scores;
 }
 
-[[maybe_unused]] void tamagotchiMechanics::printScores(const std::vector<score>& scores) {
+[[maybe_unused]] void tamagotchiMechanics::printScores(const std::vector<score> &scores) {
     std::cout << "Scores: " << std::endl;
     for (auto &myScore: scores) {
         std::cout << "Name: " << myScore.getTamagotchiName() << std::endl;
@@ -303,6 +303,7 @@ tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
         if (isSleeping) {
             sleepMechanics(toReturn);
         } else {
+            toReturn.setSleepStart(0);
             energyDecreaseMechanics(toReturn, timeDifference);
         }
 
@@ -311,6 +312,11 @@ tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
         hygieneMechanics(toReturn, timeDifference);
         happinessMechanics(toReturn, timeDifference);
         healthMechanics(toReturn, timeDifference);
+
+        if (toReturn.getHealth() <= 0) {
+            tamagotchiMechanics::killTamagotchi(toReturn);
+            return cat();
+        }
 
         // f00d
         std::map<food, int> foodsToAdd = foodMechanics::loadGlobalFoods();
@@ -406,7 +412,6 @@ void tamagotchiMechanics::healthMechanics(tamagotchi &tamagotchiToModify, long l
 
     if (health < 0) {
         health = 0;
-        // TODO -> tamagotchi died
     } else if (health > 100) {
         health = 100;
     } else {
@@ -419,7 +424,86 @@ tamagotchi tamagotchiMechanics::checkIfTamagotchiExistsThenReturn(std::string ba
         return tamagotchiMechanics::loadTamagotchi(basicString);
     }
     debug("You don't have any tamagotchi yet!");
-    return cat();
+    tamagotchi toReturn = cat();
+    toReturn.setFoods(foodMechanics::loadGlobalFoods());
+    toReturn.printInfo();
+    return toReturn;
+}
+
+void tamagotchiMechanics::killTamagotchi(tamagotchi &pet) {
+    std::string name = pet.getName();
+    int daysAlive = tamagotchiMechanics::realDaysToGameDays(pet.getBornTime());
+    int scoreNumber = tamagotchiMechanics::calculateScore(pet);
+
+
+    // tamagotchi paths -> tamagotchi file and food file
+    // filesystem used
+    std::filesystem::path tamagotchiPath = std::filesystem::current_path().parent_path() / "saves" / (name + ".tmg");
+    std::filesystem::path foodPath = std::filesystem::current_path().parent_path() / "saves" / (name + ".tmgfood");
+
+    // score file path
+    std::filesystem::path scorePath = std::filesystem::current_path().parent_path() / "scores" / (name + ".dtf");
+
+    try {
+        // check if the score file exists, if yes -> open it and save best score, if not -> create it and save best score
+        if (std::filesystem::exists(scorePath)) {
+            std::ifstream scoreFile(scorePath);
+
+            if (!scoreFile.is_open()) {
+                throw errorHandler(errorCode::FileError);
+            }
+
+            std::string scoreName;
+            int scoreScore;
+            int scoreDaysAlive;
+
+            scoreFile >> scoreName >> scoreScore >> scoreDaysAlive;
+
+            scoreFile.close();
+
+            if (scoreNumber > scoreScore) {
+                std::ofstream scoreFile(scorePath);
+
+                if (!scoreFile.is_open()) {
+                    throw errorHandler(errorCode::FileError);
+                }
+
+                scoreFile << name << " " << scoreNumber << " " << daysAlive;
+                scoreFile.close();
+            }
+        } else {
+            std::ofstream scoreFile(scorePath);
+
+            if (!scoreFile.is_open()) {
+                throw errorHandler(errorCode::FileError);
+            }
+
+            scoreFile << name << " " << scoreNumber << " " << daysAlive;
+            scoreFile.close();
+        }
+    } catch (errorHandler &e) {
+        return;
+    }
+
+    // removing tamagotchi and food files
+    std::filesystem::remove(tamagotchiPath);
+    std::filesystem::remove(foodPath);
+
+    std::cout << "Your tamagotchi " << name << " died after " << daysAlive << " days of life. Your score is " << scoreNumber << " points." << std::endl;
+}
+
+int tamagotchiMechanics::calculateScore(tamagotchi &pet) {
+    int score = 0;
+
+    score += pet.getHealth() * 2;
+    score += pet.getHappiness() * 2;
+    score += pet.getHygiene() * 2;
+    score += pet.getHunger() * 2;
+    score += pet.getEnergy() * 2;
+    score += tamagotchiMechanics::realDaysToGameDays(pet.getBornTime()) * 3;
+    score += pet.getMoney() * 3;
+
+    return score;
 }
 
 // TODO -> testing tamagotchiMechanics
