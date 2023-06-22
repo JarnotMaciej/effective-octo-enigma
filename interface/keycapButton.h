@@ -35,6 +35,8 @@ public:
      */
     keycapButton(const std::string &name, const std::string &texture);
 
+    keycapButton();
+
     /**
      * @brief Draws the button
      * @param window window to draw the button

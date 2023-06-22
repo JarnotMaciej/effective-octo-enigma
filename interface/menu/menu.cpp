@@ -75,7 +75,7 @@ void menu::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
                         changeScreen(_screenName, ScreenName::SCOREBOARD);
                         break;
                     case sf::Keyboard::Num3:
-                        // TODO -> implement credits screen
+                        changeScreen(_screenName, ScreenName::CREDITS);
 //                        changeScreen(_screenName, ScreenName::CREDITS);
                         break;
                     case sf::Keyboard::Escape:

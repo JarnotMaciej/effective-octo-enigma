@@ -55,7 +55,7 @@ add_executable(
         interface/minigame/coin.cpp interface/minigame/coin.h
         mechanics/game.cpp mechanics/game.h
         interface/minigame/gameOver.cpp interface/minigame/gameOver.h
-        interface/minigame/minigameConnector.cpp interface/minigame/minigameConnector.h interface/tamagotchiScreen/foodStuff/foodButton.cpp interface/tamagotchiScreen/foodStuff/foodButton.h interface/tamagotchiScreen/foodStuff/foodBar.cpp interface/tamagotchiScreen/foodStuff/foodBar.h interface/exit/exitScreen.cpp interface/exit/exitScreen.h mechanics/errorHandler.cpp mechanics/errorHandler.h)
+        interface/minigame/minigameConnector.cpp interface/minigame/minigameConnector.h interface/tamagotchiScreen/foodStuff/foodButton.cpp interface/tamagotchiScreen/foodStuff/foodButton.h interface/tamagotchiScreen/foodStuff/foodBar.cpp interface/tamagotchiScreen/foodStuff/foodBar.h interface/exit/exitScreen.cpp interface/exit/exitScreen.h mechanics/errorHandler.cpp mechanics/errorHandler.h interface/credits/credits.cpp interface/credits/credits.h)
 
 target_link_libraries(
         april

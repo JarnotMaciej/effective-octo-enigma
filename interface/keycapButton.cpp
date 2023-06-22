@@ -28,4 +28,6 @@ void keycapButton::setPosition(float x, float y) {
     buttonName.setPosition(x + (sprite.getGlobalBounds().width / 2) - (buttonName.getGlobalBounds().width / 2) - 7, y + sprite.getGlobalBounds().height);
 }
 
+keycapButton::keycapButton() {}
+
 

@@ -23,6 +23,7 @@
 #include "../interface/minigame/gameOver.h"
 #include "../mechanics/foodMechanics.h"
 #include "../interface/exit/exitScreen.h"
+#include "../interface/credits/credits.h"
 
 /**
  * @brief Class for game

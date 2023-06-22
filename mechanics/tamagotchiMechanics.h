@@ -15,6 +15,10 @@
 #include "../structures/cat.h"
 #include "foodMechanics.h"
 #include "errorHandler.h"
+#include "assetManager.h"
+
+// SFML
+#include <SFML/Graphics.hpp>
 
 #ifndef PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_
 #define PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_
@@ -139,6 +143,20 @@ namespace tamagotchiMechanics {
      * @return score
      */
     int calculateScore(tamagotchi &pet);
+
+    /**
+     * @brief Method used for reading credits file
+     * @return vector of pairs (name, score)
+     */
+    std::vector<std::pair<std::string, int>> readCreditsFile();
+
+    /**
+     * @brief Method used for converting vector of pairs (name, score) to vector of texts
+     * @param credits - vector of pairs (name, score)
+     * @return vector of texts
+     */
+    std::vector<sf::Text> createCreditsTexts(const std::vector<std::pair<std::string, int>> &credits);
+
 }
 
 #endif //PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_

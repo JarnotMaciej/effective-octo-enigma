@@ -23,6 +23,8 @@ void game::run() {
 
     // minigame connection
     std::shared_ptr<minigameConnector> magicConnector = std::make_shared<minigameConnector>();
+    auto creditsTexts = tamagotchiMechanics::createCreditsTexts(tamagotchiMechanics::readCreditsFile());
+
 
     // testing
     menu mainMenu;
@@ -31,6 +33,7 @@ void game::run() {
     minigame myMinigame("cat", magicConnector);
     gameOver myGameOver(magicConnector);
     exitScreen myExitScreen;
+    credits myCredits(creditsTexts);
 
 
     // adding screens to map
@@ -40,6 +43,7 @@ void game::run() {
     screens[ScreenName::MINIGAME] = std::make_unique<minigame>(myMinigame);
     screens[ScreenName::GAME_OVER] = std::make_unique<gameOver>(myGameOver);
     screens[ScreenName::EXIT_SCREEN] = std::make_unique<exitScreen>(myExitScreen);
+    screens[ScreenName::CREDITS] = std::make_unique<credits>(myCredits);
 
 
     // setPositions everywhere

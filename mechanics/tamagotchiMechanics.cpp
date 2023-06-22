@@ -506,4 +506,118 @@ int tamagotchiMechanics::calculateScore(tamagotchi &pet) {
     return score;
 }
 
+std::vector<std::pair<std::string, int>> tamagotchiMechanics::readCreditsFile() {
+    std::vector<std::pair<std::string, int>> creditsVector;
+
+    // Open the credits file
+    std::filesystem::path creditsFilePath = std::filesystem::current_path().parent_path() / "config" / "credits.md";
+    std::ifstream creditsFile(creditsFilePath);
+    try {
+        if (!creditsFile.is_open()) {
+            throw errorHandler(errorCode::FileError);
+        }
+        std::string line;
+
+        // Read the file line by line
+        // Count how many # are in the line before first space or letter -> int
+        // #s need to be removed from the line
+        while (std::getline(creditsFile, line)) {
+            int count = 0;
+            for (char c : line) {
+                if (c == '#') {
+                    count++;
+                } else if (c == ' ') {
+                    break;
+                } else {
+                    count = 0;
+                    break;
+                }
+            }
+
+            // remove #s and space from the line
+            if (count != 0) {
+                line.erase(0, count+1);
+            }
+
+            // links are in format [text](link) -> they need to be divided into text and link parts in different strings
+            if (line.find('[') != std::string::npos) {
+                std::string text = line.substr(line.find('[') + 1, line.find(']') - line.find('[') - 1);
+                std::string link = line.substr(line.find('(') + 1, line.find(')') - line.find('(') - 1);
+                creditsVector.emplace_back(text, -1);
+                creditsVector.emplace_back(link, -2);
+                continue;
+            }
+
+            // bullet points are in format - text -> they need to have -3 as count, - and space are removed
+            // but if there are 3 -s in the line, it's a horizontal line -> it needs to have -4 as count
+            if (line.find('-') != std::string::npos) {
+                if (line.find('-') == line.find_last_of('-')) {
+                    creditsVector.emplace_back(line.substr(line.find('-') + 1), -3);
+                } else {
+                    creditsVector.emplace_back("", -4);
+                }
+                continue;
+            }
+
+            creditsVector.emplace_back(line, count);
+        }
+
+    } catch (errorHandler &e) {
+        return {};
+    }
+
+    // Close the file
+    creditsFile.close();
+
+    return creditsVector;
+}
+
+std::vector<sf::Text> tamagotchiMechanics::createCreditsTexts(const std::vector<std::pair<std::string, int>> &credits) {
+    std::vector<sf::Text> texts;
+    for (const auto &credit : credits) {
+        sf::Text text;
+        text.setString(credit.first);
+        text.setFont(assetManager::getInstance().getFont("Silkscreen"));
+
+        switch (credit.second) {
+            case -1:
+                text.setCharacterSize(30);
+                break;
+            case -2:
+                text.setCharacterSize(22);
+                break;
+            case -3:
+                text.setCharacterSize(36);
+                break;
+            case -4:
+                text.setCharacterSize(100);
+                break;
+            case 0:
+                text.setCharacterSize(32);
+                break;
+            case 1:
+                text.setCharacterSize(72);
+                break;
+            case 2:
+                text.setCharacterSize(64);
+                break;
+            case 3:
+                text.setCharacterSize(48);
+                break;
+            case 4:
+                text.setCharacterSize(42);
+                break;
+            default:
+                text.setCharacterSize(32);
+                break;
+        }
+
+        text.setFillColor(sf::Color::White);
+        text.setPosition(0, 0);
+        texts.push_back(text);
+    }
+
+    return texts;
+}
+
 // TODO -> testing tamagotchiMechanics
