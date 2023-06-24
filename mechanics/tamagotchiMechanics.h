@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <filesystem>
+#include <thread>
 
 // headers
 #include "../functions.h"

@@ -11,6 +11,7 @@
 #include <memory>
 #include <unordered_map>
 #include <thread>
+#include <future>
 
 // header files
 #include "../interface/screen.h"

@@ -1,6 +1,9 @@
 //
 // Created by menox on 22.06.2023.
 //
+// C++
+#include <thread>
+
 #include "../screen.h"
 #include "../keycapButton.h"
 

@@ -20,13 +20,22 @@ void indicatorBar::draw(sf::RenderWindow &window) {
 
 void indicatorBar::setPositions(sf::RenderWindow &window) {
     // distribute the indicators evenly
+    std::vector<std::thread> posThreads;
+
     int indicatorWidth = 100;
     int margin = 120;
     int x = (window.getSize().x - (indicatorWidth * indicators.size() + margin * (indicators.size() - 1))) / 2;
     int y = 100;
-    for (auto& indicator : indicators) {
-        indicator.setPosition(x, y);
+
+    for (int i = 0; i < indicators.size(); ++i) {
+        posThreads.emplace_back([&]() {
+            indicators[i].setPosition(x, y);
+        });
         x += indicatorWidth + margin;
+    }
+
+    for (auto& thread : posThreads) {
+        thread.join();
     }
 }
 

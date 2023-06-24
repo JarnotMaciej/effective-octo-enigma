@@ -5,6 +5,10 @@
 #ifndef TAMAGOTCHI_BOTTOMBAR_H
 #define TAMAGOTCHI_BOTTOMBAR_H
 
+// C++
+#include <vector>
+#include <thread>
+
 // header files
 #include "../keycapButton.h"
 #include "../../mechanics/assetManager.h"

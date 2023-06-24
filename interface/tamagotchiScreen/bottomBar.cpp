@@ -20,14 +20,22 @@ void bottomBar::draw(sf::RenderWindow &window) {
 
 void bottomBar::setPositions(sf::RenderWindow &window) {
     // distribute buttons evenly on the bottom of the screen
+    std::vector<std::thread> posThreads;
+
     int buttonWidth = buttons[0].getSprite().getGlobalBounds().width;
     int buttonHeight = buttons[0].getSprite().getGlobalBounds().height;
     int buttonSpacing = (window.getSize().x - buttons.size() * buttonWidth) / (buttons.size() + 1);
 
     int i = 0;
     for (auto& button : buttons) {
-        button.setPosition(buttonSpacing + i * (buttonSpacing + buttonWidth),
-                           window.getSize().y - buttonHeight / 2 - 100);
+        posThreads.emplace_back([&]() {
+            button.setPosition(buttonSpacing + i * (buttonSpacing + buttonWidth),
+                               window.getSize().y - buttonHeight / 2 - 100);
+        });
         i++;
+    }
+
+    for (auto& thread : posThreads) {
+        thread.join();
     }
 }
