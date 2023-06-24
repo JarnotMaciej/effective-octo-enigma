@@ -8,6 +8,8 @@
 // C++
 #include <vector>
 #include <thread>
+#include <mutex>
+#include <atomic>
 
 // header files
 #include "../keycapButton.h"

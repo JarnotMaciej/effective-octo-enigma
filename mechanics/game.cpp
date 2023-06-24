@@ -7,7 +7,6 @@
 using namespace sf;
 
 void game::run() {
-    std::vector<std::thread> threads;
 	RenderWindow window(VideoMode(1536, 1024), "Tamagotchi", sf::Style::None);
     window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
@@ -19,22 +18,18 @@ void game::run() {
     {
         return tamagotchiMechanics::checkIfTamagotchiExistsThenReturn(tamagotchiMechanics::searchForTamagotchi());
     };
-    // std::string myOwnPetName = tamagotchiMechanics::searchForTamagotchi();
-    // tamagotchi myOwnPet = tamagotchiMechanics::checkIfTamagotchiExistsThenReturn(myOwnPetName);
 
     // loading foods
     auto _foodHunt = []() -> std::map<food, int>
     {
         return foodMechanics::loadGlobalFoods();
-    };
-    // auto foods = foodMechanics::loadGlobalFoods();
+    };;
 
     // loading credits
     auto _creditsHunt = []() -> std::vector<sf::Text>
     {
         return tamagotchiMechanics::createCreditsTexts(tamagotchiMechanics::readCreditsFile());
     };
-    // auto creditsTexts = tamagotchiMechanics::createCreditsTexts(tamagotchiMechanics::readCreditsFile());
 
     // packaged tasks
     std::packaged_task<tamagotchi()> tamagotchiHunt(_tamagotchiHunt);
@@ -83,20 +78,10 @@ void game::run() {
     screens[ScreenName::EXIT_SCREEN] = std::make_unique<exitScreen>(myExitScreen);
     screens[ScreenName::CREDITS] = std::make_unique<credits>(myCredits);
 
-    // setPositions lambda
-    auto setPositions = [](std::pair<ScreenName, std::unique_ptr<screen>> &screen, RenderWindow &window) {
-            screen.second->setPositions(window);
-    };
-
     // setPositions everywhere 
     for (auto &screen : screens) {
-        threads.push_back(std::thread(setPositions, std::ref(screen), std::ref(window)));
+        screen.second->setPositions(window);
     }
-
-    for (auto &thread : threads) {
-        thread.join();
-    }
-    threads.clear();
 
     while (window.isOpen())
 	{

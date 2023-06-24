@@ -8,6 +8,7 @@
 // C++
 #include <iostream>
 #include <string>
+#include <mutex>
 
 // SFML
 #include "SFML/Graphics.hpp"

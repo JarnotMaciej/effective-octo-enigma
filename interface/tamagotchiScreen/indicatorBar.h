@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <thread>
+#include <mutex>
 
 // header files
 #include "indicator.h"

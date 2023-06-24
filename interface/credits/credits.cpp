@@ -54,7 +54,7 @@ void credits::update(sf::RenderWindow &window, tamagotchi &pet) {
 
 void credits::setPositions(sf::RenderWindow &window) {
     // set position of texts, center them horizontally, and set them below each other
-    std::vector<std::thread> posThreads;
+//    std::vector<std::thread> posThreads;
     float x = (window.getSize().x - texts[0].getGlobalBounds().width) / 2;
     float y = window.getSize().y;
 
@@ -66,14 +66,17 @@ void credits::setPositions(sf::RenderWindow &window) {
     };
 
     for (auto &text : texts) {
-        posThreads.emplace_back(setPosition, std::ref(text));
+        x = (window.getSize().x - text.getGlobalBounds().width) / 2;
+        text.setPosition(x, y);
+        y += text.getGlobalBounds().height * 2 + 10;
+//        posThreads.emplace_back(setPosition, std::ref(text));
     }
 
     // set position of keycap -> centered horizontally, and on the bottom of the screen
     backButton.setPosition((window.getSize().x - backButton.getSprite().getGlobalBounds().width) / 2,
                             window.getSize().y - backButton.getSprite().getGlobalBounds().height / 2 - 100);
 
-    for (auto &thread : posThreads) {
-        thread.join();
-    }
+//    for (auto &thread : posThreads) {
+//        thread.join();
+//    }
 }
