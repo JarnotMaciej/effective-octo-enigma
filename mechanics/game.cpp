@@ -87,6 +87,7 @@ void game::run() {
 	{
         screenProcessing(window, myOwnPet);
     }
+//    std::cout << tamagotchiMechanics::calculateScore(myOwnPet) << std::endl;
 }
 
 void game::screenProcessing(RenderWindow &window, tamagotchi &pet) {

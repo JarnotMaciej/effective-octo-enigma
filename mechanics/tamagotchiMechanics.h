@@ -8,6 +8,8 @@
 #include <vector>
 #include <filesystem>
 #include <thread>
+#include <future>
+#include <atomic>
 
 // headers
 #include "../functions.h"

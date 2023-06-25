@@ -31,16 +31,16 @@ void credits::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
 void credits::update(sf::RenderWindow &window, tamagotchi &pet) {
     // move texts up using clock
     if (clock.getElapsedTime().asSeconds() > 0.03) {
-        // move texts up without last text
-        for (int i = 0; i < texts.size() - 1; i++) {
-            texts[i].move(0, -1);
-        }
-
         // if the text is above the screen, remove it
         for (int i = 0; i < texts.size(); i++) {
             if (texts[i].getPosition().y + texts[i].getGlobalBounds().height * 2 < 0) {
                 texts.erase(texts.begin() + i);
             }
+        }
+
+        // move texts up without last text
+        for (int i = 0; i < texts.size() - 1; i++) {
+            texts[i].move(0, -1);
         }
 
         // move last text up, if it is on the center, keep it there

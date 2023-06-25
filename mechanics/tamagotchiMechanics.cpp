@@ -382,40 +382,59 @@ void tamagotchiMechanics::happinessMechanics(tamagotchi &tamagotchiToModify, lon
     }
 }
 
-void tamagotchiMechanics::healthMechanics(tamagotchi &tamagotchiToModify, long long int difference) {
-    // health is decreasing over time, but it is also based on other stats, according to the stats, multiplier will be calculated and then health will be decreased
+void tamagotchiMechanics::healthMechanics(tamagotchi& tamagotchiToModify, long long int difference)
+{
     int health = tamagotchiToModify.getHealth();
-
     float multiplier = 1.2;
 
-    // if hunger is less or equal 10, multiplier will be multiplied by 1.2
-    if (tamagotchiToModify.getHunger() <= 10) {
+    // variables to store the results of the if conditions
+    bool hungerCondition = false;
+    bool hygieneCondition = false;
+    bool happinessCondition = false;
+    bool energyCondition = false;
+
+    // asynchronous tasks to check the conditions in parallel
+    std::future<void> hungerFuture = std::async(std::launch::async, [&]() {
+        hungerCondition = tamagotchiToModify.getHunger() <= 10;
+    });
+
+    std::future<void> hygieneFuture = std::async(std::launch::async, [&]() {
+        hygieneCondition = tamagotchiToModify.getHygiene() <= 10;
+    });
+
+    std::future<void> happinessFuture = std::async(std::launch::async, [&]() {
+        happinessCondition = tamagotchiToModify.getHappiness() <= 0;
+    });
+
+    std::future<void> energyFuture = std::async(std::launch::async, [&]() {
+        energyCondition = tamagotchiToModify.getEnergy() <= 0;
+    });
+
+    // wait for the conditions to be checked
+    hungerFuture.wait();
+    hygieneFuture.wait();
+    happinessFuture.wait();
+    energyFuture.wait();
+
+    // update the multiplier based on the conditions
+    if (hungerCondition) {
         multiplier *= 1.2;
     }
-    // if hygiene is less  or equal 10, multiplier will be multiplied by 2.2
-    if (tamagotchiToModify.getHygiene() <= 10) {
+    if (hygieneCondition) {
         multiplier *= 2.2;
     }
-    // if happiness is less or equal 0, multiplier will be multiplied by 1.1
-    if (tamagotchiToModify.getHappiness() <= 0) {
+    if (happinessCondition) {
         multiplier *= 1.1;
     }
-    // if energy is less or equal 0, multiplier will be multiplied by 1.8
-    if (tamagotchiToModify.getEnergy() <= 0) {
+    if (energyCondition) {
         multiplier *= 1.8;
     }
 
-    // multiplier to int
-    int intMultiplier = (int) multiplier;
-
-    // health is decreasing over time -> 1 health point per 7.5 minutes multiplied by multiplier
+    int intMultiplier = static_cast<int>(multiplier);
     health -= (difference / 450) * intMultiplier;
 
-    if (health < 0) {
-        health = 0;
-    } else if (health > 100) {
-        health = 100;
-    }
+    // apply the bounds for health
+    health = std::max(0, std::min(health, 100));
     tamagotchiToModify.setHealth(health);
 }
 
@@ -492,16 +511,46 @@ void tamagotchiMechanics::killTamagotchi(tamagotchi &pet) {
     std::cout << "Your tamagotchi " << name << " died after " << daysAlive << " days of life. Your score is " << scoreNumber << " points." << std::endl;
 }
 
-int tamagotchiMechanics::calculateScore(tamagotchi &pet) {
-    int score = 0;
+int tamagotchiMechanics::calculateScore(tamagotchi& pet)
+{
+    std::atomic<int> score(0);
 
-    score += pet.getHealth() * 2;
-    score += pet.getHappiness() * 2;
-    score += pet.getHygiene() * 2;
-    score += pet.getHunger() * 2;
-    score += pet.getEnergy() * 2;
-    score += tamagotchiMechanics::realDaysToGameDays(pet.getBornTime()) * 3;
-    score += pet.getMoney() * 3;
+    std::thread healthThread([&]() {
+        score += pet.getHealth() * 2;
+    });
+
+    std::thread happinessThread([&]() {
+        score += pet.getHappiness() * 2;
+    });
+
+    std::thread hygieneThread([&]() {
+        score += pet.getHygiene() * 2;
+    });
+
+    std::thread hungerThread([&]() {
+        score += pet.getHunger() * 2;
+    });
+
+    std::thread energyThread([&]() {
+        score += pet.getEnergy() * 2;
+    });
+
+    std::thread daysThread([&]() {
+        score += tamagotchiMechanics::realDaysToGameDays(pet.getBornTime()) * 3;
+    });
+
+    std::thread moneyThread([&]() {
+        score += pet.getMoney() * 3;
+    });
+
+    // Wait for all threads to finish
+    healthThread.join();
+    happinessThread.join();
+    hygieneThread.join();
+    hungerThread.join();
+    energyThread.join();
+    daysThread.join();
+    moneyThread.join();
 
     return score;
 }
