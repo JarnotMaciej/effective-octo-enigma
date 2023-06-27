@@ -1,7 +1,3 @@
-//
-// Created by menox on 27.04.2023.
-//
-
 #include "tamagotchiMechanics.h"
 
 int tamagotchiMechanics::transformSecondsToDays(long long int bornTime) {
@@ -12,16 +8,11 @@ void tamagotchiMechanics::saveTamagotchi(tamagotchi &pet, bool &isSaved) {
     debug("saving tamagotchi");
     namespace fs = std::filesystem;
 
-    // getting a path
     fs::path path = fs::current_path().parent_path();
     path /= "saves";
-
-    //getting tamagotchi name
     std::string name = pet.getName();
-
-    // creating a file with a name of tamagotchi
     std::ofstream tamagotchiFile;
-    path /= name + ".tmg"; // tamagotchi file extension
+    path /= name + ".tmg";
 
     try {
         tamagotchiFile.open(path);
@@ -60,7 +51,6 @@ std::string tamagotchiMechanics::searchForTamagotchi() {
     debug("searching for tamagotchi");
     namespace fs = std::filesystem;
 
-    // getting a path
     fs::path path = fs::current_path().parent_path();
     path /= "saves";
     debug(path.string());
@@ -73,13 +63,13 @@ std::string tamagotchiMechanics::searchForTamagotchi() {
             for (const auto &entry: fs::directory_iterator(path)) {
                 debug(entry.path().filename().string());
                 tamagotchiNames.push_back(entry.path().filename().string());
-                // entering directory and checking if the name of tamagotchi is the same as the name of directory
+
                 fs::path tamagotchiPath = path;
                 tamagotchiPath /= entry.path().filename().string();
                 if (entry.path().filename().string() == entry.path().filename().string() && nameValidation(
                         entry.path().filename().string().substr(0, entry.path().filename().string().length() - 4))) {
                     debug("tamagotchi found");
-                    // return file name without extension
+
                     return entry.path().filename().string().substr(0, entry.path().filename().string().length() - 4);
                 }
             }
@@ -124,7 +114,6 @@ std::string tamagotchiMechanics::searchForTamagotchi() {
     }
     pet.setEnergy(energy);
 
-    // if pet was hungry, it's health will be decreased
     if (hunger == 0) {
         float health = pet.getHealth() - minutes * 0.1;
         debug("health: " + std::to_string(health));
@@ -144,7 +133,6 @@ std::vector<score> tamagotchiMechanics::getScores() {
     fs::path path = fs::current_path().parent_path();
     path /= "scores";
 
-    //Iterating through all files in directory
     for (const auto &entry: fs::directory_iterator(path)) {
         if (fs::is_regular_file(entry)) {
             const std::string filename = entry.path().filename().string();
@@ -156,16 +144,16 @@ std::vector<score> tamagotchiMechanics::getScores() {
                 std::string line;
                 while (std::getline(scoreFile, line)) {
                     try {
-                        // Validate the line using the scoreLineValidation function
+
                         if (!scoreLineValidation(line)) {
-                            // Invalid line, handle the error or skip it
+
                             throw errorHandler(errorCode::ValidationError);
                         }
                         std::istringstream iss(line);
                         std::string name;
                         int score, daysAlive;
                         if (!(iss >> name >> score >> daysAlive)) {
-                            // Invalid line format, handle the error or skip it
+
                             throw errorHandler(errorCode::ValidationError);
                         }
 
@@ -203,8 +191,8 @@ void tamagotchiMechanics::sleepMechanics(tamagotchi &pet) {
 
     if (pet.getSleepStart() != 0) {
         long long int sleepTime = getTime() - pet.getSleepStart();
-        // half an hour - energy will be full
-        sleepTime /= 18; // 18 seconds -> +1 energy point
+
+        sleepTime /= 18;
 
         if (sleepTime != 0) {
             pet.setSleepStart(pet.getSleepStart() + sleepTime * 18);
@@ -215,12 +203,10 @@ void tamagotchiMechanics::sleepMechanics(tamagotchi &pet) {
             pet.setEnergy(energy);
         }
     }
-
 }
 
 tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
 
-    // opening file using filesystem
     namespace fs = std::filesystem;
     fs::path path = fs::current_path().parent_path();
     path /= "saves";
@@ -235,18 +221,16 @@ tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
             throw errorHandler(errorCode::FileError);
         }
 
-        // read file content into a string
         std::stringstream buffer;
         buffer << tamagotchiFile.rdbuf();
         tamagotchiFile.close();
 
         std::string fileContent = buffer.str();
 
-        // validate file content using tamagotchiSaveValidation function
         if (!tamagotchiSaveValidation(fileContent)) {
             throw errorHandler(errorCode::ValidationError);
         }
-        // create a stringstream from the file content string
+
         std::stringstream fileStream(fileContent);
 
         int petType;
@@ -255,13 +239,7 @@ tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
         bool isSleeping;
         long long int bornTime, sleepStart, lastSaved;
 
-        // reading data from the file stream
         fileStream >> petType;
-
-        // switch case for pet type -> in the future there will be more types of pets
-        // CAT
-        // DOG
-        // FISH
 
         switch (petType) {
             case 0:
@@ -284,7 +262,7 @@ tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
         fileStream >> sleepStart;
         fileStream >> lastSaved;
 
-        // setting data to pet
+
         toReturn.setName(petName);
         toReturn.setHealth(health);
         toReturn.setHunger(hunger);
@@ -296,10 +274,8 @@ tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
         toReturn.setBornTime(bornTime);
         toReturn.setSleepStart(sleepStart);
 
-        // according to last saved time, we need to update pet's stats
         long long int timeDifference = getTime() - lastSaved;
 
-        // function for the mechanism -> sleeping YES/NO
         if (isSleeping) {
             sleepMechanics(toReturn);
         } else {
@@ -307,7 +283,6 @@ tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
             energyDecreaseMechanics(toReturn, timeDifference);
         }
 
-        // indicator mechanisms
         hungerMechanics(toReturn, timeDifference);
         hygieneMechanics(toReturn, timeDifference);
         happinessMechanics(toReturn, timeDifference);
@@ -318,7 +293,7 @@ tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
             return cat();
         }
 
-        // f00d
+
         std::map<food, int> foodsToAdd = foodMechanics::loadGlobalFoods();
         if (foodsToAdd.empty()) {
             throw errorHandler(errorCode::FileError);
@@ -335,7 +310,6 @@ tamagotchi tamagotchiMechanics::loadTamagotchi(const std::string &name) {
 }
 
 void tamagotchiMechanics::energyDecreaseMechanics(tamagotchi &tamagotchiToModify, long long int difference) {
-    // energy is decreasing over time -> 1 energy point per 5 minutes
     int energy = tamagotchiToModify.getEnergy() - difference / 300;
     if (energy < 0) {
         energy = 0;
@@ -347,7 +321,6 @@ void tamagotchiMechanics::energyDecreaseMechanics(tamagotchi &tamagotchiToModify
 }
 
 void tamagotchiMechanics::hungerMechanics(tamagotchi &tamagotchiToModify, long long int difference) {
-    // hunger is decreasing over time -> 1 hunger point per 10 minutes
     int hunger = tamagotchiToModify.getHunger() - difference / 600;
     if (hunger < 0) {
         hunger = 0;
@@ -359,7 +332,6 @@ void tamagotchiMechanics::hungerMechanics(tamagotchi &tamagotchiToModify, long l
 }
 
 void tamagotchiMechanics::hygieneMechanics(tamagotchi &tamagotchiToModify, long long int difference) {
-    // hygiene is decreasing over time -> 1 hygiene point per 7.5 minutes
     int hygiene = tamagotchiToModify.getHygiene() - difference / 450;
     if (hygiene < 0) {
         hygiene = 0;
@@ -371,7 +343,6 @@ void tamagotchiMechanics::hygieneMechanics(tamagotchi &tamagotchiToModify, long 
 }
 
 void tamagotchiMechanics::happinessMechanics(tamagotchi &tamagotchiToModify, long long int difference) {
-    // happiness is decreasing over time -> 1 happiness point per 3 minutes
     int happiness = tamagotchiToModify.getHappiness() - difference / 180;
     if (happiness < 0) {
         happiness = 0;
@@ -382,18 +353,15 @@ void tamagotchiMechanics::happinessMechanics(tamagotchi &tamagotchiToModify, lon
     }
 }
 
-void tamagotchiMechanics::healthMechanics(tamagotchi& tamagotchiToModify, long long int difference)
-{
+void tamagotchiMechanics::healthMechanics(tamagotchi &tamagotchiToModify, long long int difference) {
     int health = tamagotchiToModify.getHealth();
     float multiplier = 1.2;
 
-    // variables to store the results of the if conditions
     bool hungerCondition = false;
     bool hygieneCondition = false;
     bool happinessCondition = false;
     bool energyCondition = false;
 
-    // asynchronous tasks to check the conditions in parallel
     std::future<void> hungerFuture = std::async(std::launch::async, [&]() {
         hungerCondition = tamagotchiToModify.getHunger() <= 10;
     });
@@ -410,13 +378,11 @@ void tamagotchiMechanics::healthMechanics(tamagotchi& tamagotchiToModify, long l
         energyCondition = tamagotchiToModify.getEnergy() <= 0;
     });
 
-    // wait for the conditions to be checked
     hungerFuture.wait();
     hygieneFuture.wait();
     happinessFuture.wait();
     energyFuture.wait();
 
-    // update the multiplier based on the conditions
     if (hungerCondition) {
         multiplier *= 1.2;
     }
@@ -433,7 +399,6 @@ void tamagotchiMechanics::healthMechanics(tamagotchi& tamagotchiToModify, long l
     int intMultiplier = static_cast<int>(multiplier);
     health -= (difference / 450) * intMultiplier;
 
-    // apply the bounds for health
     health = std::max(0, std::min(health, 100));
     tamagotchiToModify.setHealth(health);
 }
@@ -454,17 +419,12 @@ void tamagotchiMechanics::killTamagotchi(tamagotchi &pet) {
     int daysAlive = tamagotchiMechanics::realDaysToGameDays(pet.getBornTime());
     int scoreNumber = tamagotchiMechanics::calculateScore(pet);
 
-
-    // tamagotchi paths -> tamagotchi file and food file
-    // filesystem used
     std::filesystem::path tamagotchiPath = std::filesystem::current_path().parent_path() / "saves" / (name + ".tmg");
     std::filesystem::path foodPath = std::filesystem::current_path().parent_path() / "saves" / (name + ".tmgfood");
-
-    // score file path
     std::filesystem::path scorePath = std::filesystem::current_path().parent_path() / "scores" / (name + ".dtf");
 
     try {
-        // check if the score file exists, if yes -> open it and save best score, if not -> create it and save best score
+
         if (std::filesystem::exists(scorePath)) {
             std::ifstream scoreFile(scorePath);
 
@@ -504,17 +464,15 @@ void tamagotchiMechanics::killTamagotchi(tamagotchi &pet) {
         return;
     }
 
-    // removing tamagotchi and food files
     std::filesystem::remove(tamagotchiPath);
     std::filesystem::remove(foodPath);
 
-    std::cout << "Your tamagotchi " << name << " died after " << daysAlive << " days of life. Your score is " << scoreNumber << " points." << std::endl;
+    std::cout << "Your tamagotchi " << name << " died after " << daysAlive << " days of life. Your score is "
+              << scoreNumber << " points." << std::endl;
 }
 
-int tamagotchiMechanics::calculateScore(tamagotchi& pet)
-{
+int tamagotchiMechanics::calculateScore(tamagotchi &pet) {
     std::atomic<int> score(0);
-
     std::thread healthThread([&]() {
         score += pet.getHealth() * 2;
     });
@@ -543,7 +501,6 @@ int tamagotchiMechanics::calculateScore(tamagotchi& pet)
         score += pet.getMoney() * 3;
     });
 
-    // Wait for all threads to finish
     healthThread.join();
     happinessThread.join();
     hygieneThread.join();
@@ -558,7 +515,6 @@ int tamagotchiMechanics::calculateScore(tamagotchi& pet)
 std::vector<std::pair<std::string, int>> tamagotchiMechanics::readCreditsFile() {
     std::vector<std::pair<std::string, int>> creditsVector;
 
-    // Open the credits file
     std::filesystem::path creditsFilePath = std::filesystem::current_path().parent_path() / "config" / "credits.md";
     std::ifstream creditsFile(creditsFilePath);
     try {
@@ -567,12 +523,9 @@ std::vector<std::pair<std::string, int>> tamagotchiMechanics::readCreditsFile() 
         }
         std::string line;
 
-        // Read the file line by line
-        // Count how many # are in the line before first space or letter -> int
-        // #s need to be removed from the line
         while (std::getline(creditsFile, line)) {
             int count = 0;
-            for (char c : line) {
+            for (char c: line) {
                 if (c == '#') {
                     count++;
                 } else if (c == ' ') {
@@ -583,12 +536,10 @@ std::vector<std::pair<std::string, int>> tamagotchiMechanics::readCreditsFile() 
                 }
             }
 
-            // remove #s and space from the line
             if (count != 0) {
-                line.erase(0, count+1);
+                line.erase(0, count + 1);
             }
 
-            // links are in format [text](link) -> they need to be divided into text and link parts in different strings
             if (line.find('[') != std::string::npos) {
                 std::string text = line.substr(line.find('[') + 1, line.find(']') - line.find('[') - 1);
                 std::string link = line.substr(line.find('(') + 1, line.find(')') - line.find('(') - 1);
@@ -597,8 +548,6 @@ std::vector<std::pair<std::string, int>> tamagotchiMechanics::readCreditsFile() 
                 continue;
             }
 
-            // bullet points are in format - text -> they need to have -3 as count, - and space are removed
-            // but if there are 3 -s in the line, it's a horizontal line -> it needs to have -4 as count
             if (line.find('-') != std::string::npos) {
                 if (line.find('-') == line.find_last_of('-')) {
                     creditsVector.emplace_back(line.substr(line.find('-') + 1), -3);
@@ -610,12 +559,9 @@ std::vector<std::pair<std::string, int>> tamagotchiMechanics::readCreditsFile() 
 
             creditsVector.emplace_back(line, count);
         }
-
     } catch (errorHandler &e) {
         return {};
     }
-
-    // Close the file
     creditsFile.close();
 
     return creditsVector;
@@ -623,7 +569,7 @@ std::vector<std::pair<std::string, int>> tamagotchiMechanics::readCreditsFile() 
 
 std::vector<sf::Text> tamagotchiMechanics::createCreditsTexts(const std::vector<std::pair<std::string, int>> &credits) {
     std::vector<sf::Text> texts;
-    for (const auto &credit : credits) {
+    for (const auto &credit: credits) {
         sf::Text text;
         text.setString(credit.first);
         text.setFont(assetManager::getInstance().getFont("Silkscreen"));
@@ -665,6 +611,5 @@ std::vector<sf::Text> tamagotchiMechanics::createCreditsTexts(const std::vector<
         text.setPosition(0, 0);
         texts.push_back(text);
     }
-
     return texts;
 }

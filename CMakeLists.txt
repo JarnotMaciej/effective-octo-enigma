@@ -51,7 +51,7 @@ add_executable(
         interface/tamagotchiScreen/indicatorBar.cpp interface/tamagotchiScreen/indicatorBar.h
         interface/scoreboard/scoreboard.cpp interface/scoreboard/scoreboard.h
         interface/minigame/minigame.cpp interface/minigame/minigame.h
-        interface/minigame/flyingElement.cpp interface/minigame/flyingElement.h
+        interface/minigame/flyingElement.h
         interface/minigame/coin.cpp interface/minigame/coin.h
         mechanics/game.cpp mechanics/game.h
         interface/minigame/gameOver.cpp interface/minigame/gameOver.h

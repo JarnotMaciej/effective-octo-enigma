@@ -1,7 +1,3 @@
-//
-// Created by menox on 12.05.2023.
-//
-
 #include "indicatorBar.h"
 
 indicatorBar::indicatorBar() {
@@ -13,14 +9,13 @@ indicatorBar::indicatorBar() {
 }
 
 void indicatorBar::draw(sf::RenderWindow &window) {
-    for (auto& indicator : indicators) {
+    for (auto &indicator: indicators) {
         indicator.draw(window);
     }
 }
 
 void indicatorBar::setPositions(sf::RenderWindow &window) {
-std::mutex posMutex;
-    // distribute the indicators evenly
+    std::mutex posMutex;
     std::vector<std::thread> posThreads;
 
     int indicatorWidth = 100;
@@ -36,7 +31,7 @@ std::mutex posMutex;
         x += indicatorWidth + margin;
     }
 
-    for (auto& thread : posThreads) {
+    for (auto &thread: posThreads) {
         thread.join();
     }
 }
@@ -45,24 +40,19 @@ void indicatorBar::update(tamagotchi &pet) {
     std::thread t1([&]() {
         indicators[0].update(pet.getHealth());
     });
-
     std::thread t2([&]() {
         indicators[1].update(pet.getHunger());
     });
-
     std::thread t3([&]() {
         indicators[2].update(pet.getHappiness());
     });
-
     std::thread t4([&]() {
         indicators[3].update(pet.getHygiene());
     });
-
     std::thread t5([&]() {
         indicators[4].update(pet.getEnergy());
     });
 
-    // Wait for all threads to finish
     t1.join();
     t2.join();
     t3.join();

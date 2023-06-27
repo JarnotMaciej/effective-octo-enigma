@@ -1,125 +1,103 @@
-//
-// Created by menox on 19.03.2023.
-//
-
 #include "tamagotchi.h"
 
-tamagotchi::tamagotchi()
-{
-	name = "Tamagotchi";
-	health = 90;
-	hunger = 50;
-	happiness = 50;
-	hygiene = 50;
-	energy = 100;
-	money = 20;
+tamagotchi::tamagotchi() {
+    name = "Tamagotchi";
+    health = 90;
+    hunger = 50;
+    happiness = 50;
+    hygiene = 50;
+    energy = 100;
+    money = 20;
     bornTime = getTime();
 
     isSleeping = false;
     sleepStart = 0;
 }
 
-tamagotchi::tamagotchi(std::string _name)
-{
-	name = _name;
-	health = 90;
-	hunger = 50;
-	happiness = 50;
-	hygiene = 50;
-	energy = 100;
+tamagotchi::tamagotchi(std::string _name) {
+    name = _name;
+    health = 90;
+    hunger = 50;
+    happiness = 50;
+    hygiene = 50;
+    energy = 100;
     money = 20;
-	bornTime = getTime();
+    bornTime = getTime();
 
     isSleeping = false;
     sleepStart = 0;
 }
 
-void tamagotchi::printInfo()
-{
-	std::cout << "Hunger:\t\t" << hunger << "/100%" << std::endl;
-	std::cout << "Happiness:\t" << happiness << "/100%" << std::endl;
-	std::cout << "Hygiene:\t" << hygiene << "/100%" << std::endl;
-	std::cout << "Energy:\t\t" << energy << "/100%" << std::endl;
-	std::cout << "Money:\t\t" << money << " gold coins" << std::endl;
+void tamagotchi::printInfo() {
+    std::cout << "Hunger:\t\t" << hunger << "/100%" << std::endl;
+    std::cout << "Happiness:\t" << happiness << "/100%" << std::endl;
+    std::cout << "Hygiene:\t" << hygiene << "/100%" << std::endl;
+    std::cout << "Energy:\t\t" << energy << "/100%" << std::endl;
+    std::cout << "Money:\t\t" << money << " gold coins" << std::endl;
     std::cout << "Foods: " << std::endl;
-    for (const auto& food : foods)
-    {
+    for (const auto &food: foods) {
         std::cout << "\t" << food.first.getName() << " - " << food.second << std::endl;
     }
 }
 
-void tamagotchi::setMoney(int money)
-{
-	tamagotchi::money = money;
+void tamagotchi::setMoney(int money) {
+    tamagotchi::money = money;
 }
 
-void tamagotchi::setEnergy(int energy)
-{
-	tamagotchi::energy = energy;
+void tamagotchi::setEnergy(int energy) {
+    tamagotchi::energy = energy;
 }
 
-void tamagotchi::setHygiene(int hygiene)
-{
-	tamagotchi::hygiene = hygiene;
+void tamagotchi::setHygiene(int hygiene) {
+    tamagotchi::hygiene = hygiene;
 }
 
-void tamagotchi::setHappiness(int happiness)
-{
-	tamagotchi::happiness = happiness;
+void tamagotchi::setHappiness(int happiness) {
+    tamagotchi::happiness = happiness;
 }
 
-void tamagotchi::setHunger(int hunger)
-{
-	tamagotchi::hunger = hunger;
+void tamagotchi::setHunger(int hunger) {
+    tamagotchi::hunger = hunger;
 }
 
-void tamagotchi::setHealth(int health)
-{
-	tamagotchi::health = health;
+void tamagotchi::setHealth(int health) {
+    tamagotchi::health = health;
 }
 
-void tamagotchi::setName(std::string name)
-{
-	tamagotchi::name = name;
+void tamagotchi::setName(std::string name) {
+    tamagotchi::name = name;
 }
 
-int tamagotchi::getMoney()
-{
-	return money;
+int tamagotchi::getMoney() {
+    return money;
 }
 
-int tamagotchi::getEnergy()
-{
-	return energy;
+int tamagotchi::getEnergy() {
+    return energy;
 }
 
-int tamagotchi::getHygiene()
-{
-	return hygiene;
+int tamagotchi::getHygiene() {
+    return hygiene;
 }
 
-int tamagotchi::getHappiness()
-{
-	return happiness;
+int tamagotchi::getHappiness() {
+    return happiness;
 }
 
-int tamagotchi::getHunger()
-{
-	return hunger;
+int tamagotchi::getHunger() {
+    return hunger;
 }
 
-int tamagotchi::getHealth()
-{
-	return health;
+int tamagotchi::getHealth() {
+    return health;
 }
 
 std::string tamagotchi::getName() const {
-	return name;
+    return name;
 }
 
-long long int tamagotchi::getBornTime() const
-{
-	return bornTime;
+long long int tamagotchi::getBornTime() const {
+    return bornTime;
 }
 
 bool tamagotchi::getIsSleeping() const {
@@ -155,9 +133,9 @@ void tamagotchi::setBornTime(long long int bornTime) {
 }
 
 
-void tamagotchi::addFood(const std::string& foodName, int quantity) {
-    // Check if the food already exists in the map
-    auto foodIterator = std::find_if(foods.begin(), foods.end(), [&](const std::pair<food, int>& pair) {
+void tamagotchi::addFood(const std::string &foodName, int quantity) {
+
+    auto foodIterator = std::find_if(foods.begin(), foods.end(), [&](const std::pair<food, int> &pair) {
         return pair.first.getName() == foodName;
     });
 
@@ -168,31 +146,29 @@ void tamagotchi::addFood(const std::string& foodName, int quantity) {
         if (foodName.empty()) {
             throw errorHandler{errorCode::EmptyString};
         }
-    } catch (errorHandler& e) {
+    } catch (errorHandler &e) {
         std::cout << e.what() << std::endl;
         return;
     }
 
     try {
         if (foodIterator != foods.end()) {
-            // Food already exists, update the quantity
+
             foodIterator->second += quantity;
         } else {
-            // Food doesn't exist, create a new food object and add it to the map
+
             throw errorHandler{errorCode::FoodDoesNotExist};
-            food newFood(foodName, 0, 0, 0, 0, 0, 0);  // You can replace the default values with the actual values
+            food newFood(foodName, 0, 0, 0, 0, 0, 0);
             foods.insert(std::make_pair(newFood, quantity));
         }
-    } catch (errorHandler& e) {
+    } catch (errorHandler &e) {
         std::cout << e.what() << std::endl;
     }
 }
 
-bool tamagotchi::eatFood(const std::string& foodName){
-    for (auto& food : foods)
-    {
-        if (food.first.getName() == foodName && food.second > 0)
-        {
+bool tamagotchi::eatFood(const std::string &foodName) {
+    for (auto &food: foods) {
+        if (food.first.getName() == foodName && food.second > 0) {
             tamagotchi::hunger = indicatorFunction(tamagotchi::hunger + food.first.getHunger());
             tamagotchi::happiness = indicatorFunction(tamagotchi::happiness + food.first.getHappiness());
             tamagotchi::hygiene = indicatorFunction(tamagotchi::hygiene + food.first.getHygiene());
@@ -206,12 +182,9 @@ bool tamagotchi::eatFood(const std::string& foodName){
 }
 
 bool tamagotchi::buyFood(const std::string &foodName) {
-    for (auto& food : foods)
-    {
-        if (food.first.getName() == foodName && food.second < 999)
-        {
-            if (tamagotchi::money >= food.first.getPrice())
-            {
+    for (auto &food: foods) {
+        if (food.first.getName() == foodName && food.second < 999) {
+            if (tamagotchi::money >= food.first.getPrice()) {
                 tamagotchi::money -= food.first.getPrice();
                 food.second++;
                 return true;
@@ -223,11 +196,9 @@ bool tamagotchi::buyFood(const std::string &foodName) {
 }
 
 bool tamagotchi::sellFood(const std::string &foodName) {
-    // sell tamagotchi food for 50% of the price
-    for (auto& food : foods)
-    {
-        if (food.first.getName() == foodName && food.second > 0)
-        {
+
+    for (auto &food: foods) {
+        if (food.first.getName() == foodName && food.second > 0) {
             tamagotchi::money += food.first.getPrice() / 2;
             food.second--;
             return true;
@@ -236,12 +207,10 @@ bool tamagotchi::sellFood(const std::string &foodName) {
     return false;
 }
 
-food tamagotchi::findFood(const std::string& foodName) const {
-    // find food by name and return it
-    for (auto& food : foods)
-    {
-        if (food.first.getName() == foodName)
-        {
+food tamagotchi::findFood(const std::string &foodName) const {
+
+    for (auto &food: foods) {
+        if (food.first.getName() == foodName) {
             return food.first;
         }
     }
@@ -249,7 +218,7 @@ food tamagotchi::findFood(const std::string& foodName) const {
 }
 
 int indicatorFunction(int value) {
-    // This function is used to make sure that the value is between 0 and 100
+
     if (value < 0) {
         return 0;
     } else if (value > 100) {

@@ -1,9 +1,4 @@
-//
-// Created by menox on 30.04.2023.
-//
-
 #include "foodMechanics.h"
-
 
 void foodMechanics::printFoods(const std::map<food, int> &foods) {
     for (auto food: foods) {
@@ -22,24 +17,21 @@ std::map<food, int> foodMechanics::loadGlobalFoods() {
     debug("loading global foods");
     namespace fs = std::filesystem;
 
-    // getting a path
     fs::path path = fs::current_path().parent_path();
     path /= "config";
 
-    // opening a file "food.tconf"
     std::ifstream foodFile;
     path /= "food.tconf";
     foodFile.open(path);
 
     try {
-        if(!foodFile.is_open()){
+        if (!foodFile.is_open()) {
             throw errorHandler(errorCode::FileError);
         }
     } catch (errorHandler &e) {
         return {};
     }
 
-    //generating a map of foods
     std::map<food, int> foods;
     std::string name;
     int price, health, hunger, happiness, hygiene, energy;
@@ -47,9 +39,7 @@ std::map<food, int> foodMechanics::loadGlobalFoods() {
 
     std::string line;
 
-    // reading from file line by line
     while (std::getline(foodFile, line)) {
-        // Validate the line using the foodConfigValidation function
         try {
             if (!foodConfigValidation(line)) {
                 throw errorHandler(errorCode::ValidationError);
@@ -71,8 +61,6 @@ std::map<food, int> foodMechanics::loadGlobalFoods() {
         foods.emplace(food(name, price, health, hunger, happiness, hygiene, energy), 0);
     }
     foodFile.close();
-
-
     return foods;
 }
 
@@ -80,49 +68,42 @@ void foodMechanics::saveFood(tamagotchi &pet, bool saved) {
     debug("saving foods");
     namespace fs = std::filesystem;
 
-    // getting a path
     fs::path path = fs::current_path().parent_path();
     path /= "saves";
 
-    //getting tamagotchi name
     std::string name = pet.getName();
 
-    // creating a file with foods
     std::ofstream foodFile;
-    path /= name + ".tmgfood"; // food file extension
+    path /= name + ".tmgfood";
     foodFile.open(path);
 
     try {
-        if(!foodFile.is_open()){
+        if (!foodFile.is_open()) {
             throw errorHandler(errorCode::FileError);
         }
     } catch (errorHandler &e) {
         return;
     }
 
-    // writing data to a file
     for (const auto &food: pet.getFoods()) {
         foodFile << food.first.getName() << " " << food.second << std::endl;
     }
-
     foodFile.close();
     saved = true;
 }
 
 void foodMechanics::loadTamagotchiFoods(const std::string &fileName, tamagotchi &pet) {
-    // opening file using filesystem
     namespace fs = std::filesystem;
     fs::path path = fs::current_path().parent_path();
     path /= "saves";
     path /= fileName + ".tmgfood";
-
     std::list<std::pair<std::string, int>> foodsList;
 
     std::ifstream foodFile;
     foodFile.open(path);
 
     try {
-        if(!foodFile.is_open()){
+        if (!foodFile.is_open()) {
             throw errorHandler(errorCode::FileError);
         }
     } catch (errorHandler &e) {
@@ -141,7 +122,6 @@ void foodMechanics::loadTamagotchiFoods(const std::string &fileName, tamagotchi 
         } catch (errorHandler &e) {
             continue;
         }
-
         try {
             std::istringstream iss(line);
             if (!(iss >> name >> amount)) {
@@ -153,10 +133,8 @@ void foodMechanics::loadTamagotchiFoods(const std::string &fileName, tamagotchi 
 
         foodsList.emplace_back(name, amount);
     }
-
     foodFile.close();
 
-    // loading foods to tamagotchi
     for (const auto &food: foodsList) {
         pet.addFood(food.first, food.second);
     }

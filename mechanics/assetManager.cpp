@@ -1,27 +1,20 @@
-//
-// Created by menox on 05.05.2023.
-//
-
 #include "assetManager.h"
 #include "../functions.h"
 
 assetManager &assetManager::getInstance() {
-    static assetManager instance; // lazy initialization
+    static assetManager instance;
     return instance;
 }
 
 sf::Texture &assetManager::getTexture(const std::string &id) {
     auto iter = m_textures.find(id);
     if (iter == m_textures.end()) {
-        // Creating a new texture
-        // debug("Creating a new texture " + id);
         std::unique_ptr<sf::Texture> texture(new sf::Texture());
-        // Getting the path
+
         std::filesystem::path path =
                 std::filesystem::current_path().parent_path() / "resources" / "textures" / (id + ".png");
         try {
             if (!texture->loadFromFile(path.string())) {
-                // Handle error
                 throw errorHandler(errorCode::TextureNotFound);
             }
         }
@@ -30,7 +23,7 @@ sf::Texture &assetManager::getTexture(const std::string &id) {
         }
         iter = m_textures.emplace(id, std::move(texture)).first;
     }
-    // debug("Returning texture " + id);
+
     return *iter->second;
 }
 
@@ -42,7 +35,6 @@ sf::SoundBuffer &assetManager::getSound(const std::string &id, const std::string
                 std::filesystem::current_path().parent_path() / "resources" / "sounds" / (id + "." + extension);
         try {
             if (!sound->loadFromFile(path.string())) {
-                // Handle error
                 throw errorHandler(errorCode::SoundNotFound);
             }
         } catch (errorHandler &e) {
@@ -61,7 +53,6 @@ sf::Font &assetManager::getFont(const std::string &id) {
                 std::filesystem::current_path().parent_path() / "resources" / "fonts" / (id + ".ttf");
         try {
             if (!font->loadFromFile(path.string())) {
-                // Handle error
                 throw errorHandler(errorCode::FontNotFound);
             }
         } catch (errorHandler &e) {

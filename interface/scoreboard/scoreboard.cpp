@@ -1,12 +1,6 @@
-//
-
 #include "scoreboard.h"
 
-//
-// Created by menox on 13.05.2023.
-
 scoreboard::scoreboard() {
-    // set display mode as DEFAULT
     mode = displayMode::DEFAULT;
 
     title.setString("Scoreboard");
@@ -27,7 +21,6 @@ scoreboard::scoreboard() {
         textScores.push_back(text);
     }
 
-    // add keycaps
     buttons.emplace_back("Sort by score", "Q");
     buttons.emplace_back("Go back", "ESC");
     buttons.emplace_back("Sort by name", "W");
@@ -37,45 +30,32 @@ scoreboard::scoreboard() {
 void scoreboard::draw(sf::RenderWindow &window) {
     window.draw(title);
 
-    // limit the number of scores to 5 by using views
     auto top5scores = std::views::take(textScores, 5);
 
-    // draw the scores
     for (sf::Text text: top5scores) {
         window.draw(text);
     }
-
     for (auto button: buttons) {
         button.draw(window);
     }
 }
 
 void scoreboard::setPositions(sf::RenderWindow &window) {
-    // center the logo horizontally
     float x = (window.getSize().x - title.getGlobalBounds().width) / 2;
-    // center the logo vertically
     float y = (0.3 * window.getSize().y - title.getGlobalBounds().height) / 2;
     title.setPosition(x, y);
 
-    // list the scores in a column in the remaining space
-
-    // calculate the height of the column
     float height = textScores.front().getGlobalBounds().height;
-    // margin between the scores
-//    float margin = (0.7 * window.getSize().y - textScores.size() * height) / (textScores.size() + 1);
     float margin = height + 20;
-
-    // calculate the starting y position
     float startY = 0.3 * window.getSize().y + margin;
 
     for (sf::Text &text: textScores) {
-        // center the text horizontally
+
         x = (window.getSize().x - text.getGlobalBounds().width) / 2;
         text.setPosition(x, startY);
         startY += height + margin;
     }
 
-    // set position of keycaps
     int buttonWidth = buttons[0].getSprite().getGlobalBounds().width;
     int buttonHeight = buttons[0].getSprite().getGlobalBounds().height;
     int buttonSpacing = (window.getSize().x - buttons.size() * buttonWidth) / (buttons.size() + 1);
@@ -137,7 +117,6 @@ void scoreboard::handleInput(sf::RenderWindow &window, ScreenName &_screenName) 
                                 std::string nameA = a.getTamagotchiName();
                                 std::string nameB = b.getTamagotchiName();
 
-                                // Convert names to lowercase for case-insensitive comparison
                                 std::transform(nameA.begin(), nameA.end(), nameA.begin(), [](char c) {
                                     return std::tolower(c);
                                 });
@@ -155,7 +134,6 @@ void scoreboard::handleInput(sf::RenderWindow &window, ScreenName &_screenName) 
                                 std::string nameA = a.getTamagotchiName();
                                 std::string nameB = b.getTamagotchiName();
 
-                                // Convert names to lowercase for case-insensitive comparison
                                 std::transform(nameA.begin(), nameA.end(), nameA.begin(), [](char c) {
                                     return std::tolower(c);
                                 });
@@ -173,7 +151,6 @@ void scoreboard::handleInput(sf::RenderWindow &window, ScreenName &_screenName) 
                                 std::string nameA = a.getTamagotchiName();
                                 std::string nameB = b.getTamagotchiName();
 
-                                // Convert names to lowercase for case-insensitive comparison
                                 std::transform(nameA.begin(), nameA.end(), nameA.begin(), [](char c) {
                                     return std::tolower(c);
                                 });
@@ -183,7 +160,6 @@ void scoreboard::handleInput(sf::RenderWindow &window, ScreenName &_screenName) 
 
                                 return nameA > nameB;
                             });
-
                         }
                             break;
                     }
@@ -212,6 +188,5 @@ void scoreboard::scoresToText(sf::RenderWindow &window) {
 }
 
 void scoreboard::update(sf::RenderWindow &window, tamagotchi &pet) {
-
 }
 

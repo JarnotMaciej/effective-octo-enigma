@@ -1,77 +1,58 @@
-//
-// Created by menox on 01.04.2023.
-//
-
 #include "button.h"
 
-void button::draw(sf::RenderWindow& window)
-{
+void button::draw(sf::RenderWindow &window) {
     this->buttonSprite.setTexture(buttonTexture);
-	window.draw(buttonSprite);
-	centerText();
-	window.draw(buttonText);
+    window.draw(buttonSprite);
+    centerText();
+    window.draw(buttonText);
 }
 
-float button::getPositionX()
-{
-	return buttonSprite.getPosition().x;
+float button::getPositionX() {
+    return buttonSprite.getPosition().x;
 }
 
-float button::getPositionY()
-{
-	return buttonSprite.getPosition().y;
+float button::getPositionY() {
+    return buttonSprite.getPosition().y;
 }
 
-float button::getWidth()
-{
-	return buttonSprite.getGlobalBounds().width;
+float button::getWidth() {
+    return buttonSprite.getGlobalBounds().width;
 }
 
-float button::getHeight()
-{
-	return buttonSprite.getGlobalBounds().height;
+float button::getHeight() {
+    return buttonSprite.getGlobalBounds().height;
 }
 
-bool button::isMouseOver(sf::RenderWindow& window)
-{
-	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-	sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-	return buttonSprite.getGlobalBounds().contains(mousePosF);
+bool button::isMouseOver(sf::RenderWindow &window) {
+    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+    return buttonSprite.getGlobalBounds().contains(mousePosF);
 }
 
-button::button(const sf::String& text)
-{
-	// loading textures
-//	buttonTexture = assetManager::getInstance().getTexture("48x16white");
-	buttonTexture = assetManager::getInstance().getTexture("64x16dark");
-	buttonSprite.setTexture(buttonTexture);
-	buttonSprite.setPosition(0, 0);
-	buttonSprite.setScale(6.5, 6.5);
+button::button(const sf::String &text) {
+    buttonTexture = assetManager::getInstance().getTexture("64x16dark");
+    buttonSprite.setTexture(buttonTexture);
+    buttonSprite.setPosition(0, 0);
+    buttonSprite.setScale(6.5, 6.5);
 
-	// loading font
-	font = assetManager::getInstance().getFont("silkscreen");
+    font = assetManager::getInstance().getFont("silkscreen");
 
-//	textColor = sf::Color(70, 75, 95, 255);
-	textColor = sf::Color::White;
-	buttonText.setFont(font);
-	buttonText.setString(text);
-	buttonText.setCharacterSize(40);
-	buttonText.setFillColor(textColor);
-
+    textColor = sf::Color::White;
+    buttonText.setFont(font);
+    buttonText.setString(text);
+    buttonText.setCharacterSize(40);
+    buttonText.setFillColor(textColor);
 }
 
-void button::setPosition(float x, float y)
-{
+void button::setPosition(float x, float y) {
     buttonSprite.setPosition(x, y);
-	centerText();
+    centerText();
 }
 
-void button::centerText()
-{
-	sf::FloatRect textRect = buttonText.getLocalBounds();
-	buttonText.setOrigin(textRect.left + textRect.width / 2.0f,
-		textRect.top + textRect.height / 2.0f);
-	buttonText.setPosition(getPositionX() + buttonSprite.getGlobalBounds().width / 2,
-		getPositionY() + buttonSprite.getGlobalBounds().height / 2);
+void button::centerText() {
+    sf::FloatRect textRect = buttonText.getLocalBounds();
+    buttonText.setOrigin(textRect.left + textRect.width / 2.0f,
+                         textRect.top + textRect.height / 2.0f);
+    buttonText.setPosition(getPositionX() + buttonSprite.getGlobalBounds().width / 2,
+                           getPositionY() + buttonSprite.getGlobalBounds().height / 2);
 }
-
