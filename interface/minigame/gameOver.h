@@ -1,11 +1,6 @@
-//
-// Created by menox on 03.06.2023.
-//
-
 #ifndef TAMAGOTCHI_GAMEOVER_H
 #define TAMAGOTCHI_GAMEOVER_H
 
-// header files
 #include "../screen.h"
 #include "../../mechanics/assetManager.h"
 #include "minigameConnector.h"
@@ -56,12 +51,6 @@ public:
      * @param pet tamagotchi to handle input on
      */
     void handleInput(sf::RenderWindow &window, ScreenName &_screenName) override;
-
-    /**
-     * @brief Sets messageToSet
-     * @param messageToSet messageToSet to set
-     */
-    void setMessage(std::string& messageToSet);
 
     /**
      * @brief Updates coins text

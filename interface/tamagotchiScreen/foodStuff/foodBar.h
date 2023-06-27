@@ -1,21 +1,11 @@
-//
-// Created by menox on 06.06.2023.
-//
-
 #ifndef TAMAGOTCHI_FOODBAR_H
 #define TAMAGOTCHI_FOODBAR_H
 
-
-// C++
 #include <vector>
 #include <string>
 #include <map>
-
-// header files
 #include "foodButton.h"
 #include "../../../structures/food.h"
-
-// asset manager
 #include "../../../mechanics/assetManager.h"
 #include "../../../structures/tamagotchi.h"
 
@@ -38,8 +28,7 @@ private:
      * @brief Gets name of active button
      * @return name of active button
      */
-    std::string getActiveButtonName()
-    {
+    std::string getActiveButtonName() {
         auto it = buttons.begin();
         std::advance(it, activeButton);
         return it->first;
@@ -62,7 +51,7 @@ public:
      * @brief Draws food bar
      * @param window - window to draw on
      */
-    void draw(sf::RenderWindow& window);
+    void draw(sf::RenderWindow &window);
 
     /**
      * @brief Updates food bar

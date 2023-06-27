@@ -1,25 +1,16 @@
-//
-// Created by menox on 30.04.2023.
-//
-
 #ifndef PROJECT_NAME_FOODMECHANICS_H
 #define PROJECT_NAME_FOODMECHANICS_H
 
-// C++
 #include <vector>
 #include <filesystem>
 #include <fstream>
 #include <map>
 #include <list>
 #include <thread>
-
-
-// headers
 #include "../structures/food.h"
 #include "../functions.h"
 #include "../structures/tamagotchi.h"
 #include "errorHandler.h"
-
 
 /**
  * @brief Food mechanics namespace
@@ -30,11 +21,6 @@ namespace foodMechanics {
      * @return map of food
      */
     std::map<food, int> loadGlobalFoods();
-
-    /**
-     * @brief Method used for printing foods
-     */
-    void printFoods(const std::map<food, int>& foods);
 
     /**
      * @brief Method used for saving foods to file

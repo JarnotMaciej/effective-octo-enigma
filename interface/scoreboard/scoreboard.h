@@ -1,16 +1,8 @@
-//
-// Created by menox on 13.05.2023.
-//
-
-// C++
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <ranges>
 #include <cctype> // Added for case-insensitive comparison
-
-
-// header files
 #include "../screen.h"
 #include "../../mechanics/assetManager.h"
 #include "../../structures/score.h"
@@ -19,7 +11,6 @@
 
 #ifndef TAMAGOTCHI_SCOREBOARD_H
 #define TAMAGOTCHI_SCOREBOARD_H
-
 
 /**
  * @brief Class for scoreboard

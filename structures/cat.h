@@ -1,10 +1,3 @@
-//
-// Created by menox on 03.05.2023.
-//
-
-// C++
-
-// headers
 #include "../structures/tamagotchi.h"
 
 #ifndef PROJECT_NAME_CAT_H
@@ -13,7 +6,7 @@
 /**
  * @brief Cat class
  */
-class cat : public tamagotchi{
+class cat : public tamagotchi {
 public:
     /**
      * @brief Method used for meowing
@@ -23,8 +16,7 @@ public:
     /**
      * @brief Method used for getting tamagotchi type
      */
-    static tamagotchiType getTamagotchiType()  {return tamagotchiType::CAT;}
+    static tamagotchiType getTamagotchiType() { return tamagotchiType::CAT; }
 };
-
 
 #endif //PROJECT_NAME_CAT_H

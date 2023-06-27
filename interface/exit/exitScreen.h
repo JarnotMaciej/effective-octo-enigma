@@ -1,18 +1,9 @@
-//
-// Created by menox on 08.06.2023.
-//
-
 #ifndef TAMAGOTCHI_EXITSCREEN_H
 #define TAMAGOTCHI_EXITSCREEN_H
 
-// C++
 #include <iostream>
 #include <thread>
-
-// SFML
 #include "SFML/Graphics/Text.hpp"
-
-// Headers
 #include "../screen.h"
 #include "../../mechanics/assetManager.h"
 #include "../../mechanics/tamagotchiMechanics.h"

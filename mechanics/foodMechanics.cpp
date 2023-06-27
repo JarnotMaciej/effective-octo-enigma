@@ -1,20 +1,6 @@
 #include "foodMechanics.h"
 
-void foodMechanics::printFoods(const std::map<food, int> &foods) {
-    for (auto food: foods) {
-        std::cout << "Name: " << food.first.getName() << std::endl;
-        std::cout << "Price: " << food.first.getPrice() << std::endl;
-        std::cout << "Health: " << food.first.getHealth() << std::endl;
-        std::cout << "Hunger: " << food.first.getHunger() << std::endl;
-        std::cout << "Happiness: " << food.first.getHappiness() << std::endl;
-        std::cout << "Hygiene: " << food.first.getHygiene() << std::endl;
-        std::cout << "Energy: " << food.first.getEnergy() << std::endl;
-        std::cout << "---" << std::endl;
-    }
-}
-
 std::map<food, int> foodMechanics::loadGlobalFoods() {
-    debug("loading global foods");
     namespace fs = std::filesystem;
 
     fs::path path = fs::current_path().parent_path();
@@ -65,7 +51,6 @@ std::map<food, int> foodMechanics::loadGlobalFoods() {
 }
 
 void foodMechanics::saveFood(tamagotchi &pet, bool saved) {
-    debug("saving foods");
     namespace fs = std::filesystem;
 
     fs::path path = fs::current_path().parent_path();

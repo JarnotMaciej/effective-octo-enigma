@@ -26,10 +26,6 @@ gameOver::gameOver(const std::shared_ptr<minigameConnector> &_magicConnector) {
 
 }
 
-void gameOver::setMessage(std::string &messageToSet) {
-    message.setString(messageToSet);
-}
-
 void gameOver::update(sf::RenderWindow &window, tamagotchi &pet) {
     if (gameOverTimeout == 0) {
         isRunning = false;

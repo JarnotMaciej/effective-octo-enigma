@@ -1,21 +1,13 @@
-//
-// Created by menox on 12.05.2023.
-//
-
 #ifndef TAMAGOTCHI_INDICATORBAR_H
 #define TAMAGOTCHI_INDICATORBAR_H
 
-// C++
 #include <iostream>
 #include <vector>
 #include <thread>
 #include <mutex>
-
-// header files
 #include "indicator.h"
 #include "../../structures/tamagotchi.h"
 #include "../../mechanics/assetManager.h"
-
 
 /**
  * @brief Class representing indicator bar
@@ -33,7 +25,7 @@ public:
      * @brief Draws indicator bar
      * @param window - window to draw on
      */
-    void draw(sf::RenderWindow& window);
+    void draw(sf::RenderWindow &window);
 
     /**
      * @brief Updates indicator bar
@@ -42,11 +34,11 @@ public:
      */
     void update(tamagotchi &pet);
 
-/**
- * @brief Sets positions of indicators
- * @param window - window to set positions on
- */
-void setPositions(sf::RenderWindow &window);
+    /**
+     * @brief Sets positions of indicators
+     * @param window - window to set positions on
+     */
+    void setPositions(sf::RenderWindow &window);
 
 };
 

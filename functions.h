@@ -16,12 +16,6 @@
 #define PROJECT_NAME_FUNCTIONS_H
 
 /**
- * @brief Method used for debugging
- * @param text - text to be displayed
- */
-void debug(const std::string &text);
-
-/**
  * @brief Method used for validating name
  * @param name - name to be validated
  */

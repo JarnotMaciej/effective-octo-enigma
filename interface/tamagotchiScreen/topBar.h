@@ -1,15 +1,8 @@
-//
-// Created by menox on 09.05.2023.
-//
-
 #ifndef PROJECT_NAME_TOP_BAR_H
 #define PROJECT_NAME_TOP_BAR_H
 
-// SFML
 #include "SFML/Graphics/Text.hpp"
 #include "SFML/Graphics/Texture.hpp"
-
-// C++
 #include "../../mechanics/assetManager.h"
 #include "../../functions.h"
 #include "../../structures/tamagotchi.h"

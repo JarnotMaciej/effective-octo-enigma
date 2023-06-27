@@ -1,7 +1,6 @@
 #include "topBar.h"
 
 topBar::topBar() {
-    debug("topBar::topBar");
     tamagotchiName.setString("Tamagotchi");
     tamagotchiName.setFillColor(sf::Color::White);
 

@@ -1,11 +1,6 @@
-//
-// Created by menox on 28.04.2023.
-//
-
 #ifndef PROJECT_NAME_STRUCTURES_SCORE_H_
 #define PROJECT_NAME_STRUCTURES_SCORE_H_
 
-// C++
 #include <string>
 #include <filesystem>
 
@@ -30,7 +25,6 @@ public:
                                                                         scoreNumber(scoreNumber),
                                                                         daysAlive(daysAlive) {};
 
-    // Getters
     /**
      * @brief Get tamagotchi name
      * @return tamagotchi name

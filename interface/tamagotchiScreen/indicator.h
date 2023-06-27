@@ -1,23 +1,14 @@
-//
-// Created by menox on 20.04.2023.
-//
-
 #ifndef PROJECT_NAME_INDICATOR_H
 #define PROJECT_NAME_INDICATOR_H
 
-// header files
 #include "../../functions.h"
-
-// asset manager
 #include "../../mechanics/assetManager.h"
-
-// SFML
 #include "SFML/Graphics/Text.hpp"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
 
-
 /**
+
  * @brief Class for tamagotchi indicators
  */
 class indicator {

@@ -1,16 +1,9 @@
-//
-// Created by menox on 06.06.2023.
-//
-
 #ifndef TAMAGOTCHI_FOODBUTTON_H
 #define TAMAGOTCHI_FOODBUTTON_H
 
-// SFML
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Text.hpp"
-
-// assetManager
 #include "../../../mechanics/assetManager.h"
 
 /**
@@ -97,7 +90,6 @@ public:
     std::string getName();
 
 };
-
 
 
 #endif //TAMAGOTCHI_FOODBUTTON_H

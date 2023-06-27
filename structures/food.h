@@ -1,7 +1,3 @@
-//
-// Created by menox on 19.03.2023.
-//
-
 #ifndef TAMAGOTCHI_FOOD_H
 #define TAMAGOTCHI_FOOD_H
 
@@ -122,8 +118,6 @@ public:
      * @param energy Food energy
      */
     void setEnergy(int energy);
-
-    // Operators
 
     /**
      * @brief Operator <

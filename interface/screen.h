@@ -1,18 +1,8 @@
-//
-// Created by menox on 06.04.2023.
-//
-
 #ifndef PROJECT_NAME_SCREEN_H
 #define PROJECT_NAME_SCREEN_H
 
-// SFML
 #include "SFML/Graphics.hpp"
-
-// C++
 #include "../structures/tamagotchi.h"
-
-// Header files
-
 
 /**
  * @brief Enum class for screen name
