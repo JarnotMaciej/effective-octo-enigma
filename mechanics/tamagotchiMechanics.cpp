@@ -668,5 +668,3 @@ std::vector<sf::Text> tamagotchiMechanics::createCreditsTexts(const std::vector<
 
     return texts;
 }
-
-// TODO -> testing tamagotchiMechanics

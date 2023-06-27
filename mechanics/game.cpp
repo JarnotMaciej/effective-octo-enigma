@@ -46,14 +46,10 @@ void game::run() {
     std::thread foodThread(std::move(foodHunt));
     std::thread creditsThread(std::move(creditsHunt));
 
-    // joining threads
-    tamagotchiThread.join();
-    foodThread.join();
-    creditsThread.join();
 
     // minigame connection + screens
     std::shared_ptr<minigameConnector> magicConnector = std::make_shared<minigameConnector>();
-    
+
     menu mainMenu;
     scoreboard myScoreBoard;
     minigame myMinigame("cat", magicConnector);
@@ -68,6 +64,10 @@ void game::run() {
     tamagotchiScreen myTamagotchiScreen("cat", myOwnPet, foods);
     credits myCredits(creditsTexts);
 
+    // joining threads
+    tamagotchiThread.join();
+    foodThread.join();
+    creditsThread.join();
 
     // adding screens to map
     screens[ScreenName::MENU] = std::make_unique<menu>(mainMenu);

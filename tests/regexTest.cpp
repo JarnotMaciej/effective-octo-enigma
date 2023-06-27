@@ -79,7 +79,7 @@ TEST_P(foodConfigValidationTest, foodConfigValidation) {
   ASSERT_EQ(foodConfigValidation(name), expected);
 }
 
-INSTANTIATE_TEST_CASE_P(Names, foodConfigValidationTest,
+INSTANTIATE_TEST_SUITE_P(Names, foodConfigValidationTest,
                         ::testing::Values(
                              std::make_pair("JanuszTracz 0 12", false),
                              std::make_pair("banana 10 -5 35 5 -10 -15", true),
@@ -101,7 +101,7 @@ TEST_P(tamagotchiFileValidationTest, tamagotchiFileValidation) {
   ASSERT_EQ(tamagotchiSaveValidation(name), expected);
 }
 
-INSTANTIATE_TEST_CASE_P(Names, tamagotchiFileValidationTest,
+INSTANTIATE_TEST_SUITE_P(Names, tamagotchiFileValidationTest,
                         ::testing::Values(
                              std::make_pair("0\nNeko\n45\n100\n100\n0\n0\n572\n1\n1686422245\n1687002698\n1687002704", true),
                              std::make_pair("0\nNeko\n45\n100\n100\n0\n0\n572\n1\n1686422245\n1687002698\n1687002704\n", true),
@@ -111,5 +111,3 @@ INSTANTIATE_TEST_CASE_P(Names, tamagotchiFileValidationTest,
                                 std::make_pair("0\nDog\n70\n90\n20\n0\n0\n500\n1\n1686422245\n1687002698\n", false),
                                 std::make_pair("1\nRabbit\n20\n200\n80\n0\n0\n100\n1\n1686422245\n1687002698\n1687002704\n", true)
                              ));
-
-// TODO -> foodSaveValidation test

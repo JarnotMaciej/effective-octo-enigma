@@ -18,8 +18,8 @@ void indicatorBar::draw(sf::RenderWindow &window) {
     }
 }
 
-std::mutex posMutex;
 void indicatorBar::setPositions(sf::RenderWindow &window) {
+std::mutex posMutex;
     // distribute the indicators evenly
     std::vector<std::thread> posThreads;
 
