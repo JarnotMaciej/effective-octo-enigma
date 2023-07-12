@@ -2,6 +2,10 @@
 
 ![GitHub](https://img.shields.io/github/license/JarnotMaciej/tamagotchi?style=flat-square) ![GitHub](https://img.shields.io/github/languages/top/JarnotMaciej/tamagotchi?style=flat-square) ![GitHub](https://img.shields.io/github/languages/code-size/JarnotMaciej/tamagotchi?style=flat-square) 
 
+<p align="center">
+<img width="128" height="128" src="resources/icon/cat.png"/>
+</p>
+
 ## Short description
 Tamagotchi is a game developed in C++20 using the SFML library and Google Test. The aim of the game is to take care of a virtual pet by managing its health, energy, hunger, hygiene, and happiness. Players can interact with the pet by feeding it, cleaning it, playing with it, or putting it to sleep.
 
