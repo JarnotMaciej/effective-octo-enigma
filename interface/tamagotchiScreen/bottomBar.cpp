@@ -1,7 +1,3 @@
-//
-// Created by menox on 09.05.2023.
-//
-
 #include "bottomBar.h"
 
 bottomBar::bottomBar() {
@@ -13,19 +9,18 @@ bottomBar::bottomBar() {
 }
 
 void bottomBar::draw(sf::RenderWindow &window) {
-    for (auto &button : buttons) {
+    for (auto &button: buttons) {
         button.draw(window);
     }
 }
 
 void bottomBar::setPositions(sf::RenderWindow &window) {
-    // distribute buttons evenly on the bottom of the screen
     int buttonWidth = buttons[0].getSprite().getGlobalBounds().width;
     int buttonHeight = buttons[0].getSprite().getGlobalBounds().height;
     int buttonSpacing = (window.getSize().x - buttons.size() * buttonWidth) / (buttons.size() + 1);
 
     int i = 0;
-    for (auto& button : buttons) {
+    for (auto &button: buttons) {
         button.setPosition(buttonSpacing + i * (buttonSpacing + buttonWidth),
                            window.getSize().y - buttonHeight / 2 - 100);
         i++;

@@ -1,18 +1,13 @@
-//
-// Created by menox on 06.05.2023.
-//
-
-// C++
 #include <list>
-
-// header files
 #include "../screen.h"
 #include "button.h"
 
 #ifndef PROJECT_NAME_MENU_H
 #define PROJECT_NAME_MENU_H
 
-
+/**
+ * @brief Class for menu
+ */
 class menu : public screen {
 private:
     sf::Text logo; // text on logo

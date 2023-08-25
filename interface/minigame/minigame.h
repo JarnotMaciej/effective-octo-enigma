@@ -1,14 +1,7 @@
-//
-// Created by menox on 06.05.2023.
-//
-
-// C++
 #include <iostream>
 #include <string>
 #include <vector>
 #include <thread>
-
-// header files
 #include "../screen.h"
 #include "../../mechanics/assetManager.h"
 #include "coin.h"
@@ -40,7 +33,6 @@ private:
     const float petSpeed = 12.f; // speed of the pet
     bool isMovingLeft; // is pet moving left
     bool isMovingRight; // is pet moving right
-
 
 public:
 

@@ -1,14 +1,7 @@
-//
-// Created by menox on 12.05.2023.
-//
-
 #ifndef TAMAGOTCHI_TAMAGOTCHISCREEN_H
 #define TAMAGOTCHI_TAMAGOTCHISCREEN_H
 
-// C++
 #include <thread>
-
-// header files
 #include "../screen.h"
 #include "topBar.h"
 #include "indicatorBar.h"
@@ -41,7 +34,7 @@ public:
      * @param pet tamagotchi object
      * @param _allOfTheFoods map of all foods
      */
-    tamagotchiScreen(const std::string& textureName, tamagotchi &pet, std::map<food, int> &_allOfTheFoods);
+    tamagotchiScreen(const std::string &textureName, tamagotchi &pet, std::map<food, int> &_allOfTheFoods);
 
     /**
      * @brief Draws tamagotchi screen

@@ -1,7 +1,3 @@
-//
-// Created by menox on 03.06.2023.
-//
-
 #include "minigameConnector.h"
 
 minigameConnector::minigameConnector() : coinsValue(0) {}

@@ -1,19 +1,9 @@
-//
-// Created by menox on 01.04.2023.
-//
-
-// SFML
 #include "SFML/Graphics.hpp"
 #include "SFML/Window.hpp"
 #include "SFML/System.hpp"
 #include "SFML/Audio.hpp"
-
-// C++
 #include <iostream>
 #include <thread>
-
-
-// Header files
 #include "../../mechanics/assetManager.h"
 #include "../../functions.h"
 

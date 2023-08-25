@@ -1,14 +1,10 @@
-//
-// Created by menox on 27.04.2023.
-//
-
-// C++
 #include <iostream>
 #include <string>
 #include <vector>
 #include <filesystem>
-
-// headers
+#include <thread>
+#include <future>
+#include <atomic>
 #include "../functions.h"
 #include "../structures/tamagotchi.h"
 #include "../structures/score.h"
@@ -16,8 +12,6 @@
 #include "foodMechanics.h"
 #include "errorHandler.h"
 #include "assetManager.h"
-
-// SFML
 #include <SFML/Graphics.hpp>
 
 #ifndef PROJECT_NAME_MECHANICS_TAMAGOTCHIMECHANICS_H_
@@ -46,7 +40,7 @@ namespace tamagotchiMechanics {
      * @param name - tamagotchi name
      * @return tamagotchi object
      */
-	tamagotchi loadTamagotchi(const std::string &name);
+    tamagotchi loadTamagotchi(const std::string &name);
 
     /**
      * @brief Method used for transforming seconds to days
@@ -63,15 +57,6 @@ namespace tamagotchiMechanics {
     int realDaysToGameDays(long long int bornTime); // Transform real days to game days, 1 real day = 4 game days
 
     /**
-     * @brief Method used for subtracting tamagotchi indicators (health, hunger, happiness, hygiene, energy) after loading tamagotchi from file
-     * @param pet - tamagotchi object
-     * @param lastSaved - last saved time
-     */
-    [[maybe_unused]] void subtractIndicators(tamagotchi &pet,
-                            long long int &lastSaved); // Subtracts tamagotchi indicators (health, hunger, happiness, hygiene, energy) after loading tamagotchi from file
-
-
-    /**
      * @brief Method used for killing tamagotchi
      * @param pet
      */
@@ -82,12 +67,6 @@ namespace tamagotchiMechanics {
      * @return vector of scores
      */
     std::vector<score> getScores(); // Get scores from file
-
-    /**
-     * @brief Method used for printing scores
-     * @param scores - vector of scores
-     */
-    [[maybe_unused]] void printScores(const std::vector<score>& scores);
 
     /**
      * @brief Method used for adding energy to tamagotchi during sleeping

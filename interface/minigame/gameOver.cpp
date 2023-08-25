@@ -1,28 +1,20 @@
-//
-// Created by menox on 03.06.2023.
-//
-
 #include "gameOver.h"
 
 gameOver::gameOver(const std::shared_ptr<minigameConnector> &_magicConnector) {
-    // set connector
     magicConnector = _magicConnector;
 
-    // set message
     message.setString("Game over!");
     message.setFont(assetManager::getInstance().getFont("silkscreen"));
     message.setCharacterSize(64);
     message.setFillColor(sf::Color::White);
     message.setPosition(0, 0);
 
-    // coins won
     coinsWon.setString(" ");
     coinsWon.setFont(assetManager::getInstance().getFont("silkscreen"));
     coinsWon.setCharacterSize(56);
     coinsWon.setFillColor(sf::Color::White);
     coinsWon.setPosition(0, 100);
 
-    // press esc to continue
     pressEscToContinue.setString("Press ESC to enter tamagotchi screen immediately");
     pressEscToContinue.setFont(assetManager::getInstance().getFont("silkscreen"));
     pressEscToContinue.setCharacterSize(32);
@@ -34,24 +26,12 @@ gameOver::gameOver(const std::shared_ptr<minigameConnector> &_magicConnector) {
 
 }
 
-void gameOver::setMessage(std::string &messageToSet) {
-    message.setString(messageToSet);
-}
-
-//void gameOver::setCoinsWon(int coinsToSet) {
-//    debug("Coins won: " + std::to_string(coinsToSet));
-//    coinsValue = coinsToSet;
-//    debug(std::to_string(coinsValue));
-//}
-
 void gameOver::update(sf::RenderWindow &window, tamagotchi &pet) {
-
-    if(gameOverTimeout == 0) {
+    if (gameOverTimeout == 0) {
         isRunning = false;
         gameOverTimeout = 5;
     }
-
-    if(gameOverClock.getElapsedTime().asSeconds() >= 1 && gameOverTimeout > 0) {
+    if (gameOverClock.getElapsedTime().asSeconds() >= 1 && gameOverTimeout > 0) {
         gameOverTimeout--;
         gameOverClock.restart();
     }
@@ -66,19 +46,17 @@ void gameOver::draw(sf::RenderWindow &window) {
 }
 
 void gameOver::setPositions(sf::RenderWindow &window) {
-    // centering message
-    message.setPosition(window.getSize().x / 2 - message.getGlobalBounds().width / 2, window.getSize().y / 5 * 2 - message.getGlobalBounds().height / 2);
-    // set position of coins won under message
-    coinsWon.setPosition(window.getSize().x / 2 - coinsWon.getGlobalBounds().width / 2, message.getPosition().y + message.getGlobalBounds().height + 40);
-    // set position of press esc to continue under coins won
-    pressEscToContinue.setPosition(window.getSize().x / 2 - pressEscToContinue.getGlobalBounds().width / 2, window.getSize().y / 5 *  4 - pressEscToContinue.getGlobalBounds().height / 2);
+    message.setPosition(window.getSize().x / 2 - message.getGlobalBounds().width / 2,
+                        window.getSize().y / 5 * 2 - message.getGlobalBounds().height / 2);
+    coinsWon.setPosition(window.getSize().x / 2 - coinsWon.getGlobalBounds().width / 2,
+                         message.getPosition().y + message.getGlobalBounds().height + 40);
+    pressEscToContinue.setPosition(window.getSize().x / 2 - pressEscToContinue.getGlobalBounds().width / 2,
+                                   window.getSize().y / 5 * 4 - pressEscToContinue.getGlobalBounds().height / 2);
 }
 
 void gameOver::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
-    // if game over screen is not running
     if (!isRunning) {
         isRunning = true;
-        // set game state to tamagotchi
         changeScreen(_screenName, ScreenName::TAMAGOTCHI_SCREEN);
     }
 
@@ -89,7 +67,7 @@ void gameOver::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
                 window.close();
                 break;
             case sf::Event::KeyPressed:
-                if(event.key.code == sf::Keyboard::Escape){
+                if (event.key.code == sf::Keyboard::Escape) {
                     changeScreen(_screenName, ScreenName::TAMAGOTCHI_SCREEN);
                 }
             default:

@@ -1,11 +1,6 @@
-//
-// Created by menox on 19.06.2023.
-//
-
 #ifndef TAMAGOTCHI_ERRORHANDLER_H
 #define TAMAGOTCHI_ERRORHANDLER_H
 
-// C++
 #include <iostream>
 #include <string>
 #include <exception>
@@ -28,7 +23,7 @@ enum class errorCode {
 /**
  * @brief The error handler class
  */
-class errorHandler : public std::exception{
+class errorHandler : public std::exception {
 private:
     errorCode code; // The error code
     std::ofstream logFile;

@@ -1,21 +1,13 @@
-//
-// Created by menox on 09.05.2023.
-//
-
 #ifndef TAMAGOTCHI_KEYCAPBUTTON_H
 #define TAMAGOTCHI_KEYCAPBUTTON_H
 
-// C++
 #include <iostream>
 #include <string>
-
-// SFML
+#include <mutex>
 #include "SFML/Graphics.hpp"
 #include "SFML/Window.hpp"
 #include "SFML/System.hpp"
 #include "SFML/Audio.hpp"
-
-// headers
 #include "../mechanics/assetManager.h"
 
 /**

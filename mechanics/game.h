@@ -1,18 +1,12 @@
-//
-// Created by menox on 18.05.2023.
-//
-
 #ifndef TAMAGOTCHI_GAME_H
 #define TAMAGOTCHI_GAME_H
 
-// C++
 #include <string>
 #include <map>
 #include <memory>
 #include <unordered_map>
 #include <thread>
-
-// header files
+#include <future>
 #include "../interface/screen.h"
 #include "../interface/menu/menu.h"
 #include "../interface/tamagotchiScreen/tamagotchiScreen.h"

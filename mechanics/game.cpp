@@ -1,42 +1,57 @@
-//
-// Created by menox on 18.05.2023.
-//
-
 #include "game.h"
 
 using namespace sf;
 
 void game::run() {
-	RenderWindow window(VideoMode(1536, 1024), "Tamagotchi", sf::Style::None);
+    RenderWindow window(VideoMode(1536, 1024), "Tamagotchi", sf::Style::None);
     window.setFramerateLimit(60);
-	window.setVerticalSyncEnabled(true);
+    window.setVerticalSyncEnabled(true);
     setIcon(window);
     setCursor(window);
 
-    // loading myOwnPet
-    std::string myOwnPetName = tamagotchiMechanics::searchForTamagotchi();
-    tamagotchi myOwnPet = tamagotchiMechanics::checkIfTamagotchiExistsThenReturn(myOwnPetName);
+    auto _tamagotchiHunt = []() -> tamagotchi {
+        return tamagotchiMechanics::checkIfTamagotchiExistsThenReturn(tamagotchiMechanics::searchForTamagotchi());
+    };
 
-    // loading foods
-    auto foods = foodMechanics::loadGlobalFoods();
+    auto _foodHunt = []() -> std::map<food, int> {
+        return foodMechanics::loadGlobalFoods();
+    };
 
+    auto _creditsHunt = []() -> std::vector<sf::Text> {
+        return tamagotchiMechanics::createCreditsTexts(tamagotchiMechanics::readCreditsFile());
+    };
 
-    // minigame connection
+    std::packaged_task<tamagotchi()> tamagotchiHunt(_tamagotchiHunt);
+    std::packaged_task<std::map<food, int>()> foodHunt(_foodHunt);
+    std::packaged_task<std::vector<sf::Text>()> creditsHunt(_creditsHunt);
+
+    std::future<tamagotchi> tamagotchiFuture = tamagotchiHunt.get_future();
+    std::future<std::map<food, int>> foodFuture = foodHunt.get_future();
+    std::future<std::vector<sf::Text>> creditsFuture = creditsHunt.get_future();
+
+    std::thread tamagotchiThread(std::move(tamagotchiHunt));
+    std::thread foodThread(std::move(foodHunt));
+    std::thread creditsThread(std::move(creditsHunt));
+
     std::shared_ptr<minigameConnector> magicConnector = std::make_shared<minigameConnector>();
-    auto creditsTexts = tamagotchiMechanics::createCreditsTexts(tamagotchiMechanics::readCreditsFile());
 
-
-    // testing
     menu mainMenu;
-    tamagotchiScreen myTamagotchiScreen("cat", myOwnPet, foods);
     scoreboard myScoreBoard;
     minigame myMinigame("cat", magicConnector);
     gameOver myGameOver(magicConnector);
     exitScreen myExitScreen;
+
+    tamagotchi myOwnPet = tamagotchiFuture.get();
+    std::map<food, int> foods = foodFuture.get();
+    std::vector<sf::Text> creditsTexts = creditsFuture.get();
+
+    tamagotchiScreen myTamagotchiScreen("cat", myOwnPet, foods);
     credits myCredits(creditsTexts);
 
+    tamagotchiThread.join();
+    foodThread.join();
+    creditsThread.join();
 
-    // adding screens to map
     screens[ScreenName::MENU] = std::make_unique<menu>(mainMenu);
     screens[ScreenName::TAMAGOTCHI_SCREEN] = std::make_unique<tamagotchiScreen>(myTamagotchiScreen);
     screens[ScreenName::SCOREBOARD] = std::make_unique<scoreboard>(myScoreBoard);
@@ -45,14 +60,11 @@ void game::run() {
     screens[ScreenName::EXIT_SCREEN] = std::make_unique<exitScreen>(myExitScreen);
     screens[ScreenName::CREDITS] = std::make_unique<credits>(myCredits);
 
-
-    // setPositions everywhere
-    for (auto &screen : screens) {
+    for (auto &screen: screens) {
         screen.second->setPositions(window);
     }
 
-    while (window.isOpen())
-	{
+    while (window.isOpen()) {
         screenProcessing(window, myOwnPet);
     }
 }
@@ -65,4 +77,3 @@ void game::screenProcessing(RenderWindow &window, tamagotchi &pet) {
 
     window.display();
 }
-

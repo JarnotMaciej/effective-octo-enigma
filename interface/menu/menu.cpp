@@ -1,18 +1,11 @@
-//
-// Created by menox on 06.05.2023.
-//
-
 #include "menu.h"
 
-
 menu::menu() {
-    // creating logo
     logo.setString("Tamagotchi");
     logo.setFont(assetManager::getInstance().getFont("silkscreen"));
-	logo.setCharacterSize(128);
+    logo.setCharacterSize(128);
     logo.setFillColor(sf::Color::White);
 
-    // creating buttons
     buttons.emplace_back("1. Start");
     buttons.emplace_back("2. Scoreboard");
     buttons.emplace_back("3. Credits");
@@ -26,18 +19,14 @@ void menu::setPositions(sf::RenderWindow &window) {
     if (margin < 0) {
         margin *= -1;
     }
-
     float startY = 0.3 * window.getSize().y + 2 * margin;
 
-    for (button& button : buttons) {
-        button.setPosition(x, startY + 2*margin);
+    for (button &button: buttons) {
+        button.setPosition(x, startY + 2 * margin);
         startY += height + margin;
     }
-
-    // Set the position of the logo
-    // center the logo horizontally
     x = (window.getSize().x - logo.getGlobalBounds().width) / 2;
-    // center the logo vertically in the remaining space
+
     float y = (0.3 * window.getSize().y - logo.getGlobalBounds().height) / 2;
     logo.setPosition(x, y);
 }
@@ -45,7 +34,7 @@ void menu::setPositions(sf::RenderWindow &window) {
 void menu::draw(sf::RenderWindow &window) {
     window.draw(logo);
 
-    for (auto &button : buttons) {
+    for (auto &button: buttons) {
         button.draw(window);
     }
 }
@@ -59,7 +48,7 @@ void menu::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
                 break;
             case sf::Event::MouseButtonPressed:
                 if (event.mouseButton.button == sf::Mouse::Left) {
-                    for (auto &button : buttons) {
+                    for (auto &button: buttons) {
                         if (button.isMouseOver(window)) {
                             std::cout << "Button pressed" << std::endl;
                         }
@@ -76,17 +65,13 @@ void menu::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
                         break;
                     case sf::Keyboard::Num3:
                         changeScreen(_screenName, ScreenName::CREDITS);
-//                        changeScreen(_screenName, ScreenName::CREDITS);
                         break;
                     case sf::Keyboard::Escape:
-                        //save before exit -> some screen can be added | 'are you sure you want to quit?'
                         changeScreen(_screenName, ScreenName::EXIT_SCREEN);
                         break;
                     default:
                         break;
                 }
-
-
                 break;
             default:
                 break;
@@ -95,5 +80,4 @@ void menu::handleInput(sf::RenderWindow &window, ScreenName &_screenName) {
 }
 
 void menu::update(sf::RenderWindow &window, tamagotchi &pet) {
-
 }

@@ -1,6 +1,4 @@
-//
-// Created by menox on 22.06.2023.
-//
+#include <thread>
 #include "../screen.h"
 #include "../keycapButton.h"
 

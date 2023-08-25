@@ -1,12 +1,6 @@
-//
-// Created by menox on 09.05.2023.
-//
-
 #include "topBar.h"
 
-
 topBar::topBar() {
-    debug("topBar::topBar");
     tamagotchiName.setString("Tamagotchi");
     tamagotchiName.setFillColor(sf::Color::White);
 
@@ -26,11 +20,8 @@ topBar::topBar() {
 }
 
 void topBar::setPosition(sf::Window &window) {
-    // on the right side
     tamagotchiName.setPosition(20, 10);
-    //on the left side
     daysAlive.setPosition(window.getSize().x - daysAlive.getLocalBounds().width - 20, 10);
-    // coins centered to the window
     coins.setPosition((window.getSize().x / 2) - (coins.getLocalBounds().width / 2), 10);
 }
 
@@ -46,14 +37,12 @@ void topBar::setTamagotchiName(const std::string &name) {
 
 void topBar::setCoins(int coins, sf::RenderWindow &window) {
     this->coins.setString("Coins: " + std::to_string(coins));
-    //update the position of the coins text
     this->coins.setPosition((window.getSize().x / 2) - (this->coins.getLocalBounds().width / 2), 10);
 }
 
 void topBar::setDaysAlive(int bornTime, sf::RenderWindow &window) {
     int age = tamagotchiMechanics::realDaysToGameDays(bornTime);
     this->daysAlive.setString("Days alive: " + std::to_string(age));
-    //update the position of the days alive text
     this->daysAlive.setPosition(window.getSize().x - this->daysAlive.getLocalBounds().width - 20, 10);
 }
 

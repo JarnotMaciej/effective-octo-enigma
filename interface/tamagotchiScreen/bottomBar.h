@@ -1,11 +1,10 @@
-//
-// Created by menox on 09.05.2023.
-//
-
 #ifndef TAMAGOTCHI_BOTTOMBAR_H
 #define TAMAGOTCHI_BOTTOMBAR_H
 
-// header files
+#include <vector>
+#include <thread>
+#include <mutex>
+#include <atomic>
 #include "../keycapButton.h"
 #include "../../mechanics/assetManager.h"
 
@@ -17,7 +16,7 @@ private:
     std::vector<keycapButton> buttons; // vector of buttons
 
 public:
-/**
+    /**
      * @brief Constructor of bottom bar
      */
     bottomBar();
@@ -26,7 +25,7 @@ public:
      * @brief Draws bottom bar
      * @param window - window to draw on
      */
-    void draw(sf::RenderWindow& window);
+    void draw(sf::RenderWindow &window);
 
     /**
      * @brief Sets positions of buttons

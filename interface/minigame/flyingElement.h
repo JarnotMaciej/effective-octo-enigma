@@ -1,16 +1,7 @@
-//
-// Created by menox on 01.04.2023.
-//
-
-//SFML
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
-
-// C++
 #include <iostream>
-
-// Header files
 
 #ifndef TAMAGOTCHI_MENU_FLYINGELEMENT_H
 #define TAMAGOTCHI_MENU_FLYINGELEMENT_H

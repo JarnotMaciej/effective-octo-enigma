@@ -1,13 +1,7 @@
-//
-// Created by menox on 19.06.2023.
-//
-
 #include "errorHandler.h"
 
 errorHandler::errorHandler(errorCode code) {
     this->code = code;
-
-    // Open the log file
     std::filesystem::path logFilePath = std::filesystem::current_path().parent_path() / "error_log.txt";
 
     try {
@@ -15,7 +9,6 @@ errorHandler::errorHandler(errorCode code) {
     } catch (std::exception &e) {
         std::cout << "Error opening log file: " << e.what() << std::endl;
     }
-
     logError();
 }
 
@@ -54,7 +47,6 @@ std::string errorHandler::getErrorMessage() {
             errorString = "Unknown error";
             break;
     }
-
     return errorString;
 }
 
@@ -62,8 +54,6 @@ void errorHandler::logError() {
     std::time_t currentTime = std::time(nullptr);
     std::tm *localTime = std::localtime(&currentTime);
 
-    //    std::string timeString = std::to_string(localTime->tm_mday) + "." + std::to_string(localTime->tm_mon + 1) + "." + std::to_string(localTime->tm_year + 1900) + " " + std::to_string(localTime->tm_hour) + ":" + std::to_string(localTime->tm_min) + ":" + std::to_string(localTime->tm_sec);
-    //    std::string timeString in format DD.MM.YYYY HH:MM:SS
     std::string timeString;
     if (localTime->tm_mday < 10) {
         timeString += "0";
@@ -86,15 +76,12 @@ void errorHandler::logError() {
     }
     timeString += std::to_string(localTime->tm_sec);
 
-    // Check if the log file is open before writing to it
     if (logFile.is_open()) {
         logFile << timeString << " - " << this->getErrorMessage() << std::endl;
     }
-
 }
 
 errorHandler::~errorHandler() {
-    // Close the log file
     if (logFile.is_open()) {
         logFile.close();
     }

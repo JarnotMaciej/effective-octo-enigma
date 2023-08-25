@@ -1,18 +1,11 @@
-//
-// Created by menox on 19.03.2023.
-//
-
 #ifndef TAMAGOTCHI_TAMAGOTCHI_H
 #define TAMAGOTCHI_TAMAGOTCHI_H
 
-// C++
 #include <iostream>
 #include <string>
 #include <vector>
 #include <filesystem>
 #include <fstream>
-
-// Headers
 #include "food.h"
 #include "../functions.h"
 #include "../mechanics/errorHandler.h"
@@ -20,133 +13,132 @@
 /**
  * @brief Tamagotchi class
  */
-class tamagotchi
-{
- private:
-	std::string name; // Tamagotchi name
-	int health; // Tamagotchi health (in percent)
-	int hunger; // Tamagotchi hunger (in percent)
-	int happiness; // Tamagotchi happiness (in percent)
-	int hygiene; // Tamagotchi hygiene (in percent)
-	int energy; // Tamagotchi energy (in percent)
-	int money; // Tamagotchi money (in gold coins)
+class tamagotchi {
+private:
+    std::string name; // Tamagotchi name
+    int health; // Tamagotchi health (in percent)
+    int hunger; // Tamagotchi hunger (in percent)
+    int happiness; // Tamagotchi happiness (in percent)
+    int hygiene; // Tamagotchi hygiene (in percent)
+    int energy; // Tamagotchi energy (in percent)
+    int money; // Tamagotchi money (in gold coins)
     bool isSleeping; // Is tamagotchi sleeping?
     long long int bornTime; // Tamagotchi born time (in seconds)
     long long int sleepStart; // Tamagotchi sleep start time (in seconds)
     std::map<food, int> foods; // Tamagotchi foods -> food, quantity
 
- public:
+public:
     /**
      * @brief Constructor
      */
-	tamagotchi();
+    tamagotchi();
 
     /**
      * @brief Constructor
      * @param _name - Tamagotchi name
      */
-	explicit tamagotchi(std::string _name);
+    explicit tamagotchi(std::string _name);
 
     /**
      * @brief Get tamagotchi equipment
      * @return Tamagotchi equipment
      */
-	std::string getName() const;
+    std::string getName() const;
 
     /**
      * @brief Get tamagotchi health
      * @return Tamagotchi health
      */
-	int getHealth();
+    int getHealth();
 
     /**
      * @brief Get tamagotchi hunger
      * @return Tamagotchi hunger
      */
-	int getHunger();
+    int getHunger();
 
     /**
      * @brief Get tamagotchi happiness
      * @return Tamagotchi happiness
      */
-	int getHappiness();
+    int getHappiness();
 
     /**
      * @brief Get tamagotchi hygiene
      * @return Tamagotchi hygiene
      */
-	int getHygiene();
+    int getHygiene();
 
     /**
      * @brief Get tamagotchi energy
      * @return Tamagotchi energy
      */
-	int getEnergy();
+    int getEnergy();
 
     /**
      * @brief Get tamagotchi money
      * @return Tamagotchi money
      */
-	int getMoney();
+    int getMoney();
 
     /**
      * @brief Get tamagotchi born time
      * @return Tamagotchi born time
      */
-	long long int getBornTime() const;
+    long long int getBornTime() const;
 
     /**
      * @brief Set tamagotchi name
      * @param name - Tamagotchi name
      */
-	void setName(std::string name);
+    void setName(std::string name);
 
     /**
      * @brief Set tamagotchi health
      * @param health - Tamagotchi health
      */
-	void setHealth(int health);
+    void setHealth(int health);
 
     /**
      * @brief Set tamagotchi hunger
      * @param hunger - Tamagotchi hunger
      */
-	void setHunger(int hunger);
+    void setHunger(int hunger);
 
     /**
      * @brief Set tamagotchi happiness
      * @param happiness - Tamagotchi happiness
      */
-	void setHappiness(int happiness);
+    void setHappiness(int happiness);
 
     /**
      * @brief Set tamagotchi hygiene
      * @param hygiene - Tamagotchi hygiene
      */
-	void setHygiene(int hygiene);
+    void setHygiene(int hygiene);
 
     /**
      * @brief Set tamagotchi energy
      * @param energy - Tamagotchi energy
      */
-	void setEnergy(int energy);
+    void setEnergy(int energy);
 
     /**
      * @brief Set tamagotchi money
      * @param money - Tamagotchi money
      */
-	void setMoney(int money);
+    void setMoney(int money);
 
     /**
      * @brief Set tamagotchi born time
      * @param bornTime - Tamagotchi born time
      */
-	void setBornTime(long long int bornTime);
+    void setBornTime(long long int bornTime);
 
     /**
      * @brief Print tamagotchi info // Used for debugging, should be removed in final version
      */
-	void printInfo();
+    void printInfo();
 
     /**
      * @brief Get tamagotchi foods
@@ -163,8 +155,7 @@ class tamagotchi
     /**
      * @brief Enum class for tamagotchi types
      */
-    enum class tamagotchiType
-    {
+    enum class tamagotchiType {
         CAT,
         DOG,
         FISH
@@ -205,21 +196,21 @@ class tamagotchi
      * @param foodName - Food name
      * @return True if food was eaten, false if not
      */
-    bool eatFood(const std::string& foodName);
+    bool eatFood(const std::string &foodName);
 
     /**
      * @brief Buy food
      * @param foodName - Food name
      * @return True if food was bought, false if not
      */
-    bool buyFood(const std::string& foodName);
+    bool buyFood(const std::string &foodName);
 
     /**
      * @brief Sell food
      * @param foodName - Food name
      * @return True if food was sold, false if not
      */
-    bool sellFood(const std::string& foodName);
+    bool sellFood(const std::string &foodName);
 
     /**
      * @brief Add food - method used during opening save file
@@ -233,7 +224,7 @@ class tamagotchi
      * @param foodName - Food name
      * @return Food
      */
-    food findFood(const std::string& foodName) const;
+    food findFood(const std::string &foodName) const;
 };
 
 /**

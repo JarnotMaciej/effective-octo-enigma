@@ -1,17 +1,8 @@
-//
-// Created by menox on 01.04.2023.
-//
-
-// SFML
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
-
-// C++
 #include <iostream>
 #include <random>
-
-// Header files
 #include "flyingElement.h"
 #include "../../mechanics/assetManager.h"
 
@@ -21,7 +12,7 @@
 /**
  * @brief Class for button
  */
-class coin : public flyingElement{
+class coin : public flyingElement {
 private:
     sf::Texture coinTexture; // texture of the coin
     sf::Sprite coinSprite; // sprite of the coin
@@ -31,7 +22,7 @@ private:
     int currentFrame = 0; // current animation frame
     std::vector<sf::Texture> animation; // vector of animation frames
     float speed; // speed of the coin
-    
+
 public:
     /**
      * @brief Default constructor

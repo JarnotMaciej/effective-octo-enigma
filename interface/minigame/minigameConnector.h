@@ -1,10 +1,5 @@
-//
-// Created by menox on 03.06.2023.
-//
-
 #ifndef TAMAGOTCHI_MINIGAMECONNECTOR_H
 #define TAMAGOTCHI_MINIGAMECONNECTOR_H
-
 
 class minigameConnector {
 private:
